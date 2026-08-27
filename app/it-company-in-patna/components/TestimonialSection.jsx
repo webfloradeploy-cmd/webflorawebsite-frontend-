@@ -1,0 +1,220 @@
+"use client";
+
+import React, { useState, useRef, useEffect, useMemo } from "react";
+import { Icon } from "@iconify/react";
+import { motion, AnimatePresence } from "framer-motion";
+
+const TestimonialSection = () => {
+  const [isInView, setIsInView] = useState(false);
+  const containerRef = useRef(null);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
+
+  const testimonials = useMemo(
+    () => [
+      {
+        id: 4,
+        clientName: "Albert Newwel",
+        company: "Founder, Team Excellent (Patna, Bihar)",
+        feedback:
+          "We had an amazing experience working with Webflora Technologies. Shashank and his team built a highly scalable digital portal and responsive mobile app for our educational center in Patna, Bihar, exactly the way we envisioned. Their technical SEO optimization and performance marketing strategy dramatically improved our online visibility, bringing over 140% boost in online admission inquiries. Highly professional, responsive, and result-oriented team.",
+        avatar: "👨‍💼",
+      },
+      {
+        id: 5,
+        clientName: "Shyam Kishor Sharma",
+        company: "Founder, Best For Everyone (Bihar)",
+        feedback:
+          "I had an excellent experience working with Webflora Technologies for custom MLM software development in Bihar. They built a fully secure, high-performance MLM management portal with real-time genealogies, automated commission wallets, and advanced analytics dashboards. Their node.js backend architecture runs flawlessly under load. They are truly the best custom software developers in Patna for serious business automation.",
+        avatar: "🚀",
+      },
+      {
+        id: 6,
+        clientName: "Dinesh Kumar",
+        company: "Managing Director, Diamond Resort (Patna, Bihar)",
+        feedback:
+          "We had a great experience partnering with Webflora Technologies for Diamond Resort’s custom web app development in Patna, Bihar. They engineered a stunning, fast, and SEO-optimized booking platform with secure payment integrations. Their expert local SEO optimization shot our rankings to the top of Google page 1, resulting in consistent booking inquiries. The absolute best choice for web development in Bihar.",
+        avatar: "💎",
+      },
+    ],
+    [],
+  );
+
+  useEffect(() => {
+    if (!isAutoPlaying) return;
+    const interval = setInterval(() => {
+      setActiveIndex((prev) => (prev + 1) % testimonials.length);
+    }, 8000);
+    return () => clearInterval(interval);
+  }, [isAutoPlaying, testimonials.length]);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) setIsInView(true);
+      },
+      { threshold: 0.1 },
+    );
+    if (containerRef.current) observer.observe(containerRef.current);
+    return () => observer.disconnect();
+  }, []);
+
+  const getCardStyles = (index) => {
+    const total = testimonials.length;
+    let diff = index - activeIndex;
+    if (diff > total / 2) diff -= total;
+    if (diff < -total / 2) diff += total;
+
+    const absDiff = Math.abs(diff);
+    const isActive = index === activeIndex;
+
+    const x = diff * 220; 
+    const scale = 1 - absDiff * 0.2;
+    const opacity = 1 - absDiff * 0.45;
+    const zIndex = 10 - absDiff;
+    const rotateY = isActive ? 0 : diff * -25;
+    const z = isActive ? 100 : -200;
+
+    return {
+      x,
+      scale,
+      opacity,
+      zIndex,
+      rotateY,
+      z,
+      cursor: isActive ? "default" : "pointer",
+    };
+  };
+
+  return (
+    <section
+      ref={containerRef}
+      className="relative py-16 md:py-20 overflow-hidden bg-black"
+    >
+      {/* Background patterns */}
+      <div className="absolute inset-0 pointer-events-none bg-grid opacity-[0.1]" />
+      
+      <div className="max-w-7xl mx-auto px-6 relative z-10">
+        <div className="flex flex-col items-center text-center mb-16">
+          <motion.h2
+            initial={{ opacity: 0, y: 30 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            className="text-3xl md:text-4xl font-display font-bold text-white tracking-tighter leading-none mb-6 uppercase"
+          >
+            Client <span className="text-primary">Success</span> Stories
+          </motion.h2>
+        </div>
+
+        <div 
+          className="relative h-[380px] md:h-[460px] flex items-center justify-center perspective-[2500px]"
+          onMouseEnter={() => setIsAutoPlaying(false)}
+          onMouseLeave={() => setIsAutoPlaying(true)}
+        >
+          <div className="relative w-full h-full flex items-center justify-center transform-style-3d">
+            {testimonials.map((testimonial, index) => {
+              const styles = getCardStyles(index);
+              const isActive = index === activeIndex;
+
+              return (
+                <motion.div
+                  key={testimonial.id}
+                  initial={false}
+                  animate={styles}
+                  transition={{
+                    type: "spring",
+                    stiffness: 80,
+                    damping: 20,
+                  }}
+                  onClick={() => {
+                    if (!isActive) {
+                      setActiveIndex(index);
+                    }
+                  }}
+                  className="absolute w-[300px] md:w-[600px] group select-none"
+                >
+                  {/* SIMPLIFIED HIGH-READABILITY CARD */}
+                  <div className={`relative flex flex-col rounded-[2rem] overflow-hidden transition-all duration-700 ${
+                    isActive 
+                    ? "bg-[#0A0A0A] border-white/10 shadow-[0_50px_100px_rgba(0,0,0,0.9)]" 
+                    : "bg-white/[0.02] backdrop-blur-2xl border-white/5 opacity-40 grayscale"
+                  } border`}>
+                    
+                    {/* Content Area */}
+                    <div className="p-6 md:p-8 flex flex-col">
+                      <div className="mb-4">
+                        <Icon 
+                          icon="ri:double-quotes-l" 
+                          className={`text-2xl md:text-3xl mb-2 transition-colors duration-700 ${
+                            isActive ? "text-primary/20" : "text-white/[0.02]"
+                          }`} 
+                        />
+                        <p className={`text-xs md:text-sm font-normal leading-[1.6] tracking-normal transition-colors duration-700 ${
+                          isActive ? "text-white/90" : "text-white/20 line-clamp-3"
+                        }`}>
+                          {testimonial.feedback}
+                        </p>
+                      </div>
+ 
+                      <div className="mt-auto flex items-center gap-4 pt-5 border-t border-white/5">
+                        <div className="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-white/5 flex items-center justify-center text-xl border border-white/10">
+                          {testimonial.avatar}
+                        </div>
+                        <div>
+                          <h3 className={`text-sm md:text-base font-display font-bold leading-none mb-1 ${
+                            isActive ? "text-white" : "text-white/30"
+                          }`}>
+                            {testimonial.clientName}
+                          </h3>
+                          <p className={`text-[8px] md:text-[9px] font-bold uppercase tracking-[0.3em] ${
+                            isActive ? "text-primary" : "text-white/10"
+                          }`}>
+                            {testimonial.company}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+ 
+                    {/* Active Accent Bar */}
+                    {isActive && (
+                      <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-primary" />
+                    )}
+                  </div>
+                </motion.div>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* Navigation Dots */}
+        <div className="flex justify-center items-center gap-4 mt-16">
+          {testimonials.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => {
+                setActiveIndex(index);
+              }}
+              className="relative p-2 group"
+            >
+              <div className={`h-1.5 rounded-full transition-all duration-700 ${
+                index === activeIndex 
+                ? "w-12 bg-primary" 
+                : "w-2 bg-white/10 group-hover:bg-white/30"
+              }`} />
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <style jsx>{`
+        .perspective-2500 {
+          perspective: 2500px;
+        }
+        .transform-style-3d {
+          transform-style: preserve-3d;
+        }
+      `}</style>
+    </section>
+  );
+};
+
+export default TestimonialSection;
