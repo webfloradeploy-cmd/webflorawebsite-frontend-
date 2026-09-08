@@ -2,13 +2,31 @@ import React from "react";
 import BlogClient from "./BlogClient";
 import API_BASE_URL from "../../config";
 
+export const revalidate = 86400;
+
+export async function generateStaticParams() {
+  try {
+    const res = await fetch(`${API_BASE_URL}/api/public/blogs`, {
+      next: { revalidate: 86400 }
+    });
+    if (!res.ok) return [];
+    const blogs = await res.json();
+    if (!Array.isArray(blogs)) return [];
+    return blogs.map((post) => ({
+      id: String(post.slug || post._id),
+    }));
+  } catch {
+    return [];
+  }
+}
+
 export async function generateMetadata({ params }) {
   const resolvedParams = await Promise.resolve(params);
   const slug = resolvedParams.id;
 
   try {
     const res = await fetch(`${API_BASE_URL}/api/public/blogs/${slug}`, { 
-      next: { revalidate: 60 } 
+      next: { revalidate: 86400 } 
     });
     
     if (!res.ok) {
@@ -82,7 +100,7 @@ export default async function BlogPage({ params }) {
   let post = null;
   try {
     const res = await fetch(`${API_BASE_URL}/api/public/blogs/${slug}`, { 
-      next: { revalidate: 60 } 
+      next: { revalidate: 86400 } 
     });
     if (res.ok) {
       post = await res.json();

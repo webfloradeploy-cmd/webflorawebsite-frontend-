@@ -2,13 +2,31 @@ import React from "react";
 import PortfolioClient from "./PortfolioClient";
 import API_BASE_URL from "../../config";
 
+export const revalidate = 86400;
+
+export async function generateStaticParams() {
+  try {
+    const res = await fetch(`${API_BASE_URL}/api/public/case-studies`, {
+      next: { revalidate: 86400 }
+    });
+    if (!res.ok) return [];
+    const projects = await res.json();
+    if (!Array.isArray(projects)) return [];
+    return projects.map((p) => ({
+      slug: String(p.slug || p._id),
+    }));
+  } catch {
+    return [];
+  }
+}
+
 export async function generateMetadata({ params }) {
   const resolvedParams = await Promise.resolve(params);
   const slug = resolvedParams.slug;
 
   try {
     const res = await fetch(`${API_BASE_URL}/api/public/case-studies/${slug}`, { 
-      next: { revalidate: 60 } 
+      next: { revalidate: 86400 } 
     });
     
     if (!res.ok) {
@@ -72,7 +90,7 @@ export default async function PortfolioPage({ params }) {
   let project = null;
   try {
     const res = await fetch(`${API_BASE_URL}/api/public/case-studies/${slug}`, { 
-      next: { revalidate: 60 } 
+      next: { revalidate: 86400 } 
     });
     if (res.ok) {
       project = await res.json();

@@ -6,6 +6,8 @@ import { technologiesData } from "./technology/data";
 import { pricingGuidesData } from "./pricing-guides/data";
 import { comparisonsData } from "./compare/data";
 
+export const revalidate = 86400;
+
 export default async function sitemap() {
   const baseUrl = "https://webfloratechnologies.com";
 
@@ -27,6 +29,8 @@ export default async function sitemap() {
     { route: "/faq", priority: 0.8 },
 
     // Core Service Pages
+    { route: "/seo-services-in-patna", priority: 0.95 },
+    { route: "/ecommerce-website-development", priority: 0.95 },
     { route: "/it-company-in-patna/ai-chatbot-company-in-patna", priority: 0.95 },
     { route: "/it-company-in-patna/website-development-company-in-patna", priority: 0.95 },
     { route: "/it-company-in-patna/mobile-app-development-company-in-patna", priority: 0.9 },
@@ -113,8 +117,8 @@ export default async function sitemap() {
     // We try to fetch the blogs and case studies. 
     // In a production build, ensure the backend is running or use fallback data if build fails.
     const [blogsRes, caseStudiesRes] = await Promise.all([
-      fetch(`${API_BASE_URL}/api/public/blogs`, { next: { revalidate: 3600 } }).catch(() => null),
-      fetch(`${API_BASE_URL}/api/public/case-studies`, { next: { revalidate: 3600 } }).catch(() => null)
+      fetch(`${API_BASE_URL}/api/public/blogs`, { next: { revalidate: 86400 } }).catch(() => null),
+      fetch(`${API_BASE_URL}/api/public/case-studies`, { next: { revalidate: 86400 } }).catch(() => null)
     ]);
 
     if (blogsRes && blogsRes.ok) {

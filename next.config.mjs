@@ -21,6 +21,26 @@ const nextConfig = {
         destination: '/it-company-in-patna/:path*',
         permanent: true,
       },
+      {
+        source: '/ecommerce-development',
+        destination: '/ecommerce-website-development',
+        permanent: true,
+      },
+      {
+        source: '/e-commerce-website-development',
+        destination: '/ecommerce-website-development',
+        permanent: true,
+      },
+      {
+        source: '/ecommerce-development-company',
+        destination: '/ecommerce-website-development',
+        permanent: true,
+      },
+      {
+        source: '/ecommerce-development-company-in-patna',
+        destination: '/ecommerce-website-development',
+        permanent: true,
+      },
     ];
   }, 
   

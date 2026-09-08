@@ -24,6 +24,7 @@ import {
   Building2,
   Factory,
   ShoppingBag,
+  Search,
   Menu,
   X,
 } from "lucide-react";
@@ -38,6 +39,8 @@ const navItems = [
     href: "/it-company-in-patna",
     children: [
       { icon: Briefcase, label: "All Services", desc: "Browse all core services we offer.", href: "/it-company-in-patna" },
+      { icon: Search, label: "SEO Services", desc: "Rank #1 on Google & AI search.", href: "/seo-services-in-patna", highlight: true, badge: "GROWTH" },
+      { icon: ShoppingBag, label: "eCommerce Dev", desc: "Custom stores, B2B & marketplaces.", href: "/ecommerce-website-development", highlight: true, badge: "HOT" },
       { icon: Globe, label: "Website Dev", desc: "High-performance marketing sites.", href: "/it-company-in-patna/website-development-company-in-patna" },
       { icon: Bot, label: "AI & Automation", desc: "Custom n8n and workflow agents.", href: "/it-company-in-patna/ai-automation-company-in-patna" },
       { icon: Smartphone, label: "App Dev", desc: "Native iOS & Android systems.", href: "/it-company-in-patna/mobile-app-development-company-in-patna" },

@@ -6,22 +6,33 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import API_BASE_URL from "../config";
 
+let cachedBlogs = null;
+
 export default function LatestInsights() {
-  const [blogs, setBlogs] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [blogs, setBlogs] = useState(cachedBlogs || []);
+  const [loading, setLoading] = useState(!cachedBlogs);
 
   useEffect(() => {
+    if (cachedBlogs && cachedBlogs.length > 0) {
+      setBlogs(cachedBlogs);
+      setLoading(false);
+      return;
+    }
+
     const fetchLatestBlogs = async () => {
       try {
         const res = await fetch(`${API_BASE_URL}/api/public/blogs`);
         if (res.ok) {
           const data = await res.json();
-          // Sort by creation date and take first 3
-          const sorted = data
-            .filter((p) => p.status !== "draft")
-            .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
-            .slice(0, 3);
-          setBlogs(sorted);
+          if (Array.isArray(data)) {
+            // Sort by creation date and take first 3
+            const sorted = data
+              .filter((p) => p.status !== "draft")
+              .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+              .slice(0, 3);
+            cachedBlogs = sorted;
+            setBlogs(sorted);
+          }
         }
       } catch (err) {
         console.error("Error fetching latest blogs:", err);

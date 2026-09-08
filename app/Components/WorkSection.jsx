@@ -31,6 +31,8 @@ const fadeUp = {
   },
 };
 
+let cachedProjects = null;
+
 export default function WorkSection() {
   const router = useRouter();
   const [isMobile, setIsMobile] = useState(false);
@@ -42,18 +44,28 @@ export default function WorkSection() {
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
-  const [projects, setProjects] = useState([]);
-  const [filteredProjects, setFilteredProjects] = useState([]);
+  const [projects, setProjects] = useState(cachedProjects || []);
+  const [filteredProjects, setFilteredProjects] = useState(cachedProjects ? cachedProjects.slice(0, 6) : []);
   const [activeCategory, setActiveCategory] = useState("ALL");
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(!cachedProjects);
 
   useEffect(() => {
+    if (cachedProjects && cachedProjects.length > 0) {
+      setProjects(cachedProjects);
+      setFilteredProjects(cachedProjects.slice(0, 6));
+      setLoading(false);
+      return;
+    }
+
     const fetchProjects = async () => {
       try {
         const response = await fetch(`${API_BASE_URL}/api/public/case-studies`);
         const data = await response.json();
-        setProjects(data);
-        setFilteredProjects(data);
+        if (Array.isArray(data)) {
+          cachedProjects = data;
+          setProjects(data);
+          setFilteredProjects(data.slice(0, 6));
+        }
       } catch (error) {
         console.error("Error fetching projects:", error);
       } finally {

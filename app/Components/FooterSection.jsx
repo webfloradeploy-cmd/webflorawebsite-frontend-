@@ -201,6 +201,8 @@ export default function FooterSection() {
               <FooterColumn
                 title="Services"
                 links={[
+                  { text: "SEO Services in Patna", url: "/seo-services-in-patna" },
+                  { text: "eCommerce Development", url: "/ecommerce-website-development" },
                   { text: "Web Development", url: "/it-company-in-patna/website-development-company-in-patna" },
                   { text: "App Development", url: "/it-company-in-patna/mobile-app-development-company-in-patna" },
                   { text: "AI Automation", url: "/it-company-in-patna/ai-automation-company-in-patna" },
