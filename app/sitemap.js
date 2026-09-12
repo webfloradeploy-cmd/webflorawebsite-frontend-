@@ -41,10 +41,6 @@ export default async function sitemap() {
     // Legal Pages
     { route: "/privacy-policy", priority: 0.2 },
     { route: "/terms-of-service", priority: 0.2 },
-
-    // Utility Pages
-    { route: "/sitemap.xml", priority: 0.1 },
-    { route: "/robots.txt", priority: 0.1 },
   ].map((item) => ({
     url: `${baseUrl}${item.route}`,
     lastModified: new Date().toISOString(),
