@@ -1,7 +1,7 @@
 export const servicesData = {
   "website-development-company-in-patna": {
     "seoTitle": "Best Website Design Company in Patna | Webflora Technologies",
-    "seoDescription": "MSME-registered website development company in Patna, Bihar. We design fast, secure custom React/Next.js websites starting at ₹14,999. Get a free quote!",
+    "seoDescription": "Need a website that brings customers? Get a fast, modern and SEO-ready website built to earn trust, generate enquiries and grow.",
     "seoKeywords": "website development company in patna, website developer in patna, website design company in patna, website company in patna, web designer in patna, best website design company in patna, best website developer in patna, best website development company in patna, best website company in patna, best website development company in patna, e commerce website developer in patna, ecommerce developer in patna, ecommerce developer patna, web design company in patna, web development company in patna, web development in patna, website company patna, website development in patna, website development company, website design, website developer, web designer, it company in patna, web design services bihar, custom website development cost patna, e-commerce web designer patna, Next.js developer Patna, coaching institute website Patna, responsive web design Patna, web development company in Bihar",
     "title": "Website Design Services in Patna",
     "headline": "Website Design Company in Patna",
@@ -583,7 +583,7 @@ export const servicesData = {
   },
   "mobile-app-development-company-in-patna": {
     "seoTitle": "Best Mobile App Development Company in Patna | iOS & Android",
-    "seoDescription": "Looking for the best mobile app development company in Patna? Webflora Technologies provides expert Android and iOS app developers in Patna, Bihar.",
+    "seoDescription": "Turn your app idea into reality. Get custom Android & iOS apps built to perform, scale and deliver a better user experience.",
     "seoKeywords": "best mobile app development company in patna, mobile app development company in patna, app development company in patna, android app development in patna, iOS app developers in patna, react native developers patna, flutter app developers patna, app developers in patna, mobile app development services in patna",
     "title": "Mobile App Development Services in Patna",
     "headline": "Android & iOS App Development Services",
@@ -907,7 +907,7 @@ export const servicesData = {
   },
   "software-development-company-in-patna": {
     "seoTitle": "Best Software Development Company in Patna | Custom ERP & CRM",
-    "seoDescription": "Looking for the best software development company in Patna? Webflora Technologies engineers custom ERP, CRM, and SaaS software remotely across Bihar.",
+    "seoDescription": "Need software that fits your business? We build custom CRM, ERP, billing and business software to automate work and help you scale.",
     "seoKeywords": "best software development company in patna, software development company in patna, software company in patna, custom software development patna, custom ERP development patna, CRM software company in patna, IT company in patna, software developers in patna, business automation software patna, software development services in patna",
     "title": "Custom Software Development Services in Patna",
     "headline": "Software Development Company in Patna",
@@ -1614,7 +1614,7 @@ export const servicesData = {
   },
   "digital-marketing-agency-in-patna": {
     "seoTitle": "Best Digital Marketing Company in Patna | SEO, Google Ads & SMM",
-    "seoDescription": "Webflora Technologies is a digital marketing company in Patna offering SEO, Google Ads, Meta Ads, social media marketing, content marketing, and lead generation services.",
+    "seoDescription": "Need more leads for your business? Get SEO, Google Ads & digital marketing strategies designed to increase visibility, enquiries and sales.",
     "seoKeywords": "best digital marketing company in patna, digital marketing company in patna, best digital marketing agency in patna, digital marketing agency in patna, digital marketing agency patna, digital marketing services in patna, SEO Company in Patna, SEO Services in Patna, Google Ads Agency in Patna, PPC Services Patna, Meta Ads Agency, Facebook Ads Agency, Instagram Marketing, Social Media Marketing Company in Patna, Local SEO Services Patna, Online Marketing Company Patna, Internet Marketing Company Patna, Performance Marketing Agency Patna, Lead Generation Company Patna, Content Marketing Agency Patna, Email Marketing Services Patna, Digital Marketing Company in Bihar",
     "title": "Performance Digital Marketing Services in Patna",
     "headline": "Digital Marketing Company in Patna",

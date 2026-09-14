@@ -52,16 +52,18 @@ export async function generateMetadata({ params }: Props) {
   if (citySlug === "patna") {
     if (serviceSlug === "website-development") {
       title = "Best Website Design & Development Company in Patna | Webflora";
-      description = "Looking for the best website design company in Patna? Webflora Technologies is the top web development company in Patna, Bihar, offering expert website designers and custom Next.js developers.";
+      description = "Need a website that brings customers? Get a fast, modern and SEO-ready website built to earn trust, generate enquiries and grow.";
     } else if (serviceSlug === "web-design") {
       title = "Best Website Design Company in Patna | Professional Web Designers";
-      description = "Webflora Technologies is the best website design company in Patna, Bihar. We design premium UI/UX, responsive layouts, and custom web graphics.";
+      description = "Need a website that brings customers? Get a fast, modern and SEO-ready website built to earn trust, generate enquiries and grow.";
+    } else if (serviceSlug === "software-development") {
+      description = "Need software that fits your business? We build custom CRM, ERP, billing and business software to automate work and help you scale.";
     } else if (serviceSlug === "app-development") {
       title = "Best Mobile App Development Company in Patna | Webflora";
-      description = "Looking for the best mobile app development company in Patna? Webflora Technologies is the top app development agency in Patna, Bihar, specializing in custom Android, iOS, React Native, and Flutter apps.";
+      description = "Turn your app idea into reality. Get custom Android & iOS apps built to perform, scale and deliver a better user experience.";
     } else if (serviceSlug === "digital-marketing") {
       title = "Best Digital Marketing Company in Patna | Webflora";
-      description = "Looking for the best digital marketing company in Patna? Webflora Technologies is the top digital marketing agency in Patna, Bihar, offering expert SEO, SMM, PPC, and performance marketing.";
+      description = "Need more leads for your business? Get SEO, Google Ads & digital marketing strategies designed to increase visibility, enquiries and sales.";
     } else if (serviceSlug === "seo-services") {
       title = "Best SEO Company in Patna | Professional SEO Agency";
       description = "Looking for the best SEO company in Patna? Webflora Technologies is the top SEO agency in Patna, Bihar, specializing in local SEO, technical SEO audits, and link building services.";

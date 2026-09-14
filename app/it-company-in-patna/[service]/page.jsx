@@ -29,7 +29,7 @@ export async function generateMetadata({ params }) {
       canonical: url,
     },
     openGraph: {
-      title: service.title,
+      title: service.seoTitle || service.title,
       description: shortDesc,
       url: url,
       siteName: "Webflora Technologies",
@@ -45,7 +45,7 @@ export async function generateMetadata({ params }) {
     },
     twitter: {
       card: "summary_large_image",
-      title: service.title,
+      title: service.seoTitle || service.title,
       description: shortDesc,
       images: [`${baseUrl}/title-logo.png`],
     },
