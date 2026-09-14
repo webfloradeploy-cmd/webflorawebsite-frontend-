@@ -97,6 +97,7 @@ const page = () => {
                 { name: "Mobile App Development", url: "/it-company-in-patna/mobile-app-development-company-in-patna" },
                 { name: "Software Development", url: "/it-company-in-patna/software-development-company-in-patna" },
                 { name: "Digital Marketing", url: "/it-company-in-patna/digital-marketing-agency-in-patna" },
+                { name: "SEO Services in Patna", url: "/seo-services-in-patna" },
                 { name: "AI & Automation", url: "/it-company-in-patna/ai-automation-company-in-patna" },
                 { name: "AI Chatbots", url: "/it-company-in-patna/ai-chatbot-company-in-patna" }
               ]),

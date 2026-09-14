@@ -100,6 +100,23 @@ const OurCoreServices = () => {
       badge: null,
       href: "/it-company-in-patna/ai-automation-company-in-patna",
     },
+    {
+      id: 6,
+      name: "SEO Services in Patna",
+      description:
+        "Rank on Google Page 1, Google Maps 3-Pack, and AI search engines with sustainable technical & local SEO services in Bihar.",
+      features: [
+        "Google Maps 3-Pack & Local SEO dominance",
+        "Technical SEO audits & Core Web Vitals",
+        "High-intent commercial keyword rankings",
+      ],
+      timeline: "Ongoing",
+      startingPrice: "₹15,000",
+      subtitle: "SEO Services in Patna Monthly Price",
+      icon: "solar:magnifer-linear",
+      badge: "High ROI",
+      href: "/seo-services-in-patna",
+    },
   ];
 
   // Check screen size and initialize
