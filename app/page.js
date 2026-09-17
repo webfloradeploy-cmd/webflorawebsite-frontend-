@@ -90,7 +90,7 @@ export default function Page() {
               buildWebSiteSchema(),
               buildWebPageSchema({
                 name: "Software Company in Patna, Bihar | Webflora Technologies",
-                description: "Webflora Technologies is the leading software company in Patna, Bihar, offering custom software, website development, mobile apps, and digital marketing.",
+                description: "Looking for a reliable tech partner? Webflora builds websites, mobile apps, custom software, AI automation and digital solutions to help businesses grow. Get started today.",
                 url: "https://webfloratechnologies.com"
               }),
               buildServiceSchema({

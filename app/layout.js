@@ -32,14 +32,14 @@ const spaceGrotesk = Space_Grotesk({
 export const metadata = {
   metadataBase: new URL("https://webfloratechnologies.com"),
   title: "Software Company in Patna, Bihar | Webflora Technologies",
-  description: "Webflora Technologies is the leading software company in Patna, Bihar, offering custom software, website development, mobile apps, and digital marketing.",
+  description: "Looking for a reliable tech partner? Webflora builds websites, mobile apps, custom software, AI automation and digital solutions to help businesses grow. Get started today.",
   keywords: "web development company, website development company, website design, website development, web design, e commerce websites, web application development, app software, mobile app development company, software company in patna, software company in bihar, website company in patna, Webflora Technologies",
   alternates: {
     canonical: "/",
   },
   openGraph: {
     title: "Software Company in Patna, Bihar | Webflora Technologies",
-    description: "Webflora Technologies is the leading software company in Patna, Bihar, offering custom software, website development, mobile apps, and digital marketing.",
+    description: "Looking for a reliable tech partner? Webflora builds websites, mobile apps, custom software, AI automation and digital solutions to help businesses grow. Get started today.",
     url: "https://webfloratechnologies.com",
     siteName: "Webflora Technologies",
     images: [
@@ -56,7 +56,7 @@ export const metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Software Company in Patna, Bihar | Webflora Technologies",
-    description: "Webflora Technologies is the leading software company in Patna, Bihar, offering custom software, website development, mobile apps, and digital marketing.",
+    description: "Looking for a reliable tech partner? Webflora builds websites, mobile apps, custom software, AI automation and digital solutions to help businesses grow. Get started today.",
     site: "@WebfloraTech",
     images: ["/title-logo.png"],
   },
