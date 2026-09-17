@@ -6,7 +6,7 @@ import { technologiesData } from "./technology/data";
 import { pricingGuidesData } from "./pricing-guides/data";
 import { comparisonsData } from "./compare/data";
 
-export const revalidate = 86400;
+export const dynamic = "force-static";
 
 export default async function sitemap() {
   const baseUrl = "https://webfloratechnologies.com";
@@ -113,8 +113,8 @@ export default async function sitemap() {
     // We try to fetch the blogs and case studies. 
     // In a production build, ensure the backend is running or use fallback data if build fails.
     const [blogsRes, caseStudiesRes] = await Promise.all([
-      fetch(`${API_BASE_URL}/api/public/blogs`, { next: { revalidate: 86400 } }).catch(() => null),
-      fetch(`${API_BASE_URL}/api/public/case-studies`, { next: { revalidate: 86400 } }).catch(() => null)
+      fetch(`${API_BASE_URL}/api/public/blogs`, { cache: "force-cache" }).catch(() => null),
+      fetch(`${API_BASE_URL}/api/public/case-studies`, { cache: "force-cache" }).catch(() => null)
     ]);
 
     if (blogsRes && blogsRes.ok) {

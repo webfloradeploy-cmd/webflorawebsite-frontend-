@@ -3,6 +3,9 @@ import IndustryTemplate from "../components/IndustryTemplate";
 import { industriesData } from "../data";
 import { notFound } from "next/navigation";
 
+export const dynamic = "force-static";
+export const dynamicParams = false;
+
 export async function generateMetadata({ params }) {
   const { industry: industrySlug } = await params;
   const industry = industriesData[industrySlug];

@@ -1,3 +1,5 @@
+export const dynamic = "force-static";
+
 export const metadata = {
   title: "Technology & Digital Marketing Blog in Patna Bihar | Webflora",
   description: "Read the latest blogs on web development, SEO, AI automation, software development, and digital marketing trends from Webflora Technologies.",

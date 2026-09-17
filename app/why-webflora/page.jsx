@@ -2,6 +2,8 @@ import React from "react";
 import ContactSection from "../Components/ContactSection";
 import SafeIcon from "../it-company-in-patna/components/client/SafeIcon";
 
+export const dynamic = "force-static";
+
 export const metadata = {
   title: "Why Webflora Technologies | Software Agency in Patna Bihar",
   description: "Learn why businesses choose Webflora over WordPress agencies and freelancers. Discover why we build with Next.js, React, and custom AI automation workflows.",

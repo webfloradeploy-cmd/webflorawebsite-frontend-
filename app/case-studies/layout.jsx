@@ -1,3 +1,5 @@
+export const dynamic = "force-static";
+
 export const metadata = {
   title: "Case Studies | Web Development & Digital Growth Projects by Webflora",
   description: "Explore successful website development, software development, AI automation, and digital marketing projects completed by Webflora Technologies.",

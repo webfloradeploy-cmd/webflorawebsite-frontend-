@@ -1,3 +1,5 @@
+export const dynamic = "force-static";
+
 export const metadata = {
   title: "About Webflora Technologies | IT & Digital Solutions Company in Patna",
   description: "Learn about Webflora Technologies, a Patna-based IT and digital solutions company providing web development, software development, AI automation, and digital marketing services across Bihar and India.",

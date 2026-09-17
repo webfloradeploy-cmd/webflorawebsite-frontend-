@@ -11,6 +11,8 @@ import {
   toGraphSchema
 } from "../lib/schemas";
 
+export const dynamic = "force-static";
+
 export const metadata = {
   title: "eCommerce Website Development Company in India | Webflora Technologies",
   description: "Webflora Technologies is a leading eCommerce website development company in India. We develop custom online stores, B2B platforms, D2C storefronts, Shopify & WooCommerce websites with payment gateway, shipping, ERP integration, and SEO starting at ₹30,000.",

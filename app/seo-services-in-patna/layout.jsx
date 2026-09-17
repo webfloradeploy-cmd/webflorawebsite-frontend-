@@ -12,6 +12,8 @@ import {
   toGraphSchema
 } from "../lib/schemas";
 
+export const dynamic = "force-static";
+
 export const metadata = {
   title: "Best SEO Company in Patna | SEO Services in Bihar | Webflora Technologies",
   description: "Webflora Technologies is a leading SEO company in Patna, Bihar. We help businesses improve Google search rankings, attract local customers, and generate meaningful enquiries through practical, sustainable SEO.",

@@ -20,6 +20,8 @@ import {
   toGraphSchema
 } from "./lib/schemas";
 
+export const dynamic = "force-static";
+
 /* ── FAQ data (defined server-side, passed as prop to client component) ── */
 const homeFaqs = [
   {

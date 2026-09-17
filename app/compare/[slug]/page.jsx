@@ -7,6 +7,9 @@ import { FadeInUp } from "../../it-company-in-patna/components/client/MotionWrap
 import ContactSection from "../../Components/ContactSection";
 import FaqSection from "../../it-company-in-patna/components/FaqSection";
 
+export const dynamic = "force-static";
+export const dynamicParams = false;
+
 export async function generateMetadata({ params }) {
   const { slug } = await params;
   const comp = comparisonsData[slug];

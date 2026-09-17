@@ -1,3 +1,5 @@
+export const dynamic = "force-static";
+
 export const metadata = {
   title: "Privacy Policy | Webflora Technologies",
   description: "Read the privacy policy of Webflora Technologies to understand how user information, cookies, and website data are collected and protected.",

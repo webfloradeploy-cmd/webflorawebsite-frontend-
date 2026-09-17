@@ -11,6 +11,8 @@ import {
   toGraphSchema
 } from "../lib/schemas";
 
+export const dynamic = "force-static";
+
 export const metadata = {
   title: "Attendance Management System & Software in Patna | Face Recognition & Biometric SaaS",
   description: "Best Attendance Management Software & Face Recognition System in Patna, Bihar. Webflora provides custom SaaS attendance, AI face scanning machines, eSSL biometric software, dynamic QR code attendance, and WhatsApp tracking systems with automated payroll.",

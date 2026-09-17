@@ -2,12 +2,13 @@ import React from "react";
 import PortfolioClient from "./PortfolioClient";
 import API_BASE_URL from "../../config";
 
-export const revalidate = 86400;
+export const dynamic = "force-static";
+export const dynamicParams = true;
 
 export async function generateStaticParams() {
   try {
     const res = await fetch(`${API_BASE_URL}/api/public/case-studies`, {
-      next: { revalidate: 86400 }
+      cache: "force-cache"
     });
     if (!res.ok) return [];
     const projects = await res.json();
@@ -26,7 +27,7 @@ export async function generateMetadata({ params }) {
 
   try {
     const res = await fetch(`${API_BASE_URL}/api/public/case-studies/${slug}`, { 
-      next: { revalidate: 86400 } 
+      cache: "force-cache" 
     });
     
     if (!res.ok) {
@@ -90,7 +91,7 @@ export default async function PortfolioPage({ params }) {
   let project = null;
   try {
     const res = await fetch(`${API_BASE_URL}/api/public/case-studies/${slug}`, { 
-      next: { revalidate: 86400 } 
+      cache: "force-cache" 
     });
     if (res.ok) {
       project = await res.json();

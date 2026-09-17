@@ -23,6 +23,9 @@ interface Props {
   params: Promise<{ city: string; service: string }>;
 }
 
+export const dynamic = "force-static";
+export const dynamicParams = false;
+
 export async function generateStaticParams() {
   const paths: { city: string; service: string }[] = [];
 

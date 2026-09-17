@@ -1,3 +1,5 @@
+export const dynamic = "force-static";
+
 export const metadata = {
   title: "Electronic Health Records Software | Custom EMR Systems & Medical Billing",
   description: "Webflora Technologies builds custom electronic health records software, EHR systems & EMR software. Secure patient charts, medical billing, and medical dictation starting at ₹45,000.",

@@ -1,3 +1,5 @@
+export const dynamic = "force-static";
+
 export const metadata = {
   title: "Careers at Webflora Technologies | IT Jobs in Patna Bihar",
   description: "Explore job opportunities in web development, SEO, AI automation, app development, and digital marketing at Webflora Technologies in Patna, Bihar.",

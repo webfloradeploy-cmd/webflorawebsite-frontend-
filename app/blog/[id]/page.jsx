@@ -2,12 +2,13 @@ import React from "react";
 import BlogClient from "./BlogClient";
 import API_BASE_URL from "../../config";
 
-export const revalidate = 86400;
+export const dynamic = "force-static";
+export const dynamicParams = true;
 
 export async function generateStaticParams() {
   try {
     const res = await fetch(`${API_BASE_URL}/api/public/blogs`, {
-      next: { revalidate: 86400 }
+      cache: "force-cache"
     });
     if (!res.ok) return [];
     const blogs = await res.json();
@@ -26,7 +27,7 @@ export async function generateMetadata({ params }) {
 
   try {
     const res = await fetch(`${API_BASE_URL}/api/public/blogs/${slug}`, { 
-      next: { revalidate: 86400 } 
+      cache: "force-cache" 
     });
     
     if (!res.ok) {
@@ -100,7 +101,7 @@ export default async function BlogPage({ params }) {
   let post = null;
   try {
     const res = await fetch(`${API_BASE_URL}/api/public/blogs/${slug}`, { 
-      next: { revalidate: 86400 } 
+      cache: "force-cache" 
     });
     if (res.ok) {
       post = await res.json();

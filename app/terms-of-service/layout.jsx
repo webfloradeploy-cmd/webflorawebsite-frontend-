@@ -1,3 +1,5 @@
+export const dynamic = "force-static";
+
 export const metadata = {
   title: "Terms of Service | Webflora Technologies",
   description: "Read the terms and conditions for using Webflora Technologies services, website, and digital solutions.",

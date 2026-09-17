@@ -6,6 +6,8 @@ import Breadcrumb from "../../components/locations/Breadcrumb";
 import CTA from "../../components/locations/CTA";
 import ContactForm from "../../components/locations/ContactForm";
 
+export const dynamic = "force-static";
+
 export const metadata = {
   title: "Target Locations & Regional Services | Webflora Technologies",
   description: "Explore our target cities across India. Webflora Technologies provides website development, mobile apps, and custom software systems remotely from our Patna HQ.",

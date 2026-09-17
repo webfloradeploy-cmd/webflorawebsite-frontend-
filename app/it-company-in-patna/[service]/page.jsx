@@ -12,6 +12,9 @@ import {
   toGraphSchema
 } from "../../lib/schemas";
 
+export const dynamic = "force-static";
+export const dynamicParams = false;
+
 export async function generateMetadata({ params }) {
   const { service: serviceSlug } = await params;
   const service = servicesData[serviceSlug];

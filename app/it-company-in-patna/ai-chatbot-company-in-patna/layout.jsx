@@ -1,3 +1,5 @@
+export const dynamic = "force-static";
+
 export const metadata = {
   title: "AI Chatbot Company in Patna | AI Chatbot Development in Bihar",
   description: "Webflora Technologies is the leading AI chatbot company in Patna, Bihar. We design and deploy custom intelligent NLP chatbots to automate customer support 24/7.",

@@ -22,6 +22,8 @@ import {
   toGraphSchema
 } from '../lib/schemas'
 
+export const dynamic = "force-static";
+
 export const metadata = {
   title: "Best IT Company in Patna Bihar | Webflora Technologies",
   description: "Webflora Technologies is the best IT company in Patna, Bihar, offering high-performance website development, custom software engineering, mobile apps, and SEO services. Get a free quote!",

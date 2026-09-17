@@ -8,6 +8,9 @@ import ContactSection from "../../Components/ContactSection";
 import FaqSection from "../../it-company-in-patna/components/FaqSection";
 import { ServiceComparisonWrapper, ServiceGlossaryWrapper } from "../../it-company-in-patna/components/ServiceTemplate";
 
+export const dynamic = "force-static";
+export const dynamicParams = false;
+
 export async function generateMetadata({ params }) {
   const { slug } = await params;
   const tech = technologiesData[slug];
