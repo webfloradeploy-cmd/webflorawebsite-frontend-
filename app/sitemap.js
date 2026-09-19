@@ -127,27 +127,37 @@ export default async function sitemap() {
     console.error("Error fetching data for sitemap:", error);
   }
 
-  const blogRoutes = Array.isArray(blogs) ? blogs.map((blog) => {
-    const dateVal = blog.updatedAt || blog.createdAt;
-    const isValidDate = dateVal && !isNaN(new Date(dateVal).getTime());
-    return {
-      url: `${baseUrl}/blog/${blog.slug}`,
-      lastModified: isValidDate ? new Date(dateVal).toISOString() : new Date().toISOString(),
-      changeFrequency: "monthly",
-      priority: 0.6,
-    };
-  }) : [];
+  const blogRoutes = Array.isArray(blogs)
+    ? blogs
+        .filter((blog) => blog && (blog.slug || blog._id))
+        .map((blog) => {
+          const slug = blog.slug || blog._id;
+          const dateVal = blog.updatedAt || blog.createdAt;
+          const isValidDate = dateVal && !isNaN(new Date(dateVal).getTime());
+          return {
+            url: `${baseUrl}/blog/${slug}`,
+            lastModified: isValidDate ? new Date(dateVal).toISOString() : new Date().toISOString(),
+            changeFrequency: "monthly",
+            priority: 0.6,
+          };
+        })
+    : [];
 
-  const caseStudyRoutes = Array.isArray(caseStudies) ? caseStudies.map((cs) => {
-    const dateVal = cs.updatedAt || cs.createdAt;
-    const isValidDate = dateVal && !isNaN(new Date(dateVal).getTime());
-    return {
-      url: `${baseUrl}/case-studies/${cs.slug}`,
-      lastModified: isValidDate ? new Date(dateVal).toISOString() : new Date().toISOString(),
-      changeFrequency: "monthly",
-      priority: 0.7,
-    };
-  }) : [];
+  const caseStudyRoutes = Array.isArray(caseStudies)
+    ? caseStudies
+        .filter((cs) => cs && (cs.slug || cs._id))
+        .map((cs) => {
+          const slug = cs.slug || cs._id;
+          const dateVal = cs.updatedAt || cs.createdAt;
+          const isValidDate = dateVal && !isNaN(new Date(dateVal).getTime());
+          return {
+            url: `${baseUrl}/case-studies/${slug}`,
+            lastModified: isValidDate ? new Date(dateVal).toISOString() : new Date().toISOString(),
+            changeFrequency: "monthly",
+            priority: 0.7,
+          };
+        })
+    : [];
 
   return [
     ...staticRoutes,

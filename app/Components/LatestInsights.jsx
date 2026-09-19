@@ -46,6 +46,7 @@ export default function LatestInsights() {
   const fallbackBlogs = [
     {
       _id: "1",
+      slug: "why-nextjs-is-the-ultimate-framework-for-seo-2026",
       title: "Why Next.js is the Ultimate Framework for SEO & Core Web Vitals in 2026",
       category: "Web Development",
       description: "How static generation, server-side rendering, and image optimizations help startups achieve 99+ PageSpeed scores.",
@@ -53,6 +54,7 @@ export default function LatestInsights() {
     },
     {
       _id: "2",
+      slug: "how-n8n-llm-agents-eliminate-support-bottlenecks",
       title: "How n8n & LLM Agents are Eliminating Customer Support Bottlenecks",
       category: "AI & Automation",
       description: "Discover how custom AI workflows and API connections are saving businesses hundreds of manual hours every week.",
@@ -60,6 +62,7 @@ export default function LatestInsights() {
     },
     {
       _id: "3",
+      slug: "guide-to-local-seo-for-coaching-and-hospitals-in-bihar",
       title: "The 2026 Guide to Local SEO for Coaching Institutes and Hospitals in Bihar",
       category: "Digital Marketing",
       description: "A complete blueprint to ranking on Google Maps, optimizing schema markup, and driving high-intent admissions.",
@@ -99,7 +102,7 @@ export default function LatestInsights() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {displayedBlogs.map((blog, idx) => (
             <motion.div
-              key={blog._id}
+              key={blog._id || idx}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -135,7 +138,7 @@ export default function LatestInsights() {
 
               <div className="pt-6 mt-6 border-t border-white/5 flex items-center justify-between">
                 <Link
-                  href={`/blog/${blog._id}`}
+                  href={`/blog/${blog.slug || blog._id}`}
                   className="inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-white group-hover:text-orange-500 transition-colors"
                 >
                   Read Article
