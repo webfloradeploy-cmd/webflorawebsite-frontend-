@@ -352,7 +352,7 @@ export default function AIChatbotCompanyPage() {
                   <code>
                     <span className="text-neutral-600">{"<!-- Load Vegavan Engine -->\n"}</span>
                     <span className="text-blue-400">{"<script"}</span><br />
-                    <span className="pl-4 text-orange-300">src</span>=<span className="text-green-400">"https://vegavan-backend.vercel.app/chatbot.js"</span><br />
+                    <span className="pl-4 text-orange-300">src</span>=<span className="text-green-400">"https://vegavan-backend-mu.vercel.app/chatbot.js"</span><br />
                     <span className="pl-4 text-orange-300">data-user-id</span>=<span className="text-green-400">"69fc5bbe69d61b8cd4efd91a"</span><br />
                     <span className="text-blue-400">{"></script>"}</span>
                   </code>

@@ -4,7 +4,6 @@ import "./globals.css";
 import Navbar from "./Components/Navbar";
 import FooterSection from "./Components/FooterSection";
 import Script from "next/script";
-import ChatbotLoader from "./Components/ChatbotLoader";
 import FloatingCTA from "./Components/FloatingCTA";
 import { buildOrganizationSchema, buildWebSiteSchema, buildSiteNavigationElementSchema, toGraphSchema } from "./lib/schemas";
 
@@ -129,8 +128,13 @@ export default function RootLayout({ children }) {
         {/* Footer Section */}
         <FooterSection />
 
-        {/* Chatbot — loads only after user interaction (facade pattern) */}
-        <ChatbotLoader />
+        {/* Vegavan AI Support Chatbot */}
+        <Script
+          id="vegavan-chatbot"
+          src="https://vegavan-backend-mu.vercel.app/chatbot.js"
+          data-user-id="69fc5bbe69d61b8cd4efd91a"
+          strategy="afterInteractive"
+        />
 
         {/* Mobile chatbot position override */}
         <style dangerouslySetInnerHTML={{

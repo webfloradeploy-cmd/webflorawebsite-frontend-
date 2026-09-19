@@ -47,9 +47,8 @@ function injectChatbotStyle(shadowRoot) {
 
 function loadChatbot() {
   const script = document.createElement("script");
-  script.src = "https://vegavan-backend.vercel.app/chatbot.js";
+  script.src = "https://vegavan-backend-mu.vercel.app/chatbot.js";
   script.setAttribute("data-user-id", "69fc5bbe69d61b8cd4efd91a");
-  script.setAttribute("data-project-id", "6839be97fc1aa1d3a38cfe45");
   script.async = true;
 
   // After script loads, watch for the chatbot's shadow root to inject brand colours
