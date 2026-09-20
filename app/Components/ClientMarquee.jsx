@@ -1,8 +1,5 @@
-"use client";
-
 import React from "react";
 import Image from "next/image";
-import { usePathname } from "next/navigation";
 
 const clientLogos = [
   { name: "DBM", src: "/client-logo/DBM.png" },
@@ -15,11 +12,10 @@ const clientLogos = [
   { name: "Best For Everyone", src: "/client-logo/best-for-everyone.png" },
   { name: "Heo Sahyog", src: "/client-logo/heo-sahyog.png" },
   { name: "Vidya Bharti", src: "/client-logo/vidya-bharti.png" },
+  { name: "LogiSafeWay", src: "/client-logo/logisafeway-logo.png" },
 ];
 
 export default function ClientMarquee() {
-  const pathname = usePathname();
-  if (pathname?.startsWith("/admin")) return null;
 
   return (
     <section className="bg-black py-6 md:py-10 border-y border-white/5 overflow-hidden">

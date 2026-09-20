@@ -84,6 +84,7 @@ const clientLogos = [
   { name: "Best For Everyone", src: "/client-logo/best-for-everyone.png" },
   { name: "Heo Sahyog", src: "/client-logo/heo-sahyog.png" },
   { name: "Vidya Bharti", src: "/client-logo/vidya-bharti.png" },
+  { name: "LogiSafeWay", src: "/client-logo/logisafeway-logo.png" },
 ];
 
 // Interactive Store Simulator Widget
