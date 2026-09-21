@@ -206,7 +206,7 @@ export default function FooterSection() {
                   { text: "Web Development", url: "/it-company-in-patna/website-development-company-in-patna" },
                   { text: "App Development", url: "/it-company-in-patna/mobile-app-development-company-in-patna" },
                   { text: "AI Automation", url: "/it-company-in-patna/ai-automation-company-in-patna" },
-                  { text: "Software Development", url: "/it-company-in-patna/software-development-company-in-patna" },
+                  { text: "Software Development in Patna", url: "/it-company-in-patna/software-development-company-in-patna" },
                   { text: "Digital Marketing", url: "/it-company-in-patna/digital-marketing-agency-in-patna" }
                 ]}
               />

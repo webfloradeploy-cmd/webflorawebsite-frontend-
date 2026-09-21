@@ -49,7 +49,7 @@ const ProductCard = () => {
         name: "E-Commerce Solutions",
         tagline: "Sell smarter online",
         description: "Professional ecommerce website development company services integrated with secure payment gateways and conversion-optimized SEO design.",
-        link: "/it-company-in-patna/website-development-company-in-patna",
+        link: "/ecommerce-website-development",
         icon: "solar:cart-large-minimalistic-bold-duotone",
         price: "₹35K+",
         color: "#F59E0B",

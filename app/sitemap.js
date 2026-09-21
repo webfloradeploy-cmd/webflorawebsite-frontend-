@@ -34,7 +34,7 @@ export default async function sitemap() {
     { route: "/it-company-in-patna/ai-chatbot-company-in-patna", priority: 0.95 },
     { route: "/it-company-in-patna/website-development-company-in-patna", priority: 0.95 },
     { route: "/it-company-in-patna/mobile-app-development-company-in-patna", priority: 0.9 },
-    { route: "/it-company-in-patna/software-development-company-in-patna", priority: 0.9 },
+    { route: "/it-company-in-patna/software-development-company-in-patna", priority: 0.95 },
     { route: "/it-company-in-patna/ai-automation-company-in-patna", priority: 0.95 },
     { route: "/it-company-in-patna/digital-marketing-agency-in-patna", priority: 0.9 },
 

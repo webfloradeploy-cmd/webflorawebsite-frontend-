@@ -15,8 +15,17 @@ import {
 export const dynamic = "force-static";
 export const dynamicParams = false;
 
+const DEDICATED_SERVICES = [
+  "digital-marketing-agency-in-patna",
+  "ai-chatbot-company-in-patna",
+  "software-development-company-in-patna"
+];
+
 export async function generateMetadata({ params }) {
   const { service: serviceSlug } = await params;
+  if (DEDICATED_SERVICES.includes(serviceSlug)) {
+    return {};
+  }
   const service = servicesData[serviceSlug];
   if (!service) return {};
 
@@ -57,6 +66,9 @@ export async function generateMetadata({ params }) {
 
 export default async function ServicePage({ params }) {
   const { service: serviceSlug } = await params;
+  if (DEDICATED_SERVICES.includes(serviceSlug)) {
+    notFound();
+  }
   const data = servicesData[serviceSlug];
   
   if (!data) {
@@ -101,7 +113,9 @@ export default async function ServicePage({ params }) {
 }
 
 export async function generateStaticParams() {
-  return Object.keys(servicesData).map((service) => ({
-    service: service,
-  }));
+  return Object.keys(servicesData)
+    .filter((service) => !DEDICATED_SERVICES.includes(service))
+    .map((service) => ({
+      service: service,
+    }));
 }

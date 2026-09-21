@@ -105,7 +105,7 @@ export default function Page() {
               buildItemListSchema([
                 { name: "Website Development Patna", url: "/it-company-in-patna/website-development-company-in-patna" },
                 { name: "Mobile App Development Patna", url: "/it-company-in-patna/mobile-app-development-company-in-patna" },
-                { name: "Software Development Patna", url: "/it-company-in-patna/software-development-company-in-patna" },
+                { name: "Software Development Company in Patna", url: "/it-company-in-patna/software-development-company-in-patna" },
                 { name: "SEO Services Patna", url: "/seo-services-in-patna" },
                 { name: "Digital Marketing Patna", url: "/it-company-in-patna/digital-marketing-agency-in-patna" },
                 { name: "AI Automation Patna", url: "/it-company-in-patna/ai-automation-company-in-patna" }

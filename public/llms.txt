@@ -4,15 +4,19 @@
 
 ## Key Pages
 - [Home](https://webfloratechnologies.com/): main homepage
-- [Services](https://webfloratechnologies.com/services): our core IT, AI chatbot, and digital growth services
-- [About Us](https://webfloratechnologies.com/about): our story, leadership, and registration details
+- [IT Company in Patna](https://webfloratechnologies.com/it-company-in-patna): our core IT, AI chatbot, and digital growth services hub
+- [Software Development Company in Patna](https://webfloratechnologies.com/software-development-company-in-patna): custom software engineering, ERP, CRM, and cloud applications in Patna, Bihar
+- [SEO Services in Patna](https://webfloratechnologies.com/seo-services-in-patna): result-driven local SEO, technical SEO, and AEO/GEO optimization
+- [eCommerce Website Development](https://webfloratechnologies.com/ecommerce-website-development): custom online stores, B2B portals, and marketplaces
+- [About Us](https://webfloratechnologies.com/about): our story, leadership, and MSME registration details
 - [Contact](https://webfloratechnologies.com/contact): get in touch for custom quotes
 - [Case Studies](https://webfloratechnologies.com/case-studies): successful deployments for our corporate clients
 
 ## Core Services
-- [Website Design Company in Patna](https://webfloratechnologies.com/services/website-development-company-in-patna): custom React & Next.js website design
-- [Mobile App Development in Patna](https://webfloratechnologies.com/services/mobile-app-development-company-in-patna): native Flutter & React Native app engineering
-- [Digital Marketing Agency in Patna](https://webfloratechnologies.com/services/digital-marketing-agency-in-patna): performance local SEO and PPC ads
-- [AI Chatbot Company in Patna](https://webfloratechnologies.com/services/ai-chatbot-company-in-patna): custom NLP conversational assistants
-- [AI Automation Company in Patna](https://webfloratechnologies.com/services/ai-automation-company-in-patna): business process workflow automation
-- [Software Development Company in Patna](https://webfloratechnologies.com/services/software-development-company-in-patna): enterprise custom software architectures
+- [Software Development Company in Patna](https://webfloratechnologies.com/software-development-company-in-patna): enterprise custom software architectures, ERP and CRM systems
+- [Website Design Company in Patna](https://webfloratechnologies.com/it-company-in-patna/website-development-company-in-patna): custom React & Next.js website design
+- [Mobile App Development in Patna](https://webfloratechnologies.com/it-company-in-patna/mobile-app-development-company-in-patna): native Flutter & React Native app engineering
+- [SEO Services in Patna](https://webfloratechnologies.com/seo-services-in-patna): organic Google search and AI overviews optimization
+- [Digital Marketing Agency in Patna](https://webfloratechnologies.com/it-company-in-patna/digital-marketing-agency-in-patna): performance local SEO and PPC ads
+- [AI Chatbot Company in Patna](https://webfloratechnologies.com/it-company-in-patna/ai-chatbot-company-in-patna): custom NLP conversational assistants
+- [AI Automation Company in Patna](https://webfloratechnologies.com/it-company-in-patna/ai-automation-company-in-patna): business process workflow automation

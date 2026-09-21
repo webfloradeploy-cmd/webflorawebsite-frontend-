@@ -48,7 +48,7 @@ const BlogClient = ({ initialPost }) => {
     { name: "Website Development", href: "/it-company-in-patna/website-development-company-in-patna" },
     { name: "Mobile App Development", href: "/it-company-in-patna/mobile-app-development-company-in-patna" },
     { name: "Digital Marketing", href: "/it-company-in-patna/digital-marketing-agency-in-patna" },
-    { name: "Software Development", href: "/it-company-in-patna/software-development-company-in-patna" },
+    { name: "Software Development in Patna", href: "/it-company-in-patna/software-development-company-in-patna" },
     { name: "AI & Automation", href: "/it-company-in-patna/ai-automation-company-in-patna" },
     { name: "AI Chatbots", href: "/it-company-in-patna/ai-chatbot-company-in-patna" },
   ];

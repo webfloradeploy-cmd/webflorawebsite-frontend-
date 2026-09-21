@@ -97,7 +97,7 @@ const page = () => {
               buildItemListSchema([
                 { name: "Website Development", url: "/it-company-in-patna/website-development-company-in-patna" },
                 { name: "Mobile App Development", url: "/it-company-in-patna/mobile-app-development-company-in-patna" },
-                { name: "Software Development", url: "/it-company-in-patna/software-development-company-in-patna" },
+                { name: "Software Development Company in Patna", url: "/it-company-in-patna/software-development-company-in-patna" },
                 { name: "Digital Marketing", url: "/it-company-in-patna/digital-marketing-agency-in-patna" },
                 { name: "SEO Services in Patna", url: "/seo-services-in-patna" },
                 { name: "AI & Automation", url: "/it-company-in-patna/ai-automation-company-in-patna" },
