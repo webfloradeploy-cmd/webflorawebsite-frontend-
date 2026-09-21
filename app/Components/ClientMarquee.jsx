@@ -13,6 +13,7 @@ const clientLogos = [
   { name: "Heo Sahyog", src: "/client-logo/heo-sahyog.png" },
   { name: "Vidya Bharti", src: "/client-logo/vidya-bharti.png" },
   { name: "LogiSafeWay", src: "/client-logo/logisafeway-logo.png" },
+  { name: "AG", src: "/client-logo/AG-logo.png" },
 ];
 
 export default function ClientMarquee() {
