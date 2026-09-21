@@ -41,6 +41,11 @@ const nextConfig = {
         destination: '/ecommerce-website-development',
         permanent: true,
       },
+      {
+        source: '/software-development-company-in-patna',
+        destination: '/it-company-in-patna/software-development-company-in-patna',
+        permanent: true,
+      },
     ];
   }, 
   
