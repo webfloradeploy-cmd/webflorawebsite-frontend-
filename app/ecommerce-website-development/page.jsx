@@ -1,7 +1,5 @@
-"use client";
-
-import React, { useState } from "react";
-import { motion } from "framer-motion";
+import React from "react";
+import dynamic from "next/dynamic";
 import { Icon } from "@iconify/react";
 import Link from "next/link";
 import Image from "next/image";
@@ -69,7 +67,18 @@ import {
   ArrowUpRight,
   Server
 } from "lucide-react";
-import API_BASE_URL from "../config";
+import ConsultationForm from "./components/ConsultationForm";
+import FaqAccordion from "./components/FaqAccordion";
+
+const StoreSimulator = dynamic(() => import("./components/StoreSimulator"), {
+  loading: () => (
+    <div className="w-full bg-[#080808] rounded-3xl border border-white/10 p-8 text-center text-neutral-400 min-h-[250px] flex items-center justify-center">
+      <span className="text-xs font-mono uppercase tracking-widest text-[#d93200] font-semibold">
+        Loading Store Operations Simulator...
+      </span>
+    </div>
+  )
+});
 
 const BRAND = "#ff3b00";
 
@@ -88,538 +97,125 @@ const clientLogos = [
   { name: "AG", src: "/client-logo/AG-logo.png" },
 ];
 
-// Interactive Store Simulator Widget
-const StoreSimulator = () => {
-  const [activeTab, setActiveTab] = useState("storefront");
-  const [cartItems, setCartItems] = useState([
-    { id: 1, name: "Premium Ergonomic Chair", price: 14999, qty: 1, stock: 8, image: "solar:armchair-linear" },
-    { id: 2, name: "Noise-Cancelling Headphones", price: 6499, qty: 1, stock: 15, image: "solar:headphones-round-linear" }
-  ]);
-  const [couponCode, setCouponCode] = useState("");
-  const [discountApplied, setDiscountApplied] = useState(false);
-  const [paymentStep, setPaymentStep] = useState("idle"); // idle, processing, success
-  const [orderId, setOrderId] = useState("WF-89241");
-  const [stockLevel, setStockLevel] = useState(8);
-  const [activeOrderStep, setActiveOrderStep] = useState(3); // 0 to 6
-
-  const subtotal = cartItems.reduce((acc, item) => acc + item.price * item.qty, 0);
-  const discount = discountApplied ? Math.round(subtotal * 0.15) : 0;
-  const shipping = subtotal > 5000 ? 0 : 250;
-  const total = subtotal - discount + shipping;
-
-  const updateQty = (id, delta) => {
-    setCartItems(prev => prev.map(item => {
-      if (item.id === id) {
-        const newQty = Math.max(1, Math.min(item.stock, item.qty + delta));
-        return { ...item, qty: newQty };
-      }
-      return item;
-    }));
-  };
-
-  const handleApplyCoupon = (e) => {
-    e.preventDefault();
-    if (couponCode.trim().toUpperCase() === "WEBFLORA" || couponCode.trim().toUpperCase() === "FLORA15") {
-      setDiscountApplied(true);
-    } else {
-      alert("Invalid coupon! Try 'WEBFLORA' or 'FLORA15'");
-    }
-  };
-
-  const handleSimulatePayment = () => {
-    setPaymentStep("processing");
-    setTimeout(() => {
-      setPaymentStep("success");
-      setStockLevel(prev => Math.max(0, prev - 1));
-      setOrderId("WF-" + Math.floor(10000 + Math.random() * 90000));
-    }, 1500);
-  };
-
-  const orderStatuses = ["New Order", "Confirmed", "Processing", "Packed", "Shipped", "Out for Delivery", "Delivered"];
-
-  return (
-    <div className="w-full bg-[#080808] rounded-3xl border border-white/10 p-5 md:p-8 shadow-2xl relative overflow-hidden backdrop-blur-xl">
-      {/* Glow highlight */}
-      <div className="absolute -top-32 -right-32 w-80 h-80 bg-[#FF3B00]/15 rounded-full blur-[100px] pointer-events-none" />
-      
-      {/* Header bar */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-white/10">
-        <div>
-          <div className="flex items-center gap-2">
-            <span className="w-3 h-3 rounded-full bg-emerald-500 animate-pulse" />
-            <span className="text-xs font-mono uppercase tracking-widest text-emerald-400 font-semibold">
-              Live eCommerce Operations Architecture
-            </span>
-          </div>
-          <h3 className="text-xl md:text-2xl font-bold text-white mt-1">
-            End-to-End Online Store Operations
-          </h3>
-        </div>
-
-        {/* Tab pills */}
-        <div className="flex bg-neutral-900/90 p-1.5 rounded-xl border border-white/10 overflow-x-auto">
-          {[
-            { id: "storefront", label: "Storefront & Cart", icon: ShoppingBag },
-            { id: "fulfillment", label: "Order Pipeline", icon: Truck },
-            { id: "inventory", label: "Inventory Logic", icon: Boxes },
-            { id: "analytics", label: "Admin Analytics", icon: BarChart3 },
-          ].map((tab) => {
-            const IconComp = tab.icon;
-            const isSelected = activeTab === tab.id;
-            return (
-              <button
-                key={tab.id}
-                onClick={() => {
-                  setActiveTab(tab.id);
-                  if (tab.id === "storefront") setPaymentStep("idle");
-                }}
-                className={`flex items-center gap-2 px-3.5 py-2 rounded-lg text-xs font-medium whitespace-nowrap transition-all duration-300 cursor-pointer ${
-                  isSelected
-                    ? "bg-[#FF3B00] text-white shadow-lg shadow-[#FF3B00]/25"
-                    : "text-neutral-400 hover:text-white hover:bg-white/5"
-                }`}
-              >
-                <IconComp className="w-3.5 h-3.5" />
-                <span>{tab.label}</span>
-              </button>
-            );
-          })}
-        </div>
-      </div>
-
-      {/* Tab 1: Storefront & Cart */}
-      {activeTab === "storefront" && (
-        <div className="pt-6 grid grid-cols-1 lg:grid-cols-12 gap-8">
-          <div className="lg:col-span-7 space-y-4">
-            <div className="flex items-center justify-between">
-              <h4 className="text-sm font-semibold uppercase tracking-wider text-neutral-400 flex items-center gap-2">
-                <ShoppingCart className="w-4 h-4 text-[#FF3B00]" />
-                Cart Items ({cartItems.reduce((a, b) => a + b.qty, 0)})
-              </h4>
-              <span className="text-xs text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2.5 py-1 rounded-full">
-                Free Shipping Qualified (&gt; ₹5,000)
-              </span>
-            </div>
-
-            <div className="space-y-3">
-              {cartItems.map((item) => (
-                <div key={item.id} className="bg-neutral-900/60 border border-white/5 rounded-2xl p-4 flex items-center justify-between gap-4">
-                  <div className="flex items-center gap-3">
-                    <div className="w-12 h-12 rounded-xl bg-neutral-800 border border-white/10 flex items-center justify-center text-[#FF3B00]">
-                      <Icon icon={item.image} width={24} />
-                    </div>
-                    <div>
-                      <div className="text-sm font-medium text-white">{item.name}</div>
-                      <div className="text-xs text-neutral-400 font-mono">₹{item.price.toLocaleString("en-IN")} each</div>
-                    </div>
-                  </div>
-
-                  <div className="flex items-center gap-3">
-                    <div className="flex items-center bg-neutral-800 rounded-lg border border-white/10">
-                      <button onClick={() => updateQty(item.id, -1)} className="px-2.5 py-1 text-neutral-400 hover:text-white cursor-pointer">-</button>
-                      <span className="px-2 text-xs font-mono font-bold text-white">{item.qty}</span>
-                      <button onClick={() => updateQty(item.id, 1)} className="px-2.5 py-1 text-neutral-400 hover:text-white cursor-pointer">+</button>
-                    </div>
-                    <div className="text-sm font-bold text-white font-mono w-24 text-right">
-                      ₹{(item.price * item.qty).toLocaleString("en-IN")}
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            {/* Coupon input */}
-            <form onSubmit={handleApplyCoupon} className="flex gap-2 pt-2">
-              <input
-                type="text"
-                value={couponCode}
-                onChange={(e) => setCouponCode(e.target.value)}
-                placeholder="Apply coupon (try 'WEBFLORA')"
-                className="flex-1 bg-neutral-900/80 border border-white/10 rounded-xl px-4 py-2.5 text-xs text-white placeholder:text-neutral-500 focus:outline-none focus:border-[#FF3B00]"
-              />
-              <button
-                type="submit"
-                className="px-4 py-2.5 bg-neutral-800 hover:bg-neutral-700 text-white rounded-xl text-xs font-semibold transition cursor-pointer"
-              >
-                Apply
-              </button>
-            </form>
-          </div>
-
-          <div className="lg:col-span-5 bg-neutral-900/80 border border-white/10 rounded-2xl p-6 flex flex-col justify-between">
-            <div>
-              <h4 className="text-sm font-semibold uppercase tracking-wider text-neutral-300 pb-3 border-b border-white/10">
-                Order Summary & Checkout
-              </h4>
-              
-              <div className="space-y-2.5 py-4 text-xs">
-                <div className="flex justify-between text-neutral-400">
-                  <span>Subtotal</span>
-                  <span className="font-mono text-white">₹{subtotal.toLocaleString("en-IN")}</span>
-                </div>
-                {discountApplied && (
-                  <div className="flex justify-between text-emerald-400">
-                    <span>Discount (15% promo)</span>
-                    <span className="font-mono">-₹{discount.toLocaleString("en-IN")}</span>
-                  </div>
-                )}
-                <div className="flex justify-between text-neutral-400">
-                  <span>Standard Logistics (India)</span>
-                  <span className="font-mono text-emerald-400 font-semibold">{shipping === 0 ? "FREE" : `₹${shipping}`}</span>
-                </div>
-                <div className="flex justify-between text-neutral-400">
-                  <span>Estimated GST (18%)</span>
-                  <span className="font-mono text-neutral-400">Included in MRP</span>
-                </div>
-                <div className="pt-3 border-t border-white/10 flex justify-between text-sm font-bold text-white">
-                  <span>Total Payable</span>
-                  <span className="font-mono text-[#FF3B00] text-base">₹{total.toLocaleString("en-IN")}</span>
-                </div>
-              </div>
-
-              {/* Supported payment badges */}
-              <div className="bg-neutral-950/60 p-3 rounded-xl border border-white/5 mb-4">
-                <div className="text-[10px] uppercase font-mono tracking-widest text-neutral-400 mb-2">
-                  Unified Gateway Integration
-                </div>
-                <div className="flex items-center gap-2 flex-wrap text-[11px] text-neutral-300">
-                  <span className="bg-white/5 px-2 py-1 rounded border border-white/10 flex items-center gap-1">
-                    <Zap className="w-3 h-3 text-[#FF3B00]" /> Instant UPI (GPay, PhonePe, Paytm)
-                  </span>
-                  <span className="bg-white/5 px-2 py-1 rounded border border-white/10">Cards / NetBanking</span>
-                  <span className="bg-white/5 px-2 py-1 rounded border border-white/10">COD Available</span>
-                </div>
-              </div>
-            </div>
-
-            {paymentStep === "idle" && (
-              <button
-                onClick={handleSimulatePayment}
-                className="w-full py-3.5 bg-[#FF3B00] hover:bg-[#ff4e1a] text-white rounded-xl text-sm font-bold tracking-wide shadow-lg shadow-[#FF3B00]/30 transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-95"
-              >
-                <Lock className="w-4 h-4" />
-                Simulate Secure One-Click Checkout
-              </button>
-            )}
-
-            {paymentStep === "processing" && (
-              <div className="w-full py-3.5 bg-neutral-800 text-white rounded-xl text-xs font-semibold flex items-center justify-center gap-2">
-                <RefreshCw className="w-4 h-4 animate-spin text-[#FF3B00]" />
-                Verifying UPI Webhook & Authorizing Gateway...
-              </div>
-            )}
-
-            {paymentStep === "success" && (
-              <div className="bg-emerald-500/10 border border-emerald-500/30 rounded-xl p-4 text-center">
-                <div className="w-8 h-8 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center mx-auto mb-2">
-                  <Check className="w-5 h-5" />
-                </div>
-                <div className="text-xs font-bold text-white">Payment Authorized Successfully!</div>
-                <div className="text-[11px] text-neutral-400 mt-0.5">Order ID: <span className="font-mono text-emerald-400">{orderId}</span></div>
-                <div className="text-[10px] text-neutral-500 mt-1">Invoice generated & WhatsApp notification triggered automatically.</div>
-              </div>
-            )}
-          </div>
-        </div>
-      )}
-
-      {/* Tab 2: Order Fulfillment Pipeline */}
-      {activeTab === "fulfillment" && (
-        <div className="pt-6 space-y-6">
-          <div className="bg-neutral-900/60 border border-white/10 rounded-2xl p-6">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-6">
-              <div>
-                <span className="text-xs font-mono uppercase text-[#FF3B00]">Tracking Order #{orderId}</span>
-                <h4 className="text-lg font-bold text-white">Live Lifecycle Order Status Transition</h4>
-              </div>
-              <span className="text-xs bg-white/5 border border-white/10 px-3 py-1.5 rounded-full text-neutral-300 font-mono">
-                Logistics Carrier: Shiprocket / Delhivery API
-              </span>
-            </div>
-
-            {/* Stepper bar */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-7 gap-3">
-              {orderStatuses.map((st, i) => {
-                const isPassed = i <= activeOrderStep;
-                const isCurrent = i === activeOrderStep;
-                return (
-                  <button
-                    key={st}
-                    onClick={() => setActiveOrderStep(i)}
-                    className={`p-3 rounded-xl border text-left transition-all cursor-pointer ${
-                      isCurrent
-                        ? "bg-[#FF3B00] border-[#FF3B00] text-white shadow-lg shadow-[#FF3B00]/25"
-                        : isPassed
-                        ? "bg-emerald-500/10 border-emerald-500/30 text-emerald-400"
-                        : "bg-neutral-950/60 border-white/5 text-neutral-500"
-                    }`}
-                  >
-                    <div className="text-[10px] font-mono uppercase tracking-wider">Step 0{i + 1}</div>
-                    <div className="text-xs font-bold mt-1">{st}</div>
-                  </button>
-                );
-              })}
-            </div>
-
-            <div className="mt-6 p-4 bg-neutral-950/80 rounded-xl border border-white/5 flex items-center justify-between">
-              <div className="text-xs text-neutral-300">
-                Current Status: <strong className="text-white">{orderStatuses[activeOrderStep]}</strong>
-              </div>
-              <div className="text-xs text-neutral-400 font-mono">
-                AWB #SR-{Math.floor(10000000 + Math.random() * 90000000)} | Auto-Synced to Database
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* Tab 3: Inventory Logic */}
-      {activeTab === "inventory" && (
-        <div className="pt-6 grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="bg-neutral-900/60 border border-white/10 rounded-2xl p-6 flex flex-col justify-between">
-            <div>
-              <div className="text-xs font-mono uppercase text-neutral-400">Warehouse 1: Delhi NCR Hub</div>
-              <div className="text-2xl font-bold text-white mt-2 font-mono">{stockLevel} Units Available</div>
-              <p className="text-xs text-neutral-400 mt-2">
-                Real-time stock deduction triggered upon checkout authorization.
-              </p>
-            </div>
-            <div className="text-[11px] font-mono text-emerald-400 pt-3 border-t border-white/5">
-              Status: In Stock (Safe Threshold &gt; 5)
-            </div>
-          </div>
-
-          <div className="bg-neutral-900/60 border border-white/10 rounded-2xl p-6 flex flex-col justify-between">
-            <div>
-              <div className="text-xs font-mono uppercase text-neutral-400">Warehouse 2: Patna Regional Hub</div>
-              <div className="text-2xl font-bold text-white mt-2 font-mono">14 Units Available</div>
-              <p className="text-xs text-neutral-400 mt-2">
-                Automated multi-warehouse routing allocates nearest fulfillment center by pincode.
-              </p>
-            </div>
-            <div className="text-[11px] font-mono text-emerald-400 pt-3 border-t border-white/5">
-              Status: Operational & Fast Dispatch
-            </div>
-          </div>
-
-          <div className="bg-neutral-900/60 border border-white/10 rounded-2xl p-6 flex flex-col justify-between">
-            <div>
-              <div className="text-xs font-mono uppercase text-neutral-400">Multi-Channel Sync</div>
-              <div className="space-y-2 mt-3 text-xs text-neutral-300">
-                <div className="flex items-center gap-2">
-                  <Check className="w-3.5 h-3.5 text-emerald-400" />
-                  <span>Next.js Web Storefront</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Check className="w-3.5 h-3.5 text-emerald-400" />
-                  <span>Physical Retail POS Integration</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Check className="w-3.5 h-3.5 text-emerald-400" />
-                  <span>Amazon / Flipkart Sync Webhook</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Check className="w-3.5 h-3.5 text-emerald-400" />
-                  <span>ERP & Tally Database Sync</span>
-                </div>
-              </div>
-            </div>
-            <div className="text-[11px] font-mono text-neutral-500 pt-3 border-t border-white/5">
-              Sync Latency: &lt; 250ms
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* Tab 4: Admin Analytics */}
-      {activeTab === "analytics" && (
-        <div className="pt-6 grid grid-cols-2 md:grid-cols-4 gap-4">
-          {[
-            { label: "Today's Sales Revenue", val: "₹1,48,920", sub: "+24.5% vs yesterday", color: "text-emerald-400" },
-            { label: "Total Orders (This Month)", val: "1,248 Orders", sub: "98.2% Fulfillment Rate", color: "text-white" },
-            { label: "Average Order Value (AOV)", val: "₹2,640", sub: "Upsell rules active", color: "text-[#FF3B00]" },
-            { label: "Abandoned Cart Recovery", val: "32.4%", sub: "Automated WhatsApp sequences", color: "text-cyan-400" },
-          ].map((stat, idx) => (
-            <div key={idx} className="bg-neutral-900/60 border border-white/10 rounded-2xl p-5">
-              <div className="text-xs font-mono uppercase text-neutral-400">{stat.label}</div>
-              <div className={`text-2xl font-bold font-mono mt-2 ${stat.color}`}>{stat.val}</div>
-              <div className="text-[11px] text-neutral-500 mt-1">{stat.sub}</div>
-            </div>
-          ))}
-        </div>
-      )}
-    </div>
-  );
-};
-
 export default function EcommerceWebsiteDevelopmentPage() {
-  const [openFaqs, setOpenFaqs] = useState({ 0: true });
-
-  const toggleFaq = (index) => {
-    setOpenFaqs((prev) => ({
-      ...prev,
-      [index]: !prev[index],
-    }));
-  };
-
-  // Quote Form State
-  const [formState, setFormState] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    projectType: "Custom eCommerce Website",
-    budget: "₹60,000–₹1,50,000",
-    message: ""
-  });
-  const [formLoading, setFormLoading] = useState(false);
-  const [formSuccess, setFormSuccess] = useState(false);
-
-  const handleFormSubmit = async (e) => {
-    e.preventDefault();
-    setFormLoading(true);
-    try {
-      const res = await fetch(`${API_BASE_URL}/api/public/contact`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          ...formState,
-          subject: `eCommerce Website Development Inquiry: ${formState.projectType}`
-        })
-      });
-      if (res.ok) {
-        setFormSuccess(true);
-      } else {
-        alert("Submission error. Please call +91 8540814729 directly.");
-      }
-    } catch (err) {
-      alert("Network error. Please WhatsApp us directly at +91 8540814729.");
-    } finally {
-      setFormLoading(false);
-    }
-  };
-
   const servicesList = [
     {
-      title: "Custom eCommerce Website Development",
+      title: "Custom eCommerce Website Development in Patna",
       icon: Code2,
       link: "/technology/nextjs-development",
-      desc: "Tailored Next.js & Node.js online stores with zero sales cuts, bespoke pricing tiers, custom checkout workflows, and multi-warehouse synchronization."
+      desc: "Tailored Next.js & Node.js online stores for Patna businesses with zero sales cuts, bespoke pricing tiers, custom checkout workflows, and multi-warehouse synchronization."
     },
     {
-      title: "B2B eCommerce Platform Development",
+      title: "B2B Wholesale eCommerce Platform in Patna",
       icon: Building2,
       link: "/industries/manufacturing",
-      desc: "Enterprise wholesale portals with dealer logins, negotiated price lists, bulk CSV ordering, minimum order quantities (MOQs), and Tally/ERP sync."
+      desc: "Enterprise wholesale portals for Patna manufacturers & distributors with dealer logins, negotiated price lists, bulk CSV ordering, MOQs, and Tally Prime ERP sync."
     },
     {
-      title: "D2C eCommerce Storefronts",
+      title: "D2C Brand Storefronts in Patna",
       icon: Zap,
       link: "/industries/retail",
-      desc: "High-conversion direct-to-consumer brand storefronts with 1-click UPI checkout, subscription commerce, customer loyalty, and WhatsApp automation."
+      desc: "High-conversion direct-to-consumer brand storefronts with 1-click UPI checkout, subscription commerce, customer loyalty, and automated WhatsApp delivery updates."
     },
     {
       title: "Multi-Vendor Marketplace Development",
       icon: Users,
       link: "/it-company-in-patna/software-development-company-in-patna",
-      desc: "Marketplace platforms like Amazon or Flipkart with vendor dashboards, automated commission calculations, seller payouts, and central admin control."
+      desc: "Hyperlocal and regional marketplace platforms with vendor dashboards, automated commission calculations, seller payouts, and central admin control."
     },
     {
-      title: "Shopify Store Design & Development",
+      title: "Shopify Store Design & Development in Patna",
       icon: ShoppingBag,
       link: "/technology/shopify-development",
-      desc: "End-to-end Shopify store setup, bespoke Liquid theme design, private app development, payment/shipping setup, and headless Shopify engineering."
+      desc: "End-to-end Shopify store setup, bespoke Liquid theme design, private app development, Razorpay/UPI payment, Shiprocket shipping, and Shopify SEO."
     },
     {
-      title: "WooCommerce Website Development",
+      title: "WooCommerce Website Development in Patna",
       icon: Globe,
       link: "/technology/wordpress-development",
-      desc: "WordPress & WooCommerce online stores with custom plugins, lightweight database queries, high-speed Redis caching, and payment integration."
+      desc: "WordPress & WooCommerce online stores with custom plugins, lightweight database queries, high-speed Redis caching, and local courier integration."
     },
     {
-      title: "eCommerce Mobile App Development",
+      title: "eCommerce Mobile App Development in Patna",
       icon: Smartphone,
       link: "/it-company-in-patna/mobile-app-development-company-in-patna",
       desc: "Native and cross-platform mobile shopping apps for Android and iOS using Flutter and React Native with push notifications and live GPS tracking."
     },
     {
-      title: "eCommerce Payment & Shipping Integration",
+      title: "Payment Gateway & Logistics Integration",
       icon: CreditCard,
       link: "/it-company-in-patna/ai-automation-company-in-patna",
-      desc: "Seamless integration of Razorpay, Cashfree, Stripe, Shiprocket, Delhivery, Blue Dart, Tally, Zoho Books, and WhatsApp notification engines."
+      desc: "Seamless integration of Razorpay, Cashfree, Paytm PG, Shiprocket, Delhivery, Blue Dart, Tally Prime, and WhatsApp notification engines in Patna."
     },
     {
-      title: "eCommerce UI/UX Design & Optimization",
+      title: "eCommerce UI/UX Design & SEO in Patna",
       icon: Laptop,
       link: "/it-company-in-patna/website-development-company-in-patna",
-      desc: "Conversion rate optimized (CRO) design systems, intuitive search filtering, sticky one-page checkout, and lightning-fast sub-second mobile page loads."
+      desc: "Conversion rate optimized (CRO) design systems, intuitive search filtering, sticky one-page checkout, and sub-second mobile page loads with local Patna SEO."
     }
   ];
 
   const faqs = [
     {
-      q: "What does an eCommerce website development company do?",
-      a: "An eCommerce website development company designs, builds, and maintains online stores and digital commerce platforms. This encompasses user interface (UI/UX) design, product catalog structure, shopping cart engineering, secure payment gateway integrations (UPI, Cards, NetBanking), automated shipping and logistics connections, inventory tracking across warehouses, customer account management, and CRM/ERP synchronization (such as Tally or SAP). The company ensures the store is secure, fast, mobile-friendly, and optimized for search engines to generate consistent online sales."
+      q: "What does an eCommerce website development company in Patna do?",
+      a: "An eCommerce website development company in Patna like Webflora Technologies designs, builds, and maintains online stores and digital commerce platforms for businesses across Patna, Bihar, and India. This encompasses conversion-focused UI/UX design, product catalog structure, shopping cart engineering, secure payment gateway integrations (UPI, Cards, NetBanking), automated courier shipping connections (Shiprocket, Delhivery), inventory tracking across warehouses, customer account management, and CRM/ERP synchronization (such as Tally Prime, Busy, or SAP). We ensure your online store is fast, secure, mobile-friendly, and ranked on Google."
     },
     {
-      q: "How much does an eCommerce website cost in India?",
-      a: "The cost of developing an eCommerce website in India typically ranges from ₹30,000 to ₹5,00,000+ depending on your business requirements. A basic starter online store on Shopify or WooCommerce costs around ₹30,000 to ₹60,000. A custom-designed professional D2C storefront with automated courier and WhatsApp integrations ranges from ₹60,000 to ₹1,50,000. Advanced custom platforms (Next.js/Node.js), B2B wholesale portals with ERP sync, and multi-vendor marketplaces range from ₹1,50,000 to ₹5,00,000+. Final pricing is determined by custom workflows, SKU count, and third-party APIs."
+      q: "How much does an eCommerce website cost in Patna, Bihar?",
+      a: "The cost of developing an eCommerce website in Patna typically ranges from ₹30,000 to ₹5,00,000+ depending on your business requirements. A basic starter online store on Shopify or WooCommerce costs around ₹30,000 to ₹60,000. A custom-designed professional D2C storefront with automated courier and WhatsApp integrations ranges from ₹60,000 to ₹1,50,000. Advanced custom platforms (Next.js/Node.js), B2B wholesale portals with Tally ERP sync, and multi-vendor marketplaces range from ₹1,50,000 to ₹5,00,000+. We provide fixed-price, transparent quotations."
     },
     {
-      q: "How long does it take to develop an eCommerce website?",
+      q: "How long does it take to develop an eCommerce website in Patna?",
       a: "A standard eCommerce store built on Shopify or WooCommerce typically takes 2 to 4 weeks to design, configure, test, and launch. A professional custom-designed store with specialized payment, shipping, and automated messaging workflows takes 4 to 8 weeks. Enterprise B2B platforms requiring complex ERP integrations, custom wholesale pricing tiers, or multi-vendor marketplace functionality generally take 8 to 16+ weeks. We provide clear milestone timelines during the initial scope discovery."
     },
     {
-      q: "Which platform is best for an ecommerce website?",
-      a: "The best platform depends entirely on your operational model and growth strategy. Shopify is ideal for startups and D2C brands wanting managed hosting and rapid time-to-market. WooCommerce is best for WordPress-based businesses wanting full content control and zero recurring platform fees. Custom eCommerce (Next.js, React, Node.js) is best for high-volume retailers, B2B wholesalers, and brands requiring proprietary workflows, sub-second load times, ERP synchronization, and zero percentage cuts on sales."
+      q: "Which platform is best for an eCommerce website in Patna?",
+      a: "The best platform depends on your operational model: Shopify is ideal for startups and D2C brands wanting managed hosting and rapid time-to-market. WooCommerce is best for WordPress-based businesses wanting full content control and zero recurring platform fees. Custom eCommerce (Next.js, React, Node.js) is best for high-volume retailers, B2B wholesalers in Patna, and brands requiring proprietary workflows, sub-second load times, Tally ERP synchronization, and zero percentage cuts on sales."
     },
     {
-      q: "Can you build a custom eCommerce website?",
-      a: "Yes, absolutely. Webflora Technologies specializes in custom eCommerce development using Next.js App Router, React, Node.js, Express, and PostgreSQL/MongoDB. Custom development gives you 100% code ownership, zero monthly transaction cuts, tailored B2B quotation workflows, dynamic multi-warehouse routing, bespoke customer-specific pricing matrices, and direct bi-directional synchronization with Tally Prime, Zoho Books, or SAP."
+      q: "Can you build a custom eCommerce website with Tally Prime integration in Patna?",
+      a: "Yes, absolutely. Webflora Technologies specializes in custom eCommerce development using Next.js App Router, React, Node.js, Express, and PostgreSQL/MongoDB. Custom development gives you 100% code ownership, zero monthly transaction cuts, tailored B2B quotation workflows, dynamic multi-warehouse routing, bespoke customer-specific pricing matrices, and direct bi-directional synchronization with Tally Prime, Zoho Books, or Marg ERP."
     },
     {
-      q: "Can you develop a Shopify store?",
-      a: "Yes. Our certified Shopify developers design bespoke Liquid themes from scratch, build custom private apps, configure Indian payment gateways (Razorpay, Paytm, Cashfree), connect Shiprocket logistics, and implement Shopify SEO. We also build Headless Shopify architectures utilizing Next.js for brands demanding extreme mobile performance."
+      q: "Can you develop a Shopify store in Patna?",
+      a: "Yes. Our certified Shopify developers design bespoke Liquid themes from scratch, build custom private apps, configure Indian payment gateways (Razorpay, Paytm, Cashfree), connect Shiprocket logistics from Patna, and implement Shopify SEO. We also build Headless Shopify architectures utilizing Next.js for brands demanding extreme mobile performance."
     },
     {
-      q: "Can you develop a WooCommerce website?",
+      q: "Can you develop a WooCommerce website in Patna?",
       a: "Yes. We engineer high-performance WooCommerce stores built on WordPress. We write custom plugins, optimize MySQL queries, implement Redis in-memory caching, build customized one-page checkouts, and connect local payment and logistics carriers, ensuring your WordPress store loads in under 1.5 seconds without bloat."
     },
     {
-      q: "Can you build a B2B ecommerce website?",
-      a: "Yes. We build enterprise B2B eCommerce platforms tailored for manufacturers, distributors, and wholesalers. Features include dealer and distributor login portals, customer-specific negotiated price lists, bulk CSV ordering, Minimum Order Quantities (MOQs), instant Request for Quote (RFQ) generation, GST tax invoicing, credit payment terms, and live Tally or SAP ERP ledger synchronization."
+      q: "Can you build a B2B wholesale eCommerce website in Patna?",
+      a: "Yes. We build enterprise B2B eCommerce platforms tailored for Patna & Bihar manufacturers, distributors, and wholesalers. Features include dealer and distributor login portals, customer-specific negotiated price lists, bulk CSV ordering, Minimum Order Quantities (MOQs), instant Request for Quote (RFQ) generation, GST tax invoicing, credit payment terms, and live Tally Prime or SAP ERP ledger synchronization."
     },
     {
-      q: "Can you build a multi-vendor ecommerce website?",
-      a: "Yes. We engineer scalable multi-vendor marketplaces similar to Amazon, Flipkart, or Nykaa. The platform includes a unified customer storefront with multi-seller split carts, dedicated vendor self-service dashboards (product listings, orders, payouts), and a master administrator control panel with automated commission calculation and payout disbursements."
+      q: "Can you build a multi-vendor marketplace in Patna?",
+      a: "Yes. We engineer scalable multi-vendor marketplaces similar to Amazon, Flipkart, or regional platforms. The platform includes a unified customer storefront with multi-seller split carts, dedicated vendor self-service dashboards (product listings, orders, payouts), and a master administrator control panel with automated commission calculation and payout disbursements."
     },
     {
-      q: "Can you integrate payment gateways?",
+      q: "Can you integrate payment gateways and Instant UPI?",
       a: "Yes. We integrate all major Indian and international payment gateways including Razorpay, Cashfree, PayU, Paytm, PhonePe PG, Stripe, and PayPal. We support Instant UPI (Google Pay, PhonePe, Paytm QR & Intent), Credit/Debit Cards, Net Banking across 50+ banks, Cardless EMIs, and Cash on Delivery (COD) with automated OTP verification."
     },
     {
-      q: "Can you integrate shipping services?",
-      a: "Yes. We integrate automated shipping APIs including Shiprocket, Delhivery, Blue Dart, Ecom Express, and India Post. This enables automatic AWB generation upon order confirmation, bulk shipping label and manifest printing, real-time courier rate comparison, and live GPS package tracking with automated WhatsApp/SMS delivery updates to customers."
+      q: "Can you integrate shipping services and courier pickup from Patna?",
+      a: "Yes. We integrate automated shipping APIs including Shiprocket, Delhivery, Blue Dart, Ecom Express, and India Post. This enables automatic AWB generation upon order confirmation, bulk shipping label and manifest printing, real-time courier rate comparison, doorstep courier pickup in Patna, and live GPS package tracking with automated WhatsApp/SMS delivery updates to customers."
     },
     {
-      q: "Can you integrate an ecommerce website with ERP or CRM?",
-      a: "Yes. We provide seamless bi-directional API integration connecting your eCommerce website with ERP and accounting software including Tally Prime, Zoho Books & Inventory, SAP Business One, Marg ERP, Busy, and Salesforce. This automates invoice creation, tax compliance, customer records, and real-time inventory adjustments."
+      q: "Do you provide in-person meetings and local technical support in Patna?",
+      a: "Yes. Webflora Technologies is based in Patna. You can meet our lead eCommerce architects in person at our Patna office to discuss your project requirements, review live development milestones, or receive hands-on training for your back-office staff."
     },
     {
-      q: "Can you develop an ecommerce mobile app?",
-      a: "Yes. We develop high-performance cross-platform eCommerce mobile applications for Android and iOS using Flutter and React Native. The mobile apps sync seamlessly in real-time with your web store database, supporting push notification marketing, one-tap biometric checkout, and offline catalog browsing."
+      q: "Is eCommerce website development SEO-friendly for Google ranking in Patna and India?",
+      a: "Yes. Technical SEO is embedded into every online store we build. We structure clean semantic URLs, logical product and category hierarchies, dynamic XML sitemaps, canonical tags to prevent duplicate faceted filter indexing, Product and FAQPage Schema JSON-LD structured data, and sub-second Core Web Vitals performance for top Google search visibility in Patna and nationwide."
     },
     {
-      q: "Is ecommerce website development SEO-friendly?",
-      a: "Yes. Technical SEO is embedded into every online store we build. We structure clean semantic URLs, logical product and category hierarchies, dynamic XML sitemaps, canonical tags to prevent duplicate faceted filter indexing, Product and FAQPage Schema JSON-LD structured data, and sub-second Core Web Vitals performance for top Google search visibility."
-    },
-    {
-      q: "Do you provide ecommerce website maintenance?",
-      a: "Yes. We provide comprehensive post-launch technical support and maintenance agreements. Our team handles routine security patches, speed audits, database optimization, third-party API updates, automated backups, conversion rate optimization (CRO) testing, and continuous feature enhancements."
+      q: "Do you provide eCommerce website maintenance and post-launch support in Patna?",
+      a: "Yes. We provide comprehensive post-launch technical support and maintenance agreements. Our Patna-based team handles routine security patches, speed audits, database optimization, third-party API updates, automated backups, conversion rate optimization (CRO) testing, and continuous feature enhancements."
     }
   ];
 
   return (
-    <main className="min-h-screen bg-[#050505] text-white selection:bg-[#FF3B00] selection:text-white pt-24 pb-20 overflow-hidden">
+    <main className="min-h-screen bg-[#050505] text-white selection:bg-[#FF3B00] selection:text-white pt-20 sm:pt-24 pb-20 overflow-hidden">
       
       {/* ── Background Glow Elements ── */}
       <div className="fixed inset-0 pointer-events-none z-0">
@@ -630,103 +226,147 @@ export default function EcommerceWebsiteDevelopmentPage() {
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* ── 1. Hero Section & H1 ── */}
-        <section className="text-center pt-8 pb-16 md:pt-14 md:pb-24">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-md mb-6 hover:border-[#FF3B00]/40 transition"
-          >
-            <Sparkles className="w-4 h-4 text-[#FF3B00]" />
-            <span className="text-xs md:text-sm font-medium text-neutral-200">
-              eCommerce Website Development Company in India | <span className="text-[#FF3B00] font-semibold">Webflora Technologies</span>
-            </span>
-          </motion.div>
+        {/* ── 1. Hero Section (Mobile App Development Page Template) ── */}
+        <section className="relative flex items-center justify-center overflow-hidden pt-2 sm:pt-4 md:pt-6 pb-12 md:pb-16 border-b border-white/5">
+          <div className="relative z-10 w-full grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+            
+            {/* Left Column: Heading, Subtext, Badges & CTAs */}
+            <div className="lg:col-span-7 flex flex-col space-y-4 sm:space-y-5 text-left">
+              {/* Trust Badge */}
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-orange-500/30 bg-orange-500/10 w-fit">
+                <span className="text-orange-400 text-xs">⭐</span>
+                <span className="text-[11px] font-mono font-bold tracking-wider text-orange-300 uppercase">
+                  Top eCommerce Agency in Patna, Bihar
+                </span>
+              </div>
 
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight text-white max-w-5xl mx-auto leading-[1.15]"
-          >
-            eCommerce Website <br className="hidden sm:block" />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-neutral-200 to-[#FF3B00]">
-              Development Company
-            </span>
-          </motion.h1>
+              {/* Dominant High-Impact Heading - LCP Priority */}
+              <h1 className="font-display font-black tracking-tight leading-[1.08] text-3xl sm:text-4xl md:text-5xl lg:text-6xl uppercase text-white w-full">
+                eCommerce Website{" "}
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 via-[#FF3B00] to-red-500">
+                  Development Company in Patna
+                </span>
+              </h1>
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="mt-6 max-w-3xl mx-auto text-left sm:text-center space-y-3"
-          >
-            <p className="text-base sm:text-lg text-neutral-200 leading-relaxed font-normal">
-              <strong className="text-white font-semibold">Webflora Technologies</strong> is an <strong className="text-white font-semibold">eCommerce website development company in India</strong> that builds custom online stores for startups, <Link href="/industries/retail" className="text-[#FF3B00] underline hover:text-white">D2C brands</Link>, retailers, <Link href="/industries/manufacturing" className="text-neutral-200 underline hover:text-[#FF3B00]">manufacturers</Link>, wholesalers and growing businesses.
-            </p>
-            <p className="text-sm sm:text-base text-neutral-300 leading-relaxed font-light">
-              We develop eCommerce websites that combine high-converting UI/UX, secure payments, product management, inventory, order processing, shipping integrations and SEO-friendly architecture. Depending on your business requirements, we build stores using Shopify, WooCommerce or custom technologies such as <Link href="/technology/nextjs-development" className="text-[#FF3B00] underline hover:text-white">Next.js</Link>, React and Node.js.
-            </p>
-            <p className="text-xs sm:text-sm text-neutral-400 leading-relaxed">
-              Whether you need a small online store, a B2B ordering portal, a D2C storefront or a <Link href="/it-company-in-patna/software-development-company-in-patna" className="text-neutral-300 underline hover:text-[#FF3B00]">multi-vendor marketplace</Link>, our eCommerce development team can design and develop a solution around your products, customers and business workflow.
-            </p>
-          </motion.div>
+              {/* Crisp, high-contrast Value Prop Subtext */}
+              <p className="text-neutral-200 text-sm sm:text-base leading-relaxed font-normal max-w-2xl">
+                <strong className="text-white font-semibold">Webflora Technologies</strong> is the leading eCommerce website development company in Patna that builds custom online stores for startups, <Link href="/industries/retail" className="text-[#FF3B00] underline hover:text-white">D2C brands</Link>, retailers, wholesalers, and <Link href="/industries/manufacturing" className="text-neutral-200 underline hover:text-[#FF3B00]">manufacturers</Link> across Bihar. From instant UPI checkouts to automated Shiprocket shipping, local warehouse inventory, and Tally ERP sync, we engineer eCommerce platforms built for high conversion and scale.
+              </p>
 
-          {/* CTA Buttons */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4"
-          >
-            <a
-              href="#consultation-form"
-              className="w-full sm:w-auto px-8 py-4 rounded-full bg-[#FF3B00] hover:bg-[#ff4e1a] text-white text-sm font-bold tracking-wide shadow-[0_0_30px_rgba(255,59,0,0.4)] hover:shadow-[0_0_40px_rgba(255,59,0,0.6)] transition-all transform hover:-translate-y-0.5 flex items-center justify-center gap-2 cursor-pointer"
-            >
-              <span>Get a Free Consultation</span>
-              <ArrowRight className="w-4 h-4" />
-            </a>
+              {/* Quick Value Metrics Pills */}
+              <div className="flex flex-wrap items-center gap-2 pt-1 min-h-[32px]">
+                {[
+                  { icon: Code2, label: "100% Store & Code Ownership" },
+                  { icon: Zap, label: "Sub-1s Native Speed" },
+                  { icon: CreditCard, label: "Razorpay, Cashfree & UPI PG" },
+                  { icon: Truck, label: "Shiprocket & Delhivery Sync" },
+                  { icon: Award, label: "90+ Lighthouse Score" }
+                ].map((pill, i) => {
+                  const IconComp = pill.icon;
+                  return (
+                    <div
+                      key={i}
+                      className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-zinc-900 border border-white/10 text-neutral-200 text-xs font-medium h-[28px]"
+                    >
+                      <span className="w-3.5 h-3.5 flex items-center justify-center shrink-0 text-orange-400">
+                        <IconComp className="w-3.5 h-3.5" />
+                      </span>
+                      <span>{pill.label}</span>
+                    </div>
+                  );
+                })}
+              </div>
 
-            <a
-              href="#consultation-form"
-              className="w-full sm:w-auto px-7 py-4 rounded-full bg-white/5 hover:bg-white/10 text-white text-sm font-medium border border-white/10 hover:border-white/20 transition flex items-center justify-center gap-2 cursor-pointer"
-            >
-              <FileCode2 className="w-4 h-4 text-[#FF3B00]" />
-              <span>Request an eCommerce Quote</span>
-            </a>
-          </motion.div>
+              {/* CTAs */}
+              <div className="flex flex-wrap items-center gap-3 pt-2 sm:pt-3 min-h-[48px]">
+                <a
+                  href="#consultation-form"
+                  className="inline-flex items-center justify-center gap-2 px-7 py-3.5 bg-[#d93200] hover:bg-[#c22d00] text-white text-xs sm:text-sm font-black uppercase tracking-wider rounded-full transition-all duration-300 shadow-[0_4px_25px_rgba(217,50,0,0.4)] hover:scale-105 active:scale-95 cursor-pointer min-h-[44px]"
+                >
+                  <span>Start Project</span>
+                  <span className="w-4 h-4 flex items-center justify-center shrink-0">
+                    <ArrowUpRight className="w-4 h-4" />
+                  </span>
+                </a>
 
-          {/* Quick Pillars */}
-          <div className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto text-left">
-            {[
-              { icon: Zap, title: "Modern & Fast", sub: "Sub-second mobile checkout", link: "/technology/nextjs-development" },
-              { icon: ShieldCheck, title: "100% Code Ownership", sub: "Zero monthly sales cuts", link: "/compare/custom-software-vs-saas" },
-              { icon: CreditCard, title: "UPI & All Gateways", sub: "Razorpay, Paytm, Cashfree", link: "/it-company-in-patna/software-development-company-in-patna" },
-              { icon: Truck, title: "Automated Shipping", sub: "Shiprocket & Delhivery APIs", link: "/it-company-in-patna/ai-automation-company-in-patna" },
-            ].map((item, idx) => {
-              const IconComp = item.icon;
-              return (
-                <Link key={idx} href={item.link} className="group bg-neutral-900/50 hover:bg-neutral-900/90 border border-white/5 hover:border-[#FF3B00]/40 p-3.5 rounded-2xl flex items-center gap-3 transition">
-                  <div className="w-9 h-9 rounded-xl bg-[#FF3B00]/10 border border-[#FF3B00]/20 flex items-center justify-center text-[#FF3B00] shrink-0 group-hover:scale-105 transition-transform">
-                    <IconComp className="w-4 h-4" />
-                  </div>
-                  <div>
-                    <div className="text-xs font-bold text-white group-hover:text-[#FF3B00] transition-colors leading-tight">{item.title}</div>
-                    <div className="text-[11px] text-neutral-400 mt-0.5">{item.sub}</div>
-                  </div>
-                </Link>
-              );
-            })}
+                <a
+                  href="tel:8540814729"
+                  className="inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-zinc-900 border border-white/10 hover:border-orange-500/50 hover:bg-orange-500/10 text-white text-xs sm:text-sm font-bold uppercase tracking-wider rounded-full transition-all duration-300 active:scale-95 cursor-pointer min-h-[44px]"
+                >
+                  <span className="w-4 h-4 flex items-center justify-center shrink-0 text-orange-400">
+                    <PhoneCall className="w-4 h-4" />
+                  </span>
+                  <span>Call Us Directly</span>
+                </a>
+              </div>
+            </div>
+
+            {/* Right Column: Dynamic Tech Stack & SLA Dashboard */}
+            <div className="lg:col-span-5 flex flex-col gap-4 relative">
+              {/* Tech Stack Card */}
+              <div className="p-5 sm:p-6 rounded-2xl bg-zinc-950 border border-white/10 shadow-2xl space-y-3">
+                <div className="flex items-center justify-between">
+                  <span className="text-xs font-mono uppercase tracking-widest text-orange-400 font-bold">
+                    Engineered eCommerce Stack
+                  </span>
+                  <span className="text-[10px] font-mono text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded-full font-bold">
+                    ● Production Ready
+                  </span>
+                </div>
+                <div className="grid grid-cols-3 gap-2.5">
+                  {[
+                    { name: "Next.js 15", icon: Code2 },
+                    { name: "Shopify Plus", icon: ShoppingBag },
+                    { name: "WooCommerce", icon: Globe },
+                    { name: "Node.js", icon: Server },
+                    { name: "Razorpay PG", icon: CreditCard },
+                    { name: "Shiprocket", icon: Truck }
+                  ].map((tech, idx) => {
+                    const IconComp = tech.icon;
+                    return (
+                      <div
+                        key={idx}
+                        className="flex flex-col items-center justify-center p-2.5 rounded-xl bg-zinc-900 border border-white/5 hover:border-orange-500/40 hover:bg-zinc-800 transition-all duration-300 min-h-[64px]"
+                      >
+                        <div className="w-[26px] h-[26px] mb-1 flex items-center justify-center shrink-0 text-orange-400">
+                          <IconComp className="w-5 h-5" />
+                        </div>
+                        <span className="text-[10px] font-mono text-neutral-200 uppercase text-center tracking-wider truncate w-full">
+                          {tech.name}
+                        </span>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* Quick Metrics Grid */}
+              <div className="p-5 sm:p-6 rounded-2xl bg-zinc-950 border border-white/10 shadow-2xl grid grid-cols-2 gap-4">
+                <div>
+                  <p className="text-2xl sm:text-3xl font-black text-white font-display">99.9%</p>
+                  <p className="text-[10px] font-mono uppercase text-neutral-300 tracking-wider font-semibold">Uptime & Cart SLA</p>
+                </div>
+                <div>
+                  <p className="text-2xl sm:text-3xl font-black text-white font-display">Sub-1s</p>
+                  <p className="text-[10px] font-mono uppercase text-neutral-300 tracking-wider font-semibold">Load & Checkout</p>
+                </div>
+                <div className="col-span-2 h-[1px] bg-white/5" />
+                <div>
+                  <p className="text-2xl sm:text-3xl font-black text-white font-display">150+</p>
+                  <p className="text-[10px] font-mono uppercase text-neutral-300 tracking-wider font-semibold">eCommerce Stores</p>
+                </div>
+                <div>
+                  <p className="text-2xl sm:text-3xl font-black text-orange-400 font-display">100%</p>
+                  <p className="text-[10px] font-mono uppercase text-neutral-300 tracking-wider font-semibold">Code & Store Ownership</p>
+                </div>
+              </div>
+            </div>
+
           </div>
         </section>
 
         {/* ── 2. TRUST: Real Clients / Projects / Reviews ── */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
+        <div
           className="my-10 relative rounded-3xl bg-gradient-to-b from-white/[0.06] via-white/[0.02] to-transparent border border-white/10 p-6 sm:p-8 backdrop-blur-2xl shadow-[0_20px_50px_rgba(0,0,0,0.6)] overflow-hidden"
         >
           <div className="flex flex-col lg:flex-row items-center justify-between gap-6 pb-6 border-b border-white/10">
@@ -742,18 +382,18 @@ export default function EcommerceWebsiteDevelopmentPage() {
                   ))}
                 </div>
                 <span className="text-[10px] uppercase font-mono tracking-widest text-amber-400 font-bold">
-                  Verified Google Reviews
+                  Verified Google Reviews in Patna & Bihar
                 </span>
               </div>
 
               <div className="hidden sm:block w-px h-10 bg-white/10" />
 
               <div>
-                <h3 className="text-lg md:text-xl font-bold text-white tracking-tight">
-                  Trusted eCommerce Website Developers
-                </h3>
+                <h2 className="text-lg md:text-xl font-bold text-white tracking-tight">
+                  Trusted eCommerce Website Developers in Patna
+                </h2>
                 <p className="text-xs sm:text-sm text-neutral-400 font-light mt-0.5">
-                  Helping businesses across India build scalable online stores, B2B platforms, and digital marketplaces.
+                  Helping businesses in Patna, Bihar, and across India build scalable online stores, B2B platforms, and digital marketplaces.
                 </p>
               </div>
             </div>
@@ -769,8 +409,8 @@ export default function EcommerceWebsiteDevelopmentPage() {
 
           <div className="pt-6">
             <div className="text-center mb-4">
-              <span className="text-[11px] font-mono uppercase tracking-widest text-neutral-500 font-semibold">
-                Trusted by Fast-Growing Brands & Companies Across India
+              <span className="text-[11px] font-mono uppercase tracking-widest text-neutral-400 font-semibold">
+                Trusted by Fast-Growing Brands & Companies in Patna, Bihar & Across India
               </span>
             </div>
 
@@ -783,14 +423,15 @@ export default function EcommerceWebsiteDevelopmentPage() {
                   {clientLogos.map((logo, index) => (
                     <div
                       key={`trust-logo-1-${index}`}
-                      className="w-28 h-9 md:w-32 md:h-10 shrink-0 relative flex items-center justify-center grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-300"
+                      className="w-28 h-9 md:w-32 md:h-10 shrink-0 flex items-center justify-center grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-300"
                     >
                       <Image
                         src={logo.src}
                         alt={`${logo.name} logo`}
-                        fill
-                        className="object-contain"
-                        sizes="128px"
+                        width={120}
+                        height={36}
+                        loading="lazy"
+                        className="object-contain max-h-9 w-auto"
                       />
                     </div>
                   ))}
@@ -799,14 +440,15 @@ export default function EcommerceWebsiteDevelopmentPage() {
                   {clientLogos.map((logo, index) => (
                     <div
                       key={`trust-logo-2-${index}`}
-                      className="w-28 h-9 md:w-32 md:h-10 shrink-0 relative flex items-center justify-center grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-300"
+                      className="w-28 h-9 md:w-32 md:h-10 shrink-0 flex items-center justify-center grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-300"
                     >
                       <Image
                         src={logo.src}
-                        alt={`${logo.name} logo`}
-                        fill
-                        className="object-contain"
-                        sizes="128px"
+                        alt=""
+                        width={120}
+                        height={36}
+                        loading="lazy"
+                        className="object-contain max-h-9 w-auto"
                       />
                     </div>
                   ))}
@@ -814,24 +456,24 @@ export default function EcommerceWebsiteDevelopmentPage() {
               </div>
             </div>
           </div>
-        </motion.div>
+        </div>
 
         {/* ── Interactive Live Store Simulator ── */}
         <section className="py-12 md:py-16">
           <StoreSimulator />
         </section>
 
-        {/* ── 3. H2: eCommerce Website Development Services ── */}
+        {/* ── 3. H2: eCommerce Website Development Services in Patna ── */}
         <section id="services" className="py-16 md:py-24 border-t border-white/5">
           <div className="text-center max-w-3xl mx-auto mb-16">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#FF3B00]/10 text-[#FF3B00] text-xs font-mono uppercase tracking-wider mb-4 border border-[#FF3B00]/20">
-              <Layers className="w-3.5 h-3.5" /> What We Build
+              <Layers className="w-3.5 h-3.5" /> What We Build in Patna
             </div>
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white tracking-tight">
-              eCommerce Website Development Services
+              eCommerce Website Development Services in Patna
             </h2>
             <p className="text-neutral-300 text-sm sm:text-base mt-4 font-light">
-              Every business sells differently. That's why we develop ecommerce websites tailored specifically around your products, target customers, sales channels, and growth targets.
+              Every business in Patna and Bihar sells differently. That's why we develop custom eCommerce websites tailored specifically around your retail products, wholesale dealer network, sales channels, and regional logistics.
             </p>
           </div>
 
@@ -869,21 +511,21 @@ export default function EcommerceWebsiteDevelopmentPage() {
           </div>
         </section>
 
-        {/* ── 4. H2: Custom eCommerce Website Development ── */}
+        {/* ── 4. H2: Custom eCommerce Website Development in Patna ── */}
         <section className="py-16 md:py-24 border-t border-white/5 bg-gradient-to-b from-transparent via-[#FF3B00]/5 to-transparent rounded-3xl p-6 md:p-12">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
             <div className="lg:col-span-6">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#FF3B00]/10 text-[#FF3B00] text-xs font-mono uppercase tracking-wider mb-4 border border-[#FF3B00]/20">
-                <Code2 className="w-3.5 h-3.5" /> Bespoke Engineering
+                <Code2 className="w-3.5 h-3.5" /> Bespoke Engineering in Patna
               </div>
               <h2 className="text-3xl sm:text-4xl font-bold text-white tracking-tight">
-                Custom eCommerce Website Development
+                Custom eCommerce Website Development in Patna
               </h2>
               <p className="text-neutral-300 text-sm sm:text-base mt-4 leading-relaxed font-light">
                 Standard templates and closed SaaS platforms force your brand into rigid constraints, recurring percentage cuts on sales, and limited customization.
               </p>
               <p className="text-neutral-400 text-xs sm:text-sm mt-3 leading-relaxed">
-                With our custom eCommerce website development using <Link href="/technology/nextjs-development" className="text-[#FF3B00] underline hover:text-white">Next.js</Link>, Node.js, and PostgreSQL/MongoDB, you get 100% source code ownership, sub-second page speeds, custom database schemas, and tailored checkout flows. Check out our <Link href="/compare/custom-software-vs-saas" className="text-[#FF3B00] underline hover:text-white">custom development vs SaaS breakdown</Link>.
+                With our custom eCommerce website development in Patna using <Link href="/technology/nextjs-development" className="text-[#FF3B00] underline hover:text-white">Next.js</Link>, Node.js, and PostgreSQL/MongoDB, you get 100% source code ownership, sub-second page speeds, custom database schemas, and tailored checkout flows with direct Tally Prime sync. Check out our <Link href="/compare/custom-software-vs-saas" className="text-[#FF3B00] underline hover:text-white">custom development vs SaaS breakdown</Link>.
               </p>
 
               <div className="mt-6 flex flex-wrap gap-2">
@@ -902,7 +544,7 @@ export default function EcommerceWebsiteDevelopmentPage() {
                   "B2B bulk ordering & instant RFQ generation",
                   "Zero recurring transaction cuts on gross sales",
                   "Multi-warehouse logistics routing & live deduction",
-                  "Deep ERP & CRM integrations (Tally, Zoho, SAP)",
+                  "Deep ERP & CRM integrations (Tally Prime, Zoho, SAP)",
                   "Custom financial & GST invoice generation",
                   "Frictionless 1-page OTP checkout workflows",
                   "Recurring subscriptions & membership billing",
@@ -927,7 +569,7 @@ export default function EcommerceWebsiteDevelopmentPage() {
               <Workflow className="w-3.5 h-3.5" /> Core Capabilities
             </div>
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white tracking-tight">
-              eCommerce Website Features
+              eCommerce Website Features for High Online Sales
             </h2>
             <p className="text-neutral-400 text-sm sm:text-base mt-4 font-light">
               A high-converting eCommerce website must deliver a frictionless shopping journey for customers while providing your back-office team complete operational control.
@@ -1020,21 +662,21 @@ export default function EcommerceWebsiteDevelopmentPage() {
           </div>
         </section>
 
-        {/* ── 6. H2: B2B eCommerce Development ── */}
+        {/* ── 6. H2: B2B Wholesale eCommerce Development in Patna ── */}
         <section className="py-16 md:py-24 border-t border-white/5">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
             <div className="lg:col-span-6">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#FF3B00]/10 text-[#FF3B00] text-xs font-mono uppercase tracking-wider mb-4 border border-[#FF3B00]/20">
-                <Building2 className="w-3.5 h-3.5" /> Wholesale & Enterprise
+                <Building2 className="w-3.5 h-3.5" /> Wholesale & Enterprise in Bihar
               </div>
               <h2 className="text-3xl sm:text-4xl font-bold text-white tracking-tight">
-                B2B eCommerce Development
+                B2B Wholesale eCommerce Development in Patna
               </h2>
               <p className="text-neutral-300 text-sm sm:text-base mt-4 leading-relaxed font-light">
                 B2B transactions require specialized pricing, credit terms, multi-tier approvals, and bulk order workflows that standard retail carts cannot support.
               </p>
               <p className="text-neutral-400 text-xs sm:text-sm mt-3 leading-relaxed">
-                We engineer scalable <Link href="/industries/manufacturing" className="text-[#FF3B00] underline hover:text-white">B2B eCommerce platforms</Link> designed for manufacturers, distributors, and wholesalers looking to digitize their dealer network, automate quotation requests (RFQs), and sync with Tally or SAP ERP systems.
+                We engineer scalable <Link href="/industries/manufacturing" className="text-[#FF3B00] underline hover:text-white">B2B eCommerce platforms</Link> designed for manufacturers, distributors, and trading businesses in Patna (such as Marufganj, Bakarganj, Boring Road, and Bailey Road) looking to digitize their dealer network, automate quotation requests (RFQs), and sync with Tally Prime or SAP ERP systems.
               </p>
 
               <div className="mt-6 space-y-3 text-xs sm:text-sm text-neutral-300">
@@ -1081,7 +723,7 @@ export default function EcommerceWebsiteDevelopmentPage() {
           </div>
         </section>
 
-        {/* ── 7. H2: D2C eCommerce Development ── */}
+        {/* ── 7. H2: D2C eCommerce Development in Patna ── */}
         <section className="py-16 md:py-24 border-t border-white/5">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
             <div className="lg:col-span-6 order-2 lg:order-1 bg-neutral-900/60 border border-white/10 rounded-3xl p-6 sm:p-8">
@@ -1110,10 +752,10 @@ export default function EcommerceWebsiteDevelopmentPage() {
 
             <div className="lg:col-span-6 order-1 lg:order-2">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#FF3B00]/10 text-[#FF3B00] text-xs font-mono uppercase tracking-wider mb-4 border border-[#FF3B00]/20">
-                <Zap className="w-3.5 h-3.5" /> Direct to Consumer
+                <Zap className="w-3.5 h-3.5" /> Direct to Consumer in Patna
               </div>
               <h2 className="text-3xl sm:text-4xl font-bold text-white tracking-tight">
-                D2C eCommerce Development
+                D2C eCommerce Storefronts in Patna
               </h2>
               <p className="text-neutral-300 text-sm sm:text-base mt-4 leading-relaxed font-light">
                 Direct-to-consumer (D2C) brands require visually stunning, mobile-optimized storefronts engineered for high conversion rates, impulse buying, and brand storytelling.
@@ -1132,17 +774,17 @@ export default function EcommerceWebsiteDevelopmentPage() {
           </div>
         </section>
 
-        {/* ── 8. H2: Multi-Vendor eCommerce Development ── */}
+        {/* ── 8. H2: Multi-Vendor eCommerce Marketplace Development in Patna ── */}
         <section className="py-16 md:py-24 border-t border-white/5">
           <div className="text-center max-w-3xl mx-auto mb-16">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#FF3B00]/10 text-[#FF3B00] text-xs font-mono uppercase tracking-wider mb-4 border border-[#FF3B00]/20">
               <Users className="w-3.5 h-3.5" /> Marketplace Ecosystem
             </div>
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white tracking-tight">
-              Multi-Vendor eCommerce Development
+              Multi-Vendor eCommerce Development in Patna
             </h2>
             <p className="text-neutral-400 text-sm sm:text-base mt-4 font-light">
-              Build the next Amazon, Flipkart, or niche marketplace. We create scalable multi-vendor platforms where independent sellers register, list products, and fulfill orders while you earn automated commissions.
+              Build the next Amazon, Flipkart, or hyperlocal Patna marketplace. We create scalable multi-vendor platforms where independent sellers register, list products, and fulfill orders while you earn automated commissions.
             </p>
           </div>
 
@@ -1200,7 +842,7 @@ export default function EcommerceWebsiteDevelopmentPage() {
           </div>
         </section>
 
-        {/* ── 9. H2: Shopify eCommerce Development ── */}
+        {/* ── 9. H2: Shopify eCommerce Development in Patna ── */}
         <section className="py-16 md:py-24 border-t border-white/5">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
             <div className="lg:col-span-6">
@@ -1208,13 +850,13 @@ export default function EcommerceWebsiteDevelopmentPage() {
                 <ShoppingBag className="w-3.5 h-3.5" /> Hosted Commerce Leader
               </div>
               <h2 className="text-3xl sm:text-4xl font-bold text-white tracking-tight">
-                Shopify eCommerce Development
+                Shopify eCommerce Development in Patna
               </h2>
               <p className="text-neutral-300 text-sm sm:text-base mt-4 leading-relaxed font-light">
                 Shopify is an exceptional hosted platform for brands seeking fast deployment, bank-grade hosting security, and access to a massive app ecosystem.
               </p>
               <p className="text-neutral-400 text-xs sm:text-sm mt-3 leading-relaxed">
-                As a specialized <Link href="/technology/shopify-development" className="text-[#FF3B00] underline hover:text-white">Shopify development company</Link>, we design custom Liquid themes, build private Shopify apps, configure Indian payment gateways and Shiprocket logistics, and engineer Headless Shopify stores with Next.js frontends.
+                As a specialized <Link href="/technology/shopify-development" className="text-[#FF3B00] underline hover:text-white">Shopify development company in Patna</Link>, we design custom Liquid themes, build private Shopify apps, configure Indian payment gateways and Shiprocket logistics from Patna, and engineer Headless Shopify stores with Next.js frontends.
               </p>
 
               <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs text-neutral-300">
@@ -1232,7 +874,7 @@ export default function EcommerceWebsiteDevelopmentPage() {
                 </div>
                 <div>
                   <h3 className="text-base font-bold text-white">Shopify Store Launch Roadmap</h3>
-                  <div className="text-xs text-neutral-400">Typically delivered in 2–4 Weeks</div>
+                  <div className="text-xs text-neutral-400">Typically delivered in 2–4 Weeks in Patna</div>
                 </div>
               </div>
               <div className="space-y-3 text-xs">
@@ -1257,7 +899,7 @@ export default function EcommerceWebsiteDevelopmentPage() {
           </div>
         </section>
 
-        {/* ── 10. H2: WooCommerce Development ── */}
+        {/* ── 10. H2: WooCommerce Development in Patna ── */}
         <section className="py-16 md:py-24 border-t border-white/5">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
             <div className="lg:col-span-6 bg-neutral-900/60 border border-white/10 rounded-3xl p-6 sm:p-8 order-2 lg:order-1">
@@ -1285,16 +927,16 @@ export default function EcommerceWebsiteDevelopmentPage() {
 
             <div className="lg:col-span-6 order-1 lg:order-2">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#FF3B00]/10 text-[#FF3B00] text-xs font-mono uppercase tracking-wider mb-4 border border-[#FF3B00]/20">
-                <Globe className="w-3.5 h-3.5" /> WordPress eCommerce
+                <Globe className="w-3.5 h-3.5" /> WordPress eCommerce in Patna
               </div>
               <h2 className="text-3xl sm:text-4xl font-bold text-white tracking-tight">
-                WooCommerce Development
+                WooCommerce Development in Patna
               </h2>
               <p className="text-neutral-300 text-sm sm:text-base mt-4 leading-relaxed font-light">
                 For businesses wanting complete control over their hosting, codebase, and content management, WooCommerce on WordPress delivers unparalleled flexibility.
               </p>
               <p className="text-neutral-400 text-xs sm:text-sm mt-3 leading-relaxed">
-                Our <Link href="/technology/wordpress-development" className="text-[#FF3B00] underline hover:text-white">WooCommerce developers</Link> build lean, lightning-fast stores engineered without code bloat, incorporating customized checkouts, Indian payment gateways, and automated logistics.
+                Our <Link href="/technology/wordpress-development" className="text-[#FF3B00] underline hover:text-white">WooCommerce developers in Patna</Link> build lean, lightning-fast stores engineered without code bloat, incorporating customized checkouts, Indian payment gateways, and automated logistics.
               </p>
 
               <div className="mt-6 flex flex-wrap gap-2">
@@ -1305,24 +947,24 @@ export default function EcommerceWebsiteDevelopmentPage() {
           </div>
         </section>
 
-        {/* ── 11. H2: eCommerce Payment & Shipping Integration ── */}
+        {/* ── 11. H2: eCommerce Payment & Shipping Integration in Patna ── */}
         <section className="py-16 md:py-24 border-t border-white/5">
           <div className="text-center max-w-3xl mx-auto mb-16">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#FF3B00]/10 text-[#FF3B00] text-xs font-mono uppercase tracking-wider mb-4 border border-[#FF3B00]/20">
               <Workflow className="w-3.5 h-3.5" /> Connected Ecosystem
             </div>
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white tracking-tight">
-              eCommerce Payment & Shipping Integration
+              eCommerce Payment & Shipping Integration in Patna
             </h2>
             <p className="text-neutral-400 text-sm sm:text-base mt-4 font-light">
-              Your online store shouldn't exist in a silo. We seamlessly integrate payment gateways, automated logistics carriers, ERP accounting software, and WhatsApp notifications into a unified workflow.
+              Your online store shouldn't exist in a silo. We seamlessly integrate payment gateways, automated logistics carriers, ERP accounting software, and WhatsApp notifications into a unified workflow for Patna businesses.
             </p>
           </div>
 
           {/* Connected Flow Banner */}
           <div className="bg-neutral-950/80 border border-white/10 rounded-3xl p-6 md:p-8 mb-10">
             <div className="text-xs font-mono uppercase text-[#FF3B00] mb-2 text-center">
-              Automated eCommerce Operations Pipeline
+              Automated eCommerce Operations Pipeline (Patna Hub)
             </div>
             <div className="flex flex-wrap items-center justify-center gap-2 md:gap-4 py-4 text-xs font-mono">
               <span className="bg-neutral-900 border border-white/10 px-3 py-2 rounded-xl text-white">Customer Order</span>
@@ -1388,32 +1030,32 @@ export default function EcommerceWebsiteDevelopmentPage() {
           </div>
         </section>
 
-        {/* ── 12. H2: eCommerce Website Development Process ── */}
+        {/* ── 12. H2: eCommerce Website Development Process in Patna ── */}
         <section className="py-16 md:py-24 border-t border-white/5">
           <div className="text-center max-w-3xl mx-auto mb-16">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#FF3B00]/10 text-[#FF3B00] text-xs font-mono uppercase tracking-wider mb-4 border border-[#FF3B00]/20">
               <Workflow className="w-3.5 h-3.5" /> Proven Methodology
             </div>
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white tracking-tight">
-              eCommerce Website Development Process
+              eCommerce Website Development Process in Patna
             </h2>
             <p className="text-neutral-400 text-sm sm:text-base mt-4 font-light">
-              We follow a disciplined 8-step engineering lifecycle to ensure your online store is delivered on schedule, within budget, and optimized for sales from day one.
+              We follow a disciplined 8-step engineering lifecycle with local in-person and digital collaboration in Patna to ensure your online store is delivered on schedule, within budget, and optimized for sales from day one.
             </p>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
             {[
-              { num: "01", title: "Business & Requirement Analysis", desc: "We evaluate your products, SKUs, sales processes, target buyers, payment gateway preferences, and logistics requirements." },
+              { num: "01", title: "Business & Requirement Analysis", desc: "We evaluate your products, SKUs, sales processes, target buyers in Patna and India, payment gateway preferences, and logistics requirements." },
               { num: "02", title: "eCommerce Architecture & Platform", desc: "We select the optimal platform (Shopify, WooCommerce, or Custom Next.js) and map product taxonomy and database schemas." },
               { num: "03", title: "UI/UX Design & Wireframing", desc: "We design conversion-optimized storefront wireframes, sticky cart interactions, and frictionless mobile checkout experiences." },
               { num: "04", title: "Frontend Development", desc: "Our engineers build responsive, sub-second loading storefront pages with Next.js/React, Tailwind CSS, and optimized media assets." },
               { num: "05", title: "Backend & API Development", desc: "We build secure APIs, database logic, user authentication, inventory tracking, and role-based administrative dashboards." },
               { num: "06", title: "Payment & Shipping Integration", desc: "We hook up Razorpay, Cashfree, UPI Intent, Shiprocket, Delhivery, Tally Prime ERP, and automated WhatsApp alert triggers." },
-              { num: "07", title: "Testing & SEO Setup", desc: "We conduct stress testing under transaction load, audit Core Web Vitals, and configure Product & FAQPage Schema markup." },
+              { num: "07", title: "Testing & SEO Setup", desc: "We conduct stress testing under transaction load, audit Core Web Vitals, and configure Product & FAQPage Schema markup for Patna SEO." },
               { num: "08", title: "Deployment & Post-Launch Support", desc: "We launch on secure cloud infrastructure, link your domain, submit XML sitemaps to Google, and provide ongoing maintenance." }
             ].map((step, idx) => (
-              <div key={idx} className="bg-neutral-900/50 border border-white/5 hover:border-[#FF3B00]/30 p-6 rounded-2xl transition flex flex-col justify-between">
+              <div key={idx} className="bg-neutral-900/50 border border-white/10 hover:border-[#FF3B00]/30 p-6 rounded-2xl transition flex flex-col justify-between">
                 <div>
                   <span className="text-3xl font-extrabold font-mono text-[#FF3B00]">{step.num}</span>
                   <h3 className="text-base font-bold text-white mt-2">{step.title}</h3>
@@ -1431,7 +1073,7 @@ export default function EcommerceWebsiteDevelopmentPage() {
               <Cpu className="w-3.5 h-3.5" /> Modern Stack
             </div>
             <h2 className="text-3xl sm:text-4xl font-bold text-white tracking-tight">
-              Technologies We Use
+              Technologies We Use for eCommerce in Patna
             </h2>
             <p className="text-neutral-400 text-sm sm:text-base mt-4 font-light">
               We select modern, battle-tested technologies based on your business volume, performance goals, and operational complexity.
@@ -1496,17 +1138,17 @@ export default function EcommerceWebsiteDevelopmentPage() {
           </div>
         </section>
 
-        {/* ── 14. H2: eCommerce Website Development Cost in India ── */}
+        {/* ── 14. H2: eCommerce Website Development Cost in Patna ── */}
         <section className="py-16 md:py-24 border-t border-white/5">
           <div className="text-center max-w-3xl mx-auto mb-16">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#FF3B00]/10 text-[#FF3B00] text-xs font-mono uppercase tracking-wider mb-4 border border-[#FF3B00]/20">
-              <Tag className="w-3.5 h-3.5" /> Pricing & Timelines
+              <Tag className="w-3.5 h-3.5" /> Pricing & Timelines in Patna
             </div>
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white tracking-tight">
-              eCommerce Website Development Cost in India
+              eCommerce Website Development Cost in Patna
             </h2>
             <p className="text-neutral-300 text-sm sm:text-base mt-4 leading-relaxed font-light">
-              The cost of developing an eCommerce website in India depends on the number of products, design complexity, payment and shipping integrations, admin functionality, inventory requirements, third-party APIs and whether the store is built using Shopify, WooCommerce or a custom technology stack. A basic online store may require a significantly smaller development scope than a B2B wholesale platform or multi-vendor marketplace.
+              The cost of developing an eCommerce website in Patna depends on the number of products, custom UI/UX design, payment and courier shipping integrations, Tally ERP sync, and whether the store is built using Shopify, WooCommerce or a custom Next.js stack. We provide transparent, milestone-based pricing with no hidden charges.
             </p>
           </div>
 
@@ -1522,12 +1164,12 @@ export default function EcommerceWebsiteDevelopmentPage() {
                   <div className="text-[11px] text-[#FF3B00] font-mono mt-1">Timeline: Approx. 2–4 Weeks</div>
                 </div>
                 <p className="text-xs text-neutral-400 mt-4 leading-relaxed">
-                  Suitable for small businesses and local shops launching their first online catalogue.
+                  Suitable for small businesses and local shops in Patna launching their first online catalogue.
                 </p>
                 <div className="mt-4 space-y-2 text-xs text-neutral-300">
                   <div>✓ Clean product catalogue</div>
                   <div>✓ Shopping cart & checkout</div>
-                  <div>✓ Razorpay / UPI gateway</div>
+                  <div>✓ Razorpay / Instant UPI gateway</div>
                   <div>✓ Basic admin dashboard</div>
                 </div>
               </div>
@@ -1538,11 +1180,11 @@ export default function EcommerceWebsiteDevelopmentPage() {
 
             {/* Professional Tier (Highlighted) */}
             <div className="bg-neutral-900/80 border-2 border-[#FF3B00] rounded-2xl p-6 flex flex-col justify-between relative shadow-[0_0_30px_rgba(255,59,0,0.2)]">
-              <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#FF3B00] text-white text-[10px] font-mono uppercase tracking-widest px-3 py-0.5 rounded-full font-bold">
-                Most Popular
+              <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#d93200] text-white text-[10px] font-mono uppercase tracking-widest px-3 py-0.5 rounded-full font-bold">
+                Most Popular in Patna
               </div>
               <div>
-                <div className="text-xs font-mono text-[#FF3B00] uppercase">Growing D2C Brands</div>
+                <div className="text-xs font-mono text-[#FF3B00] uppercase font-semibold">Growing D2C Brands</div>
                 <h3 className="text-xl font-bold text-white mt-1">Professional eCommerce Website</h3>
                 <div className="mt-4 pb-4 border-b border-white/10">
                   <span className="text-3xl font-extrabold font-mono text-white">₹60,000</span>
@@ -1550,16 +1192,16 @@ export default function EcommerceWebsiteDevelopmentPage() {
                   <div className="text-[11px] text-emerald-400 font-mono mt-1">Timeline: Approx. 4–8 Weeks</div>
                 </div>
                 <p className="text-xs text-neutral-400 mt-4 leading-relaxed">
-                  Suitable for growing brands requiring custom UI/UX, advanced search filters, and automated shipping.
+                  Suitable for growing Patna brands requiring custom UI/UX, advanced search filters, and automated shipping from Bihar.
                 </p>
                 <div className="mt-4 space-y-2 text-xs text-neutral-300">
                   <div>✓ Custom responsive UI/UX</div>
                   <div>✓ Shiprocket & Delhivery APIs</div>
                   <div>✓ WhatsApp & SMS alerts</div>
-                  <div>✓ Technical SEO & Schema markup</div>
+                  <div>✓ Patna & National SEO Schema</div>
                 </div>
               </div>
-              <a href="#consultation-form" className="mt-6 py-2.5 bg-[#FF3B00] hover:bg-[#ff4e1a] text-white rounded-xl text-xs font-bold text-center block shadow-lg shadow-[#FF3B00]/30 cursor-pointer">
+              <a href="#consultation-form" className="mt-6 py-2.5 bg-[#d93200] hover:bg-[#c22d00] text-white rounded-xl text-xs font-bold text-center block shadow-lg shadow-[#d93200]/30 cursor-pointer transition">
                 Get Started Now
               </a>
             </div>
@@ -1567,7 +1209,7 @@ export default function EcommerceWebsiteDevelopmentPage() {
             {/* Custom / B2B Tier */}
             <div className="bg-neutral-900/50 border border-white/10 rounded-2xl p-6 flex flex-col justify-between">
               <div>
-                <div className="text-xs font-mono text-neutral-400 uppercase">Enterprise & B2B</div>
+                <div className="text-xs font-mono text-neutral-400 uppercase">Enterprise & B2B Bihar</div>
                 <h3 className="text-xl font-bold text-white mt-1">Custom eCommerce Platform</h3>
                 <div className="mt-4 pb-4 border-b border-white/10">
                   <span className="text-3xl font-extrabold font-mono text-white">₹1,50,000</span>
@@ -1575,11 +1217,11 @@ export default function EcommerceWebsiteDevelopmentPage() {
                   <div className="text-[11px] text-[#FF3B00] font-mono mt-1">Timeline: Approx. 8–16+ Weeks</div>
                 </div>
                 <p className="text-xs text-neutral-400 mt-4 leading-relaxed">
-                  Suitable for businesses requiring custom workflows, B2B wholesale logic, ERP sync, and multi-warehouse routing.
+                  Suitable for businesses requiring custom workflows, B2B wholesale dealer logic, Tally Prime sync, and multi-warehouse routing.
                 </p>
                 <div className="mt-4 space-y-2 text-xs text-neutral-300">
                   <div>✓ Wholesale tiered pricing</div>
-                  <div>✓ Tally / Zoho / SAP ERP sync</div>
+                  <div>✓ Tally Prime / Zoho / SAP ERP sync</div>
                   <div>✓ Multi-warehouse stock logic</div>
                   <div>✓ 100% bespoke Next.js codebase</div>
                 </div>
@@ -1599,7 +1241,7 @@ export default function EcommerceWebsiteDevelopmentPage() {
                   <div className="text-[11px] text-[#FF3B00] font-mono mt-1">Timeline: Approx. 12–24+ Weeks</div>
                 </div>
                 <p className="text-xs text-neutral-400 mt-4 leading-relaxed">
-                  Suitable for startups building Amazon/Flipkart-style multi-seller platforms with automated vendor commissions.
+                  Suitable for startups building regional or national multi-seller platforms with automated vendor commissions.
                 </p>
                 <div className="mt-4 space-y-2 text-xs text-neutral-300">
                   <div>✓ Vendor dashboard & KYC</div>
@@ -1622,10 +1264,10 @@ export default function EcommerceWebsiteDevelopmentPage() {
               <SlidersHorizontal className="w-3.5 h-3.5" /> Platform Decision Guide
             </div>
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white tracking-tight">
-              Shopify vs WooCommerce vs Custom eCommerce
+              Shopify vs WooCommerce vs Custom eCommerce in Patna
             </h2>
             <p className="text-neutral-400 text-sm sm:text-base mt-4 font-light">
-              No single platform fits every business model. Here is an objective comparison to help you choose the ideal solution:
+              No single platform fits every business model. Here is an objective comparison to help you choose the ideal solution for your Patna business:
             </p>
           </div>
 
@@ -1671,7 +1313,7 @@ export default function EcommerceWebsiteDevelopmentPage() {
                   <td className="py-4 px-4 font-bold text-white flex items-center gap-2">
                     <Icon icon="logos:nextjs-icon" width={18} /> Custom eCommerce
                   </td>
-                  <td className="py-4 px-4">B2B, ERP Sync & High Volume</td>
+                  <td className="py-4 px-4">B2B, Tally Sync & High Volume</td>
                   <td className="py-4 px-4 text-[#FF3B00] font-bold">Sub-second speeds, zero transaction cuts, full control</td>
                   <td className="py-4 px-4 text-neutral-400">Higher initial upfront development investment</td>
                   <td className="py-4 px-4">
@@ -1698,21 +1340,21 @@ export default function EcommerceWebsiteDevelopmentPage() {
           </div>
 
           <div className="mt-8 bg-neutral-900/60 border border-white/10 rounded-2xl p-6">
-            <h3 className="text-base font-bold text-white mb-2">Which eCommerce platform should you choose?</h3>
+            <h3 className="text-base font-bold text-white mb-2">Which eCommerce platform should you choose in Patna?</h3>
             <p className="text-xs sm:text-sm text-neutral-300 leading-relaxed">
-              If you want to validate a brand rapidly with minimal initial development time, <strong>Shopify</strong> is a reliable choice. If your business is already centered around WordPress content and you want zero monthly software fees, <strong>WooCommerce</strong> is ideal. If you require custom wholesale pricing, Tally/SAP ERP integration, multi-warehouse automated routing, high-volume transactions without revenue cuts, or proprietary workflows, a <strong>Custom Next.js & Node.js eCommerce build</strong> is the most profitable long-term investment.
+              If you want to validate a brand rapidly with minimal initial development time, <strong>Shopify</strong> is a reliable choice. If your business is already centered around WordPress content and you want zero monthly software fees, <strong>WooCommerce</strong> is ideal. If you require custom wholesale pricing, Tally Prime ERP integration, multi-warehouse automated routing, high-volume transactions without revenue cuts, or proprietary workflows, a <strong>Custom Next.js & Node.js eCommerce build</strong> is the most profitable long-term investment.
             </p>
           </div>
         </section>
 
-        {/* ── 16. H2: eCommerce SEO & Search-Friendly Development ── */}
+        {/* ── 16. H2: eCommerce SEO & Search-Friendly Development in Patna ── */}
         <section className="py-16 md:py-24 border-t border-white/5">
           <div className="text-center max-w-3xl mx-auto mb-16">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#FF3B00]/10 text-[#FF3B00] text-xs font-mono uppercase tracking-wider mb-4 border border-[#FF3B00]/20">
-              <Search className="w-3.5 h-3.5" /> Organic Discovery
+              <Search className="w-3.5 h-3.5" /> Organic Discovery in Patna
             </div>
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white tracking-tight">
-              eCommerce SEO & Search-Friendly Development
+              eCommerce SEO & Local Search Optimization in Patna
             </h2>
             <p className="text-neutral-400 text-sm sm:text-base mt-4 font-light">
               An online store that cannot be found on Google doesn't generate sales. We build search-engine friendly architecture, Product Schema, Core Web Vitals, and AI-search visibility directly into your codebase. Learn about our <Link href="/seo-services-in-patna" className="text-[#FF3B00] underline hover:text-white">SEO services in Patna</Link>.
@@ -1762,13 +1404,13 @@ export default function EcommerceWebsiteDevelopmentPage() {
                 <div className="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center mb-4">
                   <Globe className="w-5 h-5" />
                 </div>
-                <h3 className="text-lg font-bold text-white">Entity Authority & Schema</h3>
+                <h3 className="text-lg font-bold text-white">Entity Authority & Local Schema</h3>
                 <p className="text-xs text-neutral-300 mt-2 leading-relaxed">
                   Entity authority signals structured so search engines recognize your brand:
                 </p>
                 <div className="mt-4 space-y-1.5 text-xs text-neutral-400">
-                  <div>✓ Organization & LocalBusiness schema graphs</div>
-                  <div>✓ Verified brand entity citations</div>
+                  <div>✓ Organization & LocalBusiness schema graphs in Patna</div>
+                  <div>✓ Verified brand entity citations in Bihar</div>
                   <div>✓ Accurate priceCurrency & availability tags</div>
                   <div>✓ High-authority internal linking network</div>
                 </div>
@@ -1777,17 +1419,17 @@ export default function EcommerceWebsiteDevelopmentPage() {
           </div>
         </section>
 
-        {/* ── 17. H2: eCommerce Development Case Studies ── */}
+        {/* ── 17. H2: eCommerce Development Case Studies in Patna & Bihar ── */}
         <section className="py-16 md:py-24 border-t border-white/5">
           <div className="text-center max-w-3xl mx-auto mb-16">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#FF3B00]/10 text-[#FF3B00] text-xs font-mono uppercase tracking-wider mb-4 border border-[#FF3B00]/20">
               <Award className="w-3.5 h-3.5" /> Proven Track Record
             </div>
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white tracking-tight">
-              eCommerce Development Case Studies
+              eCommerce Development Case Studies in Patna & Bihar
             </h2>
             <p className="text-neutral-400 text-sm sm:text-base mt-4 font-light">
-              Explore how Webflora Technologies engineered scalable online stores and platforms that delivered measurable commercial outcomes.
+              Explore how Webflora Technologies engineered scalable online stores and platforms for businesses in Patna and Bihar that delivered measurable commercial outcomes.
             </p>
           </div>
 
@@ -1900,37 +1542,37 @@ export default function EcommerceWebsiteDevelopmentPage() {
         <section className="py-16 md:py-24 border-t border-white/5">
           <div className="text-center max-w-3xl mx-auto mb-16">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#FF3B00]/10 text-[#FF3B00] text-xs font-mono uppercase tracking-wider mb-4 border border-[#FF3B00]/20">
-              <Award className="w-3.5 h-3.5" /> Our Commitment
+              <Award className="w-3.5 h-3.5" /> Our Commitment in Patna
             </div>
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white tracking-tight">
-              Why Choose Webflora Technologies?
+              Why Choose Webflora Technologies in Patna?
             </h2>
             <p className="text-neutral-400 text-sm sm:text-base mt-4 font-light">
-              Selecting the right eCommerce development company is a high-impact business decision. Here is how Webflora provides measurable commercial value:
+              Selecting the right eCommerce development company is a high-impact business decision. Here is how Webflora provides measurable commercial value to businesses in Patna and Bihar:
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
               {
-                title: "Proven Real Projects",
-                desc: "We showcase authentic case studies across D2C brands, B2B wholesale portals, and retail platforms with real commercial outcomes."
+                title: "Proven Local & National Projects",
+                desc: "We showcase authentic case studies across D2C brands, B2B wholesale portals, and retail platforms in Bihar and India with real commercial outcomes."
               },
               {
                 title: "Modern Full-Stack Engineering",
                 desc: "We build on Next.js 15, React, Node.js, Express, PostgreSQL, MongoDB, and Redis to achieve sub-second speeds and bulletproof stability."
               },
               {
-                title: "Business Workflow Integration",
-                desc: "We connect your online store seamlessly with payment gateways, Shiprocket/Delhivery logistics, Tally ERP, and WhatsApp automation."
+                title: "Tally ERP & Courier Integration",
+                desc: "We connect your online store seamlessly with Razorpay/UPI, Shiprocket/Delhivery logistics in Patna, Tally Prime ERP, and WhatsApp automation."
               },
               {
                 title: "100% Code Ownership",
                 desc: "For custom development projects, you own 100% of your source code, database, and customer data with zero monthly revenue cuts."
               },
               {
-                title: "Direct Developer Communication",
-                desc: "You collaborate directly with senior eCommerce engineers and technical leads rather than passing messages through layers of account managers."
+                title: "Direct In-Person Patna Meetings",
+                desc: "You collaborate directly with senior eCommerce engineers at our Patna development office rather than passing messages through layers of account managers."
               },
               {
                 title: "Post-Launch Growth & Support",
@@ -1948,27 +1590,27 @@ export default function EcommerceWebsiteDevelopmentPage() {
           </div>
         </section>
 
-        {/* ── 19. H2: eCommerce Website Development Company in India ── */}
+        {/* ── 19. H2: Top eCommerce Website Development Company in Patna & Bihar ── */}
         <section className="py-16 md:py-24 border-t border-white/5">
           <div className="max-w-4xl mx-auto text-center mb-12">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#FF3B00]/10 text-[#FF3B00] text-xs font-mono uppercase tracking-wider mb-4 border border-[#FF3B00]/20">
-              <Globe className="w-3.5 h-3.5" /> Pan-India eCommerce Engineering
+              <MapPin className="w-3.5 h-3.5" /> Patna & Bihar eCommerce Engineering
             </div>
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white tracking-tight">
-              eCommerce Website Development Company in India
+              Top eCommerce Website Development Company in Patna
             </h2>
             <div className="mt-6 text-left sm:text-center space-y-3 text-neutral-300 text-sm sm:text-base leading-relaxed font-light">
               <p>
-                <strong className="text-white font-medium">Webflora Technologies</strong> provides eCommerce website development services for businesses across India. Our team works with startups, retailers, D2C brands, manufacturers, wholesalers and established businesses that want to sell products online or improve an existing eCommerce platform.
+                <strong className="text-white font-medium">Webflora Technologies</strong> is the leading eCommerce website development company based in Patna, Bihar. Our team works with startups, retailers, D2C brands, manufacturers, wholesalers and established businesses across Patna, Bihar, and all over India that want to sell products online or upgrade an existing store.
               </p>
               <p>
-                Depending on the project, we develop Shopify stores, WooCommerce websites and custom eCommerce platforms using modern technologies such as Next.js, React and Node.js.
+                Depending on your specific goals, we develop Shopify stores, WooCommerce websites, and custom eCommerce platforms using cutting-edge Next.js, React, Node.js, and Express architectures.
               </p>
               <p>
-                Our eCommerce development services can include product catalogues, shopping carts, checkout systems, payment gateway integration, shipping APIs, inventory management, customer accounts, order management, CRM/ERP integration and custom admin dashboards.
+                Our eCommerce development services include product catalogues, shopping carts, one-click UPI checkout systems, payment gateway integration, courier shipping APIs, inventory management, customer accounts, Tally Prime CRM/ERP integration and custom admin dashboards.
               </p>
               <p>
-                Businesses can work with Webflora whether they are launching their first online store, migrating from an existing platform or building a more advanced B2B or marketplace solution.
+                Businesses in Patna can partner with Webflora whether they are launching their first online storefront, migrating from an older slow platform, or building an advanced B2B wholesale portal or multi-vendor marketplace.
               </p>
             </div>
           </div>
@@ -1981,20 +1623,20 @@ export default function EcommerceWebsiteDevelopmentPage() {
               </div>
               <h3 className="text-2xl font-bold text-white">
                 <Link href="/it-company-in-patna" className="hover:text-[#FF3B00] transition">
-                  eCommerce Website Development in Patna & Bihar
+                  eCommerce Website Development Across Patna Localities
                 </Link>
               </h3>
               <p className="text-neutral-300 text-sm mt-3 leading-relaxed">
                 As the leading eCommerce website development company based in Patna, Bihar, we empower regional manufacturers, retailers, and wholesalers to expand into national online markets.
               </p>
               <p className="text-neutral-400 text-xs mt-2 leading-relaxed">
-                If you are looking for an <strong className="text-white">eCommerce website developer in Patna</strong> or an <strong className="text-white">eCommerce website development company in Bihar</strong>, meet our technical team directly at our Patna office.
+                If you are looking for an <strong className="text-white">eCommerce website developer in Patna</strong> or an <strong className="text-white">eCommerce development company in Bihar</strong>, meet our technical team directly at our Patna office for face-to-face consultation.
               </p>
               
               <div className="mt-6 pt-6 border-t border-white/10">
-                <div className="text-xs font-mono uppercase text-neutral-400 mb-2">Serving Across Bihar:</div>
+                <div className="text-xs font-mono uppercase text-neutral-400 mb-2">Key Patna & Bihar Service Areas:</div>
                 <div className="flex flex-wrap gap-1.5 text-xs">
-                  {["Patna", "Boring Road", "Bailey Road", "Kankarbagh", "Danapur", "Rajendra Nagar", "Gaya", "Muzaffarpur", "Bhagalpur", "Darbhanga", "Purnia"].map((city) => (
+                  {["Patna", "Boring Road", "Bailey Road", "Kankarbagh", "Danapur", "Rajendra Nagar", "Fraser Road", "Exhibition Road", "Patliputra", "Raja Bazar", "Saguna More", "Gaya", "Muzaffarpur", "Bhagalpur", "Darbhanga", "Purnia", "Begusarai"].map((city) => (
                     <span key={city} className="bg-white/5 border border-white/10 px-2.5 py-1 rounded text-neutral-300">
                       {city}
                     </span>
@@ -2014,7 +1656,7 @@ export default function EcommerceWebsiteDevelopmentPage() {
                 </Link>
               </h3>
               <p className="text-neutral-300 text-sm mt-3 leading-relaxed">
-                We work with ambitious digital brands across India including Delhi NCR, Mumbai, Bangalore, Pune, Hyderabad, Chennai, and Kolkata.
+                Headquartered in Patna, we also work with ambitious digital brands across India including Delhi NCR, Mumbai, Bangalore, Pune, Hyderabad, Chennai, and Kolkata.
               </p>
               <p className="text-neutral-400 text-xs mt-2 leading-relaxed">
                 Our remote engineering workflow includes weekly sprint video demos, private staging URLs, dedicated communication channels, and real-time project tracking.
@@ -2042,59 +1684,24 @@ export default function EcommerceWebsiteDevelopmentPage() {
           </div>
         </section>
 
-        {/* ── 20. H2: Frequently Asked Questions (100% Crawlable HTML Answers) ── */}
+        {/* ── 20. H2: Frequently Asked Questions in Patna ── */}
         <section className="py-16 md:py-24 border-t border-white/5">
           <div className="text-center max-w-3xl mx-auto mb-16">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#FF3B00]/10 text-[#FF3B00] text-xs font-mono uppercase tracking-wider mb-4 border border-[#FF3B00]/20">
               <HelpCircle className="w-3.5 h-3.5" /> Clarifications & Answers
             </div>
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white tracking-tight">
-              Frequently Asked Questions
+              Frequently Asked Questions About eCommerce Development in Patna
             </h2>
             <p className="text-neutral-400 text-sm sm:text-base mt-4 font-light">
-              Clear, transparent answers to common questions about eCommerce website development costs, timelines, platforms, and integrations in India.
+              Clear, transparent answers to common questions about eCommerce website development costs, timelines, platforms, Tally ERP sync, and logistics in Patna and Bihar.
             </p>
           </div>
 
-          <div className="max-w-4xl mx-auto space-y-3">
-            {faqs.map((faq, idx) => {
-              const isOpen = openFaqs[idx] ?? false;
-              return (
-                <div
-                  key={idx}
-                  className="bg-neutral-900/50 border border-white/5 hover:border-white/15 rounded-2xl overflow-hidden transition-all duration-300"
-                >
-                  <button
-                    onClick={() => toggleFaq(idx)}
-                    aria-expanded={isOpen}
-                    className="w-full p-5 text-left flex items-center justify-between gap-4 cursor-pointer"
-                  >
-                    <span className="text-sm sm:text-base font-semibold text-white flex items-center gap-3">
-                      <span className="w-6 h-6 rounded-full bg-[#FF3B00]/10 text-[#FF3B00] flex items-center justify-center text-xs font-mono font-bold shrink-0">
-                        Q
-                      </span>
-                      {faq.q}
-                    </span>
-                    <span className="text-neutral-400 shrink-0">
-                      {isOpen ? <ChevronUp className="w-5 h-5 text-[#FF3B00]" /> : <ChevronDown className="w-5 h-5" />}
-                    </span>
-                  </button>
-
-                  {/* Crawlable HTML answer element (always present in DOM for search crawlers) */}
-                  <div
-                    className={`px-5 pb-5 pt-1 text-xs sm:text-sm text-neutral-300 leading-relaxed border-t border-white/5 ${
-                      isOpen ? "block" : "hidden"
-                    }`}
-                  >
-                    <div className="pl-9">{faq.a}</div>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
+          <FaqAccordion faqs={faqs} />
         </section>
 
-        {/* ── 21. H2: Start Your eCommerce Project ── */}
+        {/* ── 21. H2: Start Your eCommerce Project in Patna ── */}
         <section id="consultation-form" className="py-16 md:py-24 border-t border-white/5">
           <div className="bg-gradient-to-br from-neutral-950 via-[#0A0A0A] to-neutral-950 border border-[#FF3B00]/30 rounded-3xl p-8 md:p-14 relative overflow-hidden shadow-2xl">
             <div className="absolute top-0 right-0 w-96 h-96 bg-[#FF3B00]/15 rounded-full blur-3xl pointer-events-none" />
@@ -2102,16 +1709,16 @@ export default function EcommerceWebsiteDevelopmentPage() {
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center relative z-10">
               <div className="lg:col-span-6">
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#FF3B00]/10 text-[#FF3B00] text-xs font-mono uppercase mb-4 border border-[#FF3B00]/30">
-                  <Sparkles className="w-3.5 h-3.5" /> Let's Build Together
+                  <Sparkles className="w-3.5 h-3.5" /> Let's Build in Patna
                 </div>
                 <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white tracking-tight leading-tight">
-                  Start Your eCommerce Project
+                  Start Your eCommerce Project in Patna
                 </h2>
                 <p className="text-neutral-300 text-sm sm:text-base mt-4 leading-relaxed font-light">
-                  Looking for an eCommerce website development company for your business? Tell us your requirements and get a complete project scope, architecture plan, and development estimate.
+                  Looking for the top eCommerce website development company in Patna for your retail or wholesale business? Tell us your requirements and get a complete project scope, architecture plan, and development estimate.
                 </p>
                 <p className="text-neutral-400 text-xs sm:text-sm mt-3 leading-relaxed">
-                  We review what you sell, who your target customers are, and what business integrations you need. Our team provides an itemized proposal within 2 business hours.
+                  We review what you sell, who your target customers are, and what business integrations you need. Meet our technical team at our Patna office or receive an itemized proposal within 2 business hours.
                 </p>
 
                 <div className="mt-8 space-y-4">
@@ -2119,7 +1726,7 @@ export default function EcommerceWebsiteDevelopmentPage() {
                     <div className="w-8 h-8 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0">
                       <Check className="w-4 h-4" />
                     </div>
-                    <span>Free technical architecture consultation & store roadmap</span>
+                    <span>Free technical architecture consultation & store roadmap in Patna</span>
                   </div>
                   <div className="flex items-center gap-3 text-xs sm:text-sm text-neutral-300">
                     <div className="w-8 h-8 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0">
@@ -2131,13 +1738,13 @@ export default function EcommerceWebsiteDevelopmentPage() {
                     <div className="w-8 h-8 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0">
                       <Check className="w-4 h-4" />
                     </div>
-                    <span>Direct phone & WhatsApp access to lead eCommerce engineers</span>
+                    <span>Direct phone, WhatsApp & in-person access to Patna lead developers</span>
                   </div>
                 </div>
 
                 <div className="mt-8 pt-6 border-t border-white/10 flex items-center gap-6">
                   <div>
-                    <div className="text-[11px] text-neutral-400 uppercase font-mono">Direct Phone Line</div>
+                    <div className="text-[11px] text-neutral-400 uppercase font-mono">Patna Direct Phone Line</div>
                     <a href="tel:+918540814729" className="text-sm font-bold text-white hover:text-[#FF3B00] transition">
                       +91 8540814729
                     </a>
@@ -2152,128 +1759,8 @@ export default function EcommerceWebsiteDevelopmentPage() {
               </div>
 
               {/* Form Card */}
-              <div className="lg:col-span-6 bg-neutral-900/90 border border-white/10 rounded-2xl p-6 sm:p-8 backdrop-blur-xl">
-                {formSuccess ? (
-                  <div className="text-center py-10 space-y-4">
-                    <div className="w-14 h-14 bg-emerald-500/20 text-emerald-400 rounded-full flex items-center justify-center mx-auto">
-                      <Check className="w-8 h-8" />
-                    </div>
-                    <h3 className="text-xl font-bold text-white">Consultation Request Received!</h3>
-                    <p className="text-xs sm:text-sm text-neutral-300 max-w-sm mx-auto">
-                      Our eCommerce lead developer will review your requirements and get in touch within 2 business hours.
-                    </p>
-                    <button
-                      onClick={() => setFormSuccess(false)}
-                      className="px-6 py-2.5 bg-[#FF3B00] text-white text-xs font-bold rounded-xl cursor-pointer"
-                    >
-                      Submit Another Inquiry
-                    </button>
-                  </div>
-                ) : (
-                  <form onSubmit={handleFormSubmit} className="space-y-4">
-                    <h3 className="text-lg font-bold text-white mb-2">
-                      Request an eCommerce Quote
-                    </h3>
-
-                    <div>
-                      <label className="block text-xs font-mono uppercase text-neutral-400 mb-1">Your Full Name *</label>
-                      <input
-                        type="text"
-                        required
-                        value={formState.name}
-                        onChange={(e) => setFormState({ ...formState, name: e.target.value })}
-                        placeholder="e.g. Rahul Sharma"
-                        className="w-full bg-black/60 border border-white/10 rounded-xl px-4 py-2.5 text-xs text-white placeholder:text-neutral-600 focus:outline-none focus:border-[#FF3B00]"
-                      />
-                    </div>
-
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                      <div>
-                        <label className="block text-xs font-mono uppercase text-neutral-400 mb-1">Phone Number *</label>
-                        <input
-                          type="tel"
-                          required
-                          value={formState.phone}
-                          onChange={(e) => setFormState({ ...formState, phone: e.target.value })}
-                          placeholder="+91 98765 43210"
-                          className="w-full bg-black/60 border border-white/10 rounded-xl px-4 py-2.5 text-xs text-white placeholder:text-neutral-600 focus:outline-none focus:border-[#FF3B00]"
-                        />
-                      </div>
-                      <div>
-                        <label className="block text-xs font-mono uppercase text-neutral-400 mb-1">Email Address *</label>
-                        <input
-                          type="email"
-                          required
-                          value={formState.email}
-                          onChange={(e) => setFormState({ ...formState, email: e.target.value })}
-                          placeholder="rahul@company.com"
-                          className="w-full bg-black/60 border border-white/10 rounded-xl px-4 py-2.5 text-xs text-white placeholder:text-neutral-600 focus:outline-none focus:border-[#FF3B00]"
-                        />
-                      </div>
-                    </div>
-
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                      <div>
-                        <label className="block text-xs font-mono uppercase text-neutral-400 mb-1">Platform / Solution</label>
-                        <select
-                          value={formState.projectType}
-                          onChange={(e) => setFormState({ ...formState, projectType: e.target.value })}
-                          className="w-full bg-black/60 border border-white/10 rounded-xl px-3 py-2.5 text-xs text-white focus:outline-none focus:border-[#FF3B00]"
-                        >
-                          <option value="Custom eCommerce Website">Custom eCommerce (Next.js)</option>
-                          <option value="Shopify Store Development">Shopify Store</option>
-                          <option value="WooCommerce Development">WooCommerce Store</option>
-                          <option value="B2B eCommerce Platform">B2B Wholesale Platform</option>
-                          <option value="Multi-Vendor Marketplace">Multi-Vendor Marketplace</option>
-                          <option value="eCommerce Mobile App">eCommerce Mobile App</option>
-                        </select>
-                      </div>
-
-                      <div>
-                        <label className="block text-xs font-mono uppercase text-neutral-400 mb-1">Estimated Budget</label>
-                        <select
-                          value={formState.budget}
-                          onChange={(e) => setFormState({ ...formState, budget: e.target.value })}
-                          className="w-full bg-black/60 border border-white/10 rounded-xl px-3 py-2.5 text-xs text-white focus:outline-none focus:border-[#FF3B00]"
-                        >
-                          <option value="₹30,000–₹60,000">₹30,000 – ₹60,000 (Basic)</option>
-                          <option value="₹60,000–₹1,50,000">₹60,000 – ₹1,50,000 (Professional)</option>
-                          <option value="₹1,50,000–₹5,00,000">₹1,50,000 – ₹5,00,000 (Custom / B2B)</option>
-                          <option value="₹3,00,000+">₹3,00,000+ (Multi-Vendor)</option>
-                        </select>
-                      </div>
-                    </div>
-
-                    <div>
-                      <label className="block text-xs font-mono uppercase text-neutral-400 mb-1">Project Details / Requirements</label>
-                      <textarea
-                        rows={3}
-                        value={formState.message}
-                        onChange={(e) => setFormState({ ...formState, message: e.target.value })}
-                        placeholder="Tell us what products you sell, estimated SKU count, or specific integrations needed..."
-                        className="w-full bg-black/60 border border-white/10 rounded-xl px-4 py-2 text-xs text-white placeholder:text-neutral-600 focus:outline-none focus:border-[#FF3B00]"
-                      />
-                    </div>
-
-                    <button
-                      type="submit"
-                      disabled={formLoading}
-                      className="w-full py-3.5 bg-[#FF3B00] hover:bg-[#ff4e1a] text-white rounded-xl text-xs sm:text-sm font-bold tracking-wide shadow-lg shadow-[#FF3B00]/30 transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
-                    >
-                      {formLoading ? (
-                        <>
-                          <RefreshCw className="w-4 h-4 animate-spin" />
-                          <span>Submitting...</span>
-                        </>
-                      ) : (
-                        <>
-                          <Send className="w-4 h-4" />
-                          <span>Request an eCommerce Quote</span>
-                        </>
-                      )}
-                    </button>
-                  </form>
-                )}
+              <div className="lg:col-span-6">
+                <ConsultationForm />
               </div>
             </div>
           </div>
@@ -2286,9 +1773,9 @@ export default function EcommerceWebsiteDevelopmentPage() {
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 text-neutral-300 text-xs font-mono uppercase mb-3 border border-white/10">
                 <Globe className="w-3.5 h-3.5 text-[#FF3B00]" /> Webflora Digital Network
               </div>
-              <h3 className="text-2xl sm:text-3xl font-bold text-white">
+              <h2 className="text-2xl sm:text-3xl font-bold text-white">
                 Explore Related Services, Technologies & Solutions
-              </h3>
+              </h2>
               <p className="text-xs sm:text-sm text-neutral-400 mt-2">
                 Discover our interconnected digital engineering ecosystem across Bihar and India.
               </p>

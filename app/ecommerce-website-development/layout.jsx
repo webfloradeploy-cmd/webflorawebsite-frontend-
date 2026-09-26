@@ -14,39 +14,34 @@ import {
 export const dynamic = "force-static";
 
 export const metadata = {
-  title: "eCommerce Website Development Company in India | Webflora Technologies",
-  description: "Webflora Technologies is a leading eCommerce website development company in India. We develop custom online stores, B2B platforms, D2C storefronts, Shopify & WooCommerce websites with payment gateway, shipping, ERP integration, and SEO starting at ₹30,000.",
+  title: "eCommerce Website Development Company in Patna | Webflora Technologies",
+  description: "Webflora Technologies is the leading eCommerce website development company in Patna, Bihar. We develop custom online stores, B2B wholesale portals, D2C brand storefronts, Shopify & WooCommerce websites with UPI, payment gateways, automated shipping, Tally ERP sync, and local SEO starting at ₹30,000.",
   keywords: [
-    "eCommerce Website Development Company",
-    "ecommerce development company",
-    "ecommerce website developer",
-    "ecommerce development services",
-    "ecommerce website development services",
-    "ecommerce web development company",
-    "ecommerce web development services",
-    "ecommerce development agency",
-    "ecommerce website development agency",
-    "ecommerce web design company",
-    "custom ecommerce development company",
-    "ecommerce website developers",
-    "ecommerce development solutions",
-    "ecommerce website development company in India",
-    "ecommerce website development company in Patna",
-    "ecommerce website developer in Patna",
-    "ecommerce development company in Bihar",
-    "online store development",
-    "b2b ecommerce website development",
-    "d2c ecommerce website development",
-    "multi vendor ecommerce development",
-    "shopify development services",
-    "woocommerce development services"
+    "eCommerce Website Development Company in Patna",
+    "ecommerce development company in patna",
+    "ecommerce website developer in patna",
+    "ecommerce development services in patna",
+    "ecommerce website development services in patna",
+    "best ecommerce website development company in patna",
+    "ecommerce web development company in patna",
+    "ecommerce development company in bihar",
+    "custom ecommerce development company in patna",
+    "shopify development company in patna",
+    "woocommerce website development patna",
+    "b2b ecommerce website development in patna",
+    "d2c ecommerce website development patna",
+    "online store development in patna",
+    "ecommerce web design company in patna",
+    "ecommerce website developer near me patna",
+    "ecommerce development agency patna",
+    "ecommerce website development cost in patna"
   ].join(", "),
   alternates: {
     canonical: "https://webfloratechnologies.com/ecommerce-website-development",
   },
   openGraph: {
-    title: "eCommerce Website Development Company in India | Webflora Technologies",
-    description: "Build a professional, high-conversion online store with Webflora Technologies. Custom eCommerce, B2B platforms, D2C brands, Shopify, WooCommerce, and multi-vendor marketplaces.",
+    title: "eCommerce Website Development Company in Patna | Webflora Technologies",
+    description: "Build a high-converting online store with Webflora Technologies, the top eCommerce website development company in Patna. Custom eCommerce, B2B wholesale portals, D2C brands, Shopify, WooCommerce, and multi-vendor marketplaces.",
     url: "https://webfloratechnologies.com/ecommerce-website-development",
     siteName: "Webflora Technologies",
     locale: "en_IN",
@@ -56,78 +51,66 @@ export const metadata = {
         url: "https://webfloratechnologies.com/title-logo.png",
         width: 512,
         height: 512,
-        alt: "Webflora eCommerce Website Development Company in India"
+        alt: "Webflora eCommerce Website Development Company in Patna"
       }
     ]
   },
   twitter: {
     card: "summary_large_image",
-    title: "eCommerce Website Development Company in India | Webflora Technologies",
-    description: "Custom eCommerce website development for startups, retailers, manufacturers, wholesalers, and D2C brands across India.",
+    title: "eCommerce Website Development Company in Patna | Webflora Technologies",
+    description: "Top eCommerce website development company in Patna, Bihar. Custom online stores, B2B portals, and D2C storefronts with instant UPI payments and automated shipping.",
     images: ["https://webfloratechnologies.com/title-logo.png"],
   }
 };
 
 const ecommerceFaqs = [
   {
-    question: "What does an eCommerce website development company do?",
-    answer: "An eCommerce website development company designs and develops online stores and ecommerce platforms. This can include website design, product catalogues, shopping carts, checkout, payment gateways, order management, inventory, shipping and business integrations."
+    question: "What does an eCommerce website development company in Patna do?",
+    answer: "An eCommerce website development company in Patna like Webflora Technologies designs and builds end-to-end online stores for businesses in Patna and Bihar. This includes UI/UX design, product catalog management, shopping cart, one-click UPI and payment gateways, automated logistics (Shiprocket/Delhivery), inventory management across local warehouses, Tally/ERP integration, and local SEO to generate online sales."
   },
   {
-    question: "How much does an eCommerce website cost in India?",
-    answer: "The cost depends on the platform, design, number of products, integrations and custom functionality. Basic ecommerce websites may start around ₹30,000 to ₹60,000, while professional stores cost ₹60,000 to ₹1,50,000, and complex custom or marketplace platforms can range from ₹1,50,000 to ₹5,00,000+."
+    question: "How much does an eCommerce website cost in Patna, Bihar?",
+    answer: "The cost of developing an eCommerce website in Patna typically ranges from ₹30,000 to ₹1,50,000+ depending on features and platform. A starter Shopify/WooCommerce store costs ₹30,000 to ₹60,000, a custom high-performance D2C brand store costs ₹60,000 to ₹1,50,000, while complex B2B wholesale platforms and multi-vendor marketplaces range from ₹1,50,000 to ₹5,00,000+."
   },
   {
-    question: "How long does it take to develop an eCommerce website?",
-    answer: "A basic ecommerce website can take around 2–4 weeks. Professional websites may take 4–8 weeks, while custom ecommerce platforms require 8–16 weeks, and multi-vendor marketplaces can take 12–24 weeks or more."
+    question: "How long does it take to develop an eCommerce website in Patna?",
+    answer: "A standard eCommerce store built on Shopify or WooCommerce typically takes 2–4 weeks. A custom-designed store with payment, shipping, and automated WhatsApp workflows takes 4–8 weeks, while enterprise B2B portals with Tally ERP sync take 8–16 weeks."
   },
   {
-    question: "Which platform is best for an ecommerce website?",
-    answer: "The right platform depends on your requirements. Shopify can be suitable for businesses wanting a managed platform, WooCommerce can work well with WordPress, and custom development (Next.js / Node.js) is useful when you need unique business functionality and zero platform cuts."
+    question: "Which platform is best for an eCommerce website in Patna?",
+    answer: "The right platform depends on your business model: Shopify is ideal for startups seeking fast deployment, WooCommerce is great for WordPress-based businesses wanting full ownership without monthly fees, and custom Next.js/Node.js is best for high-volume retailers and B2B wholesalers in Patna needing zero sales cuts and sub-second load speeds."
   },
   {
-    question: "Can you build a custom eCommerce website?",
-    answer: "Yes. We can develop custom ecommerce websites with features such as custom pricing, B2B ordering, advanced inventory, multiple warehouses, CRM/ERP integration and custom workflows."
+    question: "Can you build a custom eCommerce website with Tally ERP integration in Patna?",
+    answer: "Yes. Webflora Technologies specializes in custom eCommerce websites with direct bi-directional Tally Prime, Zoho Books, and Busy accounting sync, allowing Patna wholesalers and retailers to automate GST invoicing, dealer pricing, and stock deductions."
   },
   {
-    question: "Can you develop a Shopify store?",
-    answer: "Yes. We provide Shopify store development, customization, integrations, payment and shipping setup and Shopify SEO implementation."
+    question: "Can you develop a Shopify or WooCommerce store in Patna?",
+    answer: "Yes. We offer complete Shopify store setup, bespoke theme design, app integrations, as well as high-performance WooCommerce WordPress store development with Indian payment gateways and Shiprocket logistics."
   },
   {
-    question: "Can you develop a WooCommerce website?",
-    answer: "Yes. We provide WooCommerce website development, custom design, product setup, integrations, performance optimization and maintenance."
+    question: "Can you build a B2B wholesale eCommerce website in Patna?",
+    answer: "Yes. We build B2B wholesale portals with dealer logins, tiered wholesale price lists, bulk CSV ordering, Minimum Order Quantities (MOQs), GST tax invoicing, and credit terms for manufacturers and traders in Patna & Bihar."
   },
   {
-    question: "Can you build a B2B ecommerce website?",
-    answer: "Yes. B2B ecommerce websites can include dealer accounts, wholesale pricing, bulk ordering, customer-specific pricing, quotations, GST information and ERP/CRM integration."
+    question: "Can you build a multi-vendor marketplace in Patna?",
+    answer: "Yes. We engineer marketplace platforms with seller self-service dashboards, product uploads, automated commission splitting, vendor payouts, and master admin control."
   },
   {
-    question: "Can you build a multi-vendor ecommerce website?",
-    answer: "Yes. We can develop marketplace platforms with seller accounts, seller dashboards, product management, commissions, orders, payments and administration."
+    question: "Which payment gateways and UPI options do you integrate?",
+    answer: "We integrate all leading payment gateways including Razorpay, Cashfree, Paytm, PhonePe PG, PayU, and Stripe. We support Instant UPI (Google Pay, PhonePe, Paytm QR), Debit/Credit cards, NetBanking across 50+ banks, and Cash on Delivery (COD) with OTP verification."
   },
   {
-    question: "Can you integrate payment gateways?",
-    answer: "Yes. Payment gateway integration can be included based on your selected platform and business requirements, including Razorpay, Cashfree, PayU, Paytm, Stripe, UPI, cards and Net banking."
+    question: "Can you integrate courier and shipping APIs for deliveries from Patna?",
+    answer: "Yes. We integrate Shiprocket, Delhivery, Blue Dart, and India Post APIs for automatic AWB generation, shipping label printing, real-time courier rate comparison, and automated WhatsApp/SMS tracking alerts from Patna dispatch hubs."
   },
   {
-    question: "Can you integrate shipping services?",
-    answer: "Yes. We can integrate suitable shipping and logistics APIs such as Shiprocket, Delhivery, Blue Dart, and India Post for shipment creation, delivery tracking and order updates."
+    question: "Do you provide offline in-person meetings and support in Patna?",
+    answer: "Yes. Webflora Technologies has a physical development team in Patna. You can meet our lead eCommerce architects in-person for project discussions, milestone reviews, and hands-on staff training."
   },
   {
-    question: "Can you integrate an ecommerce website with ERP or CRM?",
-    answer: "Yes. Ecommerce websites can be integrated with CRM, ERP, inventory, accounting, warehouse and other business systems (Tally, Zoho, SAP, Salesforce) through APIs or available integrations."
-  },
-  {
-    question: "Can you develop an ecommerce mobile app?",
-    answer: "Yes. We can develop ecommerce mobile applications for Android and iOS using Flutter or React Native depending on your requirements."
-  },
-  {
-    question: "Is ecommerce website development SEO-friendly?",
-    answer: "Yes. Ecommerce websites can be developed with SEO-friendly URLs, page structure, internal linking, mobile responsiveness, XML sitemaps, canonical URLs and appropriate structured data."
-  },
-  {
-    question: "Do you provide ecommerce website maintenance?",
-    answer: "Yes. We can provide ongoing technical maintenance, updates, improvements, security support and feature development."
+    question: "Is eCommerce website development SEO-friendly for local and national Google rankings?",
+    answer: "Yes. Every online store we build includes clean semantic URLs, Product and FAQPage Schema JSON-LD structured data, dynamic XML sitemaps, canonical tags, and sub-second Core Web Vitals performance for top Google rankings in Patna and across India."
   }
 ];
 
@@ -135,23 +118,23 @@ const jsonLdSchema = [
   buildOrganizationSchema(),
   buildWebSiteSchema(),
   buildWebPageSchema({
-    name: "eCommerce Website Development Company in India",
-    description: "Build a professional, high-conversion online store with Webflora Technologies.",
+    name: "eCommerce Website Development Company in Patna",
+    description: "Build a professional, high-conversion online store with Webflora Technologies, the top eCommerce website development company in Patna, Bihar.",
     url: "https://webfloratechnologies.com/ecommerce-website-development"
   }),
   buildServiceSchema({
-    name: "eCommerce Website Development Services",
+    name: "eCommerce Website Development Services in Patna",
     serviceType: "eCommerce Website Development",
-    description: "Professional eCommerce website design, online store development, B2B ecommerce platforms, D2C brand stores, multi-vendor marketplaces, Shopify, WooCommerce, and custom Next.js engineering.",
-    areaServed: "India"
+    description: "Professional eCommerce website design, online store development, B2B wholesale platforms, D2C brand stores, multi-vendor marketplaces, Shopify, WooCommerce, and custom Next.js engineering in Patna, Bihar.",
+    areaServed: "Patna, Bihar, India"
   }),
   buildLocalBusinessSchema({
-    name: "Webflora Technologies - eCommerce Website Development Company",
-    description: "eCommerce website development company in Patna, Bihar, serving clients across India."
+    name: "Webflora Technologies - eCommerce Website Development Company in Patna",
+    description: "Leading eCommerce website development company in Patna, Bihar, delivering custom online stores, B2B portals, and mobile commerce applications."
   }),
   buildProductSchema({
-    name: "eCommerce Website Development Services",
-    description: "Professional online store and eCommerce platform development with payment gateway, automated shipping, and ERP/CRM integration.",
+    name: "eCommerce Website Development Services in Patna",
+    description: "Professional online store and eCommerce platform development with UPI payment gateway, automated shipping, and Tally ERP integration in Patna.",
     category: "Software Development Services",
     url: "https://webfloratechnologies.com/ecommerce-website-development",
     offers: { price: "30000", priceCurrency: "INR", url: "https://webfloratechnologies.com/ecommerce-website-development" },
@@ -160,7 +143,7 @@ const jsonLdSchema = [
   buildBreadcrumbListSchema([
     { name: "Home", url: "/" },
     { name: "Services", url: "/it-company-in-patna" },
-    { name: "eCommerce Website Development Company", url: "/ecommerce-website-development" }
+    { name: "eCommerce Website Development Company in Patna", url: "/ecommerce-website-development" }
   ]),
   buildFAQPageSchema(ecommerceFaqs)
 ];
