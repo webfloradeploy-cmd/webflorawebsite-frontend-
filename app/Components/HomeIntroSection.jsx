@@ -245,9 +245,9 @@ export default function HomeIntroSection() {
             </p>
           </div>
 
-          <div className="w-full bg-neutral-950/80 backdrop-blur-xl border border-white/5 rounded-2xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.5)] p-5 md:p-0">
+          <div className="w-full bg-zinc-950/80 border border-white/10 rounded-2xl overflow-hidden shadow-2xl p-4 sm:p-6 md:p-0">
             {/* Mobile Stacked View */}
-            <div className="block md:hidden space-y-6 divide-y divide-white/5">
+            <div className="block md:hidden space-y-4">
               {[
                 {
                   feature: "Pricing Model",
@@ -270,21 +270,25 @@ export default function HomeIntroSection() {
                   saas: "Shared multi-tenant database servers, zero direct protocol control."
                 }
               ].map((row, i) => (
-                <div key={i} className={`pt-6 ${i === 0 ? 'pt-0' : ''} space-y-3`}>
-                  <h4 className="text-xs font-bold uppercase tracking-wider text-neutral-300 font-mono">{row.feature}</h4>
+                <div key={i} className="p-4 rounded-xl bg-white/[0.02] border border-white/10 space-y-3">
+                  <h4 className="text-xs font-bold uppercase tracking-wider text-neutral-200 font-mono flex items-center justify-between">
+                    <span>{row.feature}</span>
+                    <span className="text-[10px] text-orange-400 font-bold">0{i + 1}</span>
+                  </h4>
                   
-                  <div className="p-4 rounded-xl bg-[#ff3b00]/5 border border-[#ff3b00]/20">
-                    <span className="text-[10px] font-bold text-[#ff3b00] uppercase tracking-widest block mb-1">★ Webflora Custom</span>
-                    <p className="text-xs sm:text-sm text-white font-medium flex items-start gap-2">
-                      <Icon icon="solar:check-circle-bold" className="text-emerald-400 text-base shrink-0 mt-0.5" />
-                      {row.custom}
+                  <div className="p-3.5 rounded-lg bg-[#d93200]/10 border border-[#d93200]/30 space-y-1">
+                    <span className="text-[10px] font-bold text-orange-400 uppercase tracking-widest block">★ Webflora Custom</span>
+                    <p className="text-xs sm:text-sm text-white font-medium flex items-start gap-2 leading-relaxed">
+                      <span className="text-emerald-400 font-bold shrink-0 mt-0.5">✓</span>
+                      <span>{row.custom}</span>
                     </p>
                   </div>
 
-                  <div className="p-4 rounded-xl bg-white/[0.02] border border-white/5">
-                    <span className="text-[10px] font-bold text-neutral-500 uppercase tracking-widest block mb-1">Off-The-Shelf SaaS</span>
-                    <p className="text-xs text-neutral-400">
-                      {row.saas}
+                  <div className="p-3.5 rounded-lg bg-black/40 border border-white/5 space-y-1">
+                    <span className="text-[10px] font-bold text-neutral-400 uppercase tracking-widest block">Off-The-Shelf SaaS</span>
+                    <p className="text-xs text-neutral-300 font-light flex items-start gap-2 leading-relaxed">
+                      <span className="text-neutral-500 font-bold shrink-0 mt-0.5">✕</span>
+                      <span>{row.saas}</span>
                     </p>
                   </div>
                 </div>
@@ -293,61 +297,61 @@ export default function HomeIntroSection() {
 
             {/* Desktop Table View */}
             <div className="hidden md:block overflow-x-auto">
-              <table className="w-full text-left text-sm text-neutral-400 border-collapse">
+              <table className="w-full text-left text-sm text-neutral-300 border-collapse">
                 <thead>
-                  <tr className="border-b border-white/10 font-bold font-mono">
-                    <th className="p-5 bg-white/[0.02] text-neutral-300 font-bold text-xs uppercase tracking-widest w-1/4">Feature</th>
-                    <th className="p-5 bg-[#ff3b00]/10 border-x border-[#ff3b00]/20 text-white font-black text-xs uppercase tracking-widest text-center w-2/5">
+                  <tr className="border-b border-white/10 font-mono">
+                    <th className="p-5 bg-white/[0.02] text-neutral-200 font-bold text-xs uppercase tracking-widest w-1/4">Feature</th>
+                    <th className="p-5 bg-[#d93200]/10 border-x border-[#d93200]/20 text-white font-black text-xs uppercase tracking-widest text-center w-2/5">
                       <div className="flex items-center justify-center gap-2">
-                        <Icon icon="solar:shield-star-bold" className="text-orange-500 text-base" />
+                        <Icon icon="solar:shield-star-bold" className="text-orange-400 text-base" />
                         Custom Software (Webflora)
                       </div>
                     </th>
-                    <th className="p-5 bg-white/[0.01] text-neutral-400 font-bold text-xs uppercase tracking-widest text-center w-1/3">Off-The-Shelf SaaS</th>
+                    <th className="p-5 bg-white/[0.01] text-neutral-300 font-bold text-xs uppercase tracking-widest text-center w-1/3">Off-The-Shelf SaaS</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-white/5">
                   <tr className="hover:bg-white/[0.01] transition-colors duration-200">
                     <td className="p-5 font-semibold text-white font-mono text-xs uppercase tracking-wider">Pricing Model</td>
-                    <td className="p-5 border-x border-[#ff3b00]/10 bg-[#ff3b00]/[0.02] text-white font-medium text-center">
+                    <td className="p-5 border-x border-[#d93200]/10 bg-[#d93200]/[0.02] text-white font-medium text-center">
                       <span className="inline-flex items-center gap-1.5 text-xs text-emerald-400 font-bold">
-                        <Icon icon="solar:check-circle-bold" /> Flat-rate fee, lifetime ownership, no monthly user licensing costs.
+                        <Icon icon="solar:check-circle-bold" width={16} /> Flat-rate fee, lifetime ownership, no monthly user licensing costs.
                       </span>
                     </td>
-                    <td className="p-5 text-neutral-400 text-center text-xs">
+                    <td className="p-5 text-neutral-300 text-center text-xs font-light">
                       Recurring monthly subscription fees per user that scale up indefinitely.
                     </td>
                   </tr>
                   <tr className="hover:bg-white/[0.01] transition-colors duration-200">
                     <td className="p-5 font-semibold text-white font-mono text-xs uppercase tracking-wider">Scalability</td>
-                    <td className="p-5 border-x border-[#ff3b00]/10 bg-[#ff3b00]/[0.02] text-white font-medium text-center">
+                    <td className="p-5 border-x border-[#d93200]/10 bg-[#d93200]/[0.02] text-white font-medium text-center">
                       <span className="inline-flex items-center gap-1.5 text-xs text-emerald-400 font-bold">
-                        <Icon icon="solar:check-circle-bold" /> Infinite customizable expansion aligned perfectly with business growth.
+                        <Icon icon="solar:check-circle-bold" width={16} /> Infinite customizable expansion aligned perfectly with business growth.
                       </span>
                     </td>
-                    <td className="p-5 text-neutral-400 text-center text-xs">
+                    <td className="p-5 text-neutral-300 text-center text-xs font-light">
                       Rigid platform limits, locked features, and expensive tier upgrades.
                     </td>
                   </tr>
                   <tr className="hover:bg-white/[0.01] transition-colors duration-200">
                     <td className="p-5 font-semibold text-white font-mono text-xs uppercase tracking-wider">Integration</td>
-                    <td className="p-5 border-x border-[#ff3b00]/10 bg-[#ff3b00]/[0.02] text-white font-medium text-center">
+                    <td className="p-5 border-x border-[#d93200]/10 bg-[#d93200]/[0.02] text-white font-medium text-center">
                       <span className="inline-flex items-center gap-1.5 text-xs text-emerald-400 font-bold">
-                        <Icon icon="solar:check-circle-bold" /> Seamless custom API mapping to connect internal legacy and external systems.
+                        <Icon icon="solar:check-circle-bold" width={16} /> Seamless custom API mapping to connect internal legacy and external systems.
                       </span>
                     </td>
-                    <td className="p-5 text-neutral-400 text-center text-xs">
+                    <td className="p-5 text-neutral-300 text-center text-xs font-light">
                       Restricted predefined connectors, fragile middleware requirements.
                     </td>
                   </tr>
                   <tr className="hover:bg-white/[0.01] transition-colors duration-200">
                     <td className="p-5 font-semibold text-white font-mono text-xs uppercase tracking-wider">Security & Control</td>
-                    <td className="p-5 border-x border-[#ff3b00]/10 bg-[#ff3b00]/[0.02] text-white font-medium text-center">
+                    <td className="p-5 border-x border-[#d93200]/10 bg-[#d93200]/[0.02] text-white font-medium text-center">
                       <span className="inline-flex items-center gap-1.5 text-xs text-emerald-400 font-bold">
-                        <Icon icon="solar:check-circle-bold" /> Complete source code ownership with custom closed network encryption.
+                        <Icon icon="solar:check-circle-bold" width={16} /> Complete source code ownership with custom closed network encryption.
                       </span>
                     </td>
-                    <td className="p-5 text-neutral-400 text-center text-xs">
+                    <td className="p-5 text-neutral-300 text-center text-xs font-light">
                       Shared multi-tenant database servers, zero direct protocol control.
                     </td>
                   </tr>

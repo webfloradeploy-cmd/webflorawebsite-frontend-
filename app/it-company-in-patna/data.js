@@ -774,6 +774,56 @@ export const servicesData = {
         "icon": "lucide:trending-up"
       }
     ],
+    "featuredApps": [
+      {
+        "title": "LogiSafeWay (LPL) Android Shipment Tracking App",
+        "client": "LogiSafeWay (LPL Logistics), Patna & Pan-India",
+        "category": "Android App Development • Logistics",
+        "desc": "Engineered by Webflora Technologies, a leading mobile app development company in Patna, this custom Android app enables enterprise real-time GPS shipment tracking, barcode parcel scanning, driver delivery routing, and automated transit status notifications.",
+        "metrics": "Sub-Second GPS Tracking • 99.9% Uptime",
+        "icon": "solar:box-minimalistic-bold",
+        "tags": ["Android App Patna", "GPS Tracking", "Barcode & QR Scanner", "Node.js REST API", "Firebase Cloud Messaging"],
+        "highlights": [
+          "Live GPS consignment route & milestone transit tracking engineered by android app developers in Patna",
+          "High-speed parcel barcode and QR scanner for hub intake and distribution sorting",
+          "Digital Proof of Delivery (POD) with recipient digital signature & photo capture",
+          "Automated customer WhatsApp and SMS dispatch alerts with live tracking links"
+        ],
+        "link": "/it-company-in-patna/mobile-app-development-company-in-patna"
+      },
+      {
+        "title": "Brijrani Trading – Driver & Admin Operations Mobile Suite",
+        "client": "Brijrani Goods Trading Network, Bihar",
+        "category": "Flutter App Development • B2B Trading",
+        "desc": "Custom cross-platform Flutter mobile application suite engineered for trading goods distribution, driver dispatch navigation, real-time vehicle load status updates, stock inventory syncing, and automated trip reconciliation in Patna, Bihar.",
+        "metrics": "Zero Manual Reconciliation • 100% Real-Time",
+        "icon": "solar:delivery-bold",
+        "tags": ["Flutter App Bihar", "Driver Routing", "Goods Trading Sync", "PostgreSQL", "Admin Dashboard"],
+        "highlights": [
+          "Dedicated Driver Mobile App with turn-by-turn routing & delivery consignment manifest",
+          "Centralized Admin Operations Portal for live vehicle dispatch and trading orders",
+          "Automated goods stock deduction and digital delivery invoice reconciliation",
+          "Offline-first mobile database architecture with instant background sync upon reconnection"
+        ],
+        "link": "/it-company-in-patna/mobile-app-development-company-in-patna"
+      },
+      {
+        "title": "Team Excellent Career Institute – Student & Academic App",
+        "client": "Team Excellent Career Institute, Patna",
+        "category": "React Native App • EdTech & Coaching ERP",
+        "desc": "High-performance React Native student and parent mobile application designed by our mobile app developers in Patna for daily biometric & QR attendance, online test series marks analytics, and digital fee payments.",
+        "metrics": "10,000+ Active Students • 4.9★ App Rating",
+        "icon": "solar:diploma-bold",
+        "tags": ["React Native Patna", "QR Attendance App", "Razorpay Payment", "Test Analytics", "EdTech Bihar"],
+        "highlights": [
+          "Daily QR & biometric attendance tracking with instant automated parent notifications",
+          "Online test series marks, ranking percentiles, and subject scorecard analytics",
+          "One-tap digital tuition fee collection with instant Razorpay GST receipts",
+          "Live class schedule, assignment submissions, and high-speed video lecture streaming"
+        ],
+        "link": "/industries/education"
+      }
+    ],
     "techStack": [
       {
         "name": "React Native",

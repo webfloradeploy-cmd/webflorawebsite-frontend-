@@ -1,7 +1,4 @@
-"use client";
-
-import { motion } from "framer-motion";
-import { Icon } from "@iconify/react";
+import SafeIcon from "../it-company-in-patna/components/client/SafeIcon";
 
 const stats = [
   { value: "50+", label: "Projects Delivered" },
@@ -53,22 +50,6 @@ const cards = [
   },
 ];
 
-const container = {
-  hidden: {},
-  show: {
-    transition: { staggerChildren: 0.1 },
-  },
-};
-
-const reveal = {
-  hidden: { opacity: 0, y: 40 },
-  show: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.6, ease: "easeOut" },
-  },
-};
-
 export default function WhyChooseSection({ title, subtitle, cards: customCards }) {
   const displayCards = customCards || cards;
   const displayTitle = title || (
@@ -81,40 +62,34 @@ export default function WhyChooseSection({ title, subtitle, cards: customCards }
   return (
     <section id="why-choose" className="py-24 bg-black text-white relative overflow-hidden border-t border-white/5">
       {/* Ambient background glow */}
-      <div className="absolute inset-0 pointer-events-none">
+      <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
         <div className="absolute -top-40 left-1/3 w-[600px] h-[600px] bg-orange-600/[0.03] blur-3xl rounded-full" />
         <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-orange-500/[0.02] blur-3xl rounded-full" />
       </div>
 
-      <motion.div
-        variants={container}
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true, amount: 0.15 }}
-        className="max-w-7xl mx-auto px-6 relative z-10"
-      >
+      <div className="max-w-7xl mx-auto px-6 relative z-10">
         {/* Header / Intro */}
         <div className="max-w-4xl mx-auto text-center mb-20 space-y-6">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#FF3B00]/20 bg-[#FF3B00]/5 text-xs text-[#FF3B00] font-bold uppercase tracking-wider">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-orange-500/30 bg-orange-500/10 text-xs text-orange-300 font-bold uppercase tracking-wider">
             🤝 Trust & Reliability
           </div>
           <h2 className="text-3xl md:text-5xl font-black tracking-tight uppercase leading-none font-display">
             {displayTitle}
           </h2>
-          <p className="text-neutral-400 text-base md:text-lg font-light leading-relaxed max-w-3xl mx-auto">
+          <p className="text-neutral-300 text-base md:text-lg font-light leading-relaxed max-w-3xl mx-auto">
             {displaySubtitle}
           </p>
         </div>
 
         {/* Real Proof Points / Stats Grid */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 mb-20 p-8 rounded-3xl bg-zinc-950/40 border border-white/5 relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-32 h-32 bg-[#FF3B00]/[0.02] rounded-full blur-xl pointer-events-none" />
+          <div className="absolute top-0 right-0 w-32 h-32 bg-[#FF3B00]/[0.02] rounded-full blur-xl pointer-events-none" aria-hidden="true" />
           {stats.map((stat, i) => (
             <div key={i} className="text-center space-y-2">
               <div className="text-3xl md:text-5xl font-black text-[#FF3B00] font-display">
                 {stat.value}
               </div>
-              <div className="text-[10px] md:text-xs font-bold uppercase tracking-widest text-neutral-500">
+              <div className="text-[10px] md:text-xs font-bold uppercase tracking-widest text-neutral-300">
                 {stat.label}
               </div>
             </div>
@@ -124,29 +99,27 @@ export default function WhyChooseSection({ title, subtitle, cards: customCards }
         {/* Benefit Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {displayCards.map((card, i) => (
-            <motion.div
+            <div
               key={i}
-              variants={reveal}
-              whileHover={{ y: -6 }}
-              className="group relative p-6 rounded-3xl bg-zinc-950/40 border border-white/5 hover:border-[#FF3B00]/20 hover:bg-zinc-900/10 transition-all duration-300 flex flex-col justify-between"
+              className="group relative p-6 rounded-3xl bg-zinc-950/40 border border-white/5 hover:border-[#FF3B00]/30 hover:bg-zinc-900/20 hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between"
             >
               <div className="space-y-6">
                 <div className="w-12 h-12 rounded-2xl bg-[#FF3B00]/5 border border-[#FF3B00]/10 flex items-center justify-center text-[#FF3B00] group-hover:scale-110 transition-transform">
-                  <Icon icon={card.icon} width={24} />
+                  <SafeIcon icon={card.icon} width={24} height={24} />
                 </div>
                 <div>
                   <h3 className="font-bold text-lg text-white mb-3 group-hover:text-[#FF3B00] transition-colors">
                     {card.title}
                   </h3>
-                  <p className="text-xs text-neutral-400 leading-relaxed font-light">
+                  <p className="text-xs text-neutral-300 leading-relaxed font-light">
                     {card.desc}
                   </p>
                 </div>
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
-      </motion.div>
+      </div>
     </section>
   );
 }

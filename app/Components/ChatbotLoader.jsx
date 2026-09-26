@@ -39,10 +39,34 @@ const CHATBOT_STYLE = `
   }
 `;
 
-function injectChatbotStyle(shadowRoot) {
-  const style = document.createElement("style");
-  style.textContent = CHATBOT_STYLE;
-  shadowRoot.appendChild(style);
+function injectChatbotStyleAndA11y(shadowRoot) {
+  let ourStyle = shadowRoot.getElementById("webflora-custom-chatbot-style");
+  if (!ourStyle) {
+    ourStyle = document.createElement("style");
+    ourStyle.id = "webflora-custom-chatbot-style";
+    ourStyle.textContent = CHATBOT_STYLE;
+    shadowRoot.appendChild(ourStyle);
+  } else if (shadowRoot.lastChild !== ourStyle) {
+    shadowRoot.appendChild(ourStyle);
+  }
+
+  // Ensure all buttons in shadow root have accessible names for screen readers & Lighthouse
+  const buttons = shadowRoot.querySelectorAll("button");
+  buttons.forEach((btn) => {
+    if (!btn.getAttribute("aria-label")) {
+      if (btn.id === "send-msg-btn" || btn.classList.contains("send-btn")) {
+        btn.setAttribute("aria-label", "Send message");
+      } else if (btn.classList.contains("chatbot-launcher")) {
+        btn.setAttribute("aria-label", "Open chat support");
+      } else if (btn.classList.contains("close-btn") || btn.classList.contains("chat-close-btn")) {
+        btn.setAttribute("aria-label", "Close chat window");
+      } else if (btn.classList.contains("prechat-submit")) {
+        btn.setAttribute("aria-label", "Start chat");
+      } else {
+        btn.setAttribute("aria-label", "Chat action");
+      }
+    }
+  });
 }
 
 function loadChatbot() {
@@ -51,32 +75,21 @@ function loadChatbot() {
   script.setAttribute("data-user-id", "69fc5bbe69d61b8cd4efd91a");
   script.async = true;
 
-  // After script loads, watch for the chatbot's shadow root to inject brand colours
+  // After script loads, watch for the chatbot's shadow root to inject brand colours and a11y labels
   script.onload = () => {
     const observer = new MutationObserver((_, obs) => {
       const container = document.getElementById("ai-chatbot-root-container");
       if (container?.shadowRoot) {
         const shadowRoot = container.shadowRoot;
 
-        // Create a persistent shadow observer that ensures our style is always the last sheet in the shadow root
+        // Create a persistent shadow observer that ensures styles and aria-labels stay active
         const shadowObserver = new MutationObserver(() => {
-          let ourStyle = shadowRoot.getElementById("webflora-custom-chatbot-style");
-          if (!ourStyle) {
-            ourStyle = document.createElement("style");
-            ourStyle.id = "webflora-custom-chatbot-style";
-            ourStyle.textContent = CHATBOT_STYLE;
-            shadowRoot.appendChild(ourStyle);
-          } else if (shadowRoot.lastChild !== ourStyle) {
-            shadowRoot.appendChild(ourStyle); // move to end
-          }
+          injectChatbotStyleAndA11y(shadowRoot);
         });
-        shadowObserver.observe(shadowRoot, { childList: true });
+        shadowObserver.observe(shadowRoot, { childList: true, subtree: true, attributes: true });
 
         // Initial injection
-        const ourStyle = document.createElement("style");
-        ourStyle.id = "webflora-custom-chatbot-style";
-        ourStyle.textContent = CHATBOT_STYLE;
-        shadowRoot.appendChild(ourStyle);
+        injectChatbotStyleAndA11y(shadowRoot);
 
         obs.disconnect();
       }
@@ -108,48 +121,11 @@ export default function ChatbotLoader() {
       window.addEventListener(e, handleInteraction, { once: true, passive: true })
     );
 
-    // Set a 12-second timeout to load the chatbot if no interaction occurs
-    timer = setTimeout(handleInteraction, 12000);
-
-    // Enforce 48px mobile size via continuous inline style override interval
-    const styleInterval = setInterval(() => {
-      const container = document.getElementById("ai-chatbot-root-container");
-      if (container?.shadowRoot) {
-        const launcher = container.shadowRoot.querySelector(".chatbot-launcher");
-        if (launcher) {
-          if (window.innerWidth <= 768) {
-            launcher.style.setProperty("width", "48px", "important");
-            launcher.style.setProperty("height", "48px", "important");
-            launcher.style.setProperty("min-width", "48px", "important");
-            launcher.style.setProperty("min-height", "48px", "important");
-            launcher.style.setProperty("padding", "0px", "important");
-            launcher.style.setProperty("margin", "0px", "important");
-            
-            const svg = launcher.querySelector("svg");
-            if (svg) {
-              svg.style.setProperty("width", "24px", "important");
-              svg.style.setProperty("height", "24px", "important");
-            }
-          } else {
-            launcher.style.removeProperty("width");
-            launcher.style.removeProperty("height");
-            launcher.style.removeProperty("min-width");
-            launcher.style.removeProperty("min-height");
-            launcher.style.removeProperty("padding");
-            launcher.style.removeProperty("margin");
-            const svg = launcher.querySelector("svg");
-            if (svg) {
-              svg.style.removeProperty("width");
-              svg.style.removeProperty("height");
-            }
-          }
-        }
-      }
-    }, 500);
+    // Set a 30-second fallback timeout to load the chatbot if no interaction occurs
+    timer = setTimeout(handleInteraction, 30000);
 
     return () => {
       if (timer) clearTimeout(timer);
-      clearInterval(styleInterval);
       TRIGGER_EVENTS.forEach((e) =>
         window.removeEventListener(e, handleInteraction)
       );

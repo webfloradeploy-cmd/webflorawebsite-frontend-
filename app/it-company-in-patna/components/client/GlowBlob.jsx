@@ -1,26 +1,20 @@
-"use client";
-
 import React from "react";
-import { motion } from "framer-motion";
 
-const GlowBlob = ({ color, size, top, left, bottom, right, delay = 0 }) => (
-  <motion.div
-    animate={{
-      x: [0, 20, -20, 0],
-      y: [0, -30, 30, 0],
-    }}
-    transition={{ duration: 20, repeat: Infinity, ease: "linear", delay }}
-    className="absolute blur-[150px] rounded-full opacity-10 pointer-events-none will-change-transform"
-    style={{
-      backgroundColor: color,
-      width: size,
-      height: size,
-      top: top,
-      left: left,
-      bottom: bottom,
-      right: right,
-    }}
-  />
-);
-
-export default GlowBlob;
+export default function GlowBlob({ color = "#FF3B00", size = "400px", top, left, bottom, right }) {
+  return (
+    <div
+      className="absolute rounded-full pointer-events-none"
+      style={{
+        background: `radial-gradient(circle, ${color} 0%, transparent 70%)`,
+        opacity: 0.12,
+        width: size,
+        height: size,
+        top: top,
+        left: left,
+        bottom: bottom,
+        right: right,
+      }}
+      aria-hidden="true"
+    />
+  );
+}

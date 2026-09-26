@@ -116,7 +116,7 @@ export default function Navbar() {
       {/* ── Desktop Floating Capsule Navbar — CSS only, zero Framer Motion ── */}
       <nav
         aria-label="Main navigation"
-        className={`fixed z-50 left-1/2 -translate-x-1/2 hidden lg:block transition-all duration-500 animate-nav-enter ${scrolled
+        className={`fixed z-50 left-1/2 -translate-x-1/2 hidden lg:block transition-all duration-500 ${scrolled
             ? "top-4 w-[76%] bg-[#050505]/75 backdrop-blur-3xl border border-white/10 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.9)] rounded-full"
             : "top-8 w-[82%] bg-black/35 backdrop-blur-2xl border border-white/5 shadow-[0_20px_40px_-20px_rgba(0,0,0,0.7)] rounded-full"
           }`}
@@ -132,9 +132,9 @@ export default function Navbar() {
               <Image
                 src="/webflora-logo.svg"
                 alt="WebFlora Technologies Logo"
-                className="w-full h-full object-contain"
                 width={130}
                 height={40}
+                style={{ width: "130px", height: "40px" }}
                 priority
               />
             </div>
@@ -197,7 +197,7 @@ export default function Navbar() {
                                     }`}
                                 >
                                   {child.badge && (
-                                    <span className="absolute top-2 right-2.5 text-[8px] font-black uppercase tracking-wider bg-[#FF3B00]/10 text-[#FF3B00] border border-[#FF3B00]/25 px-1.5 py-0.5 rounded">
+                                    <span className="absolute top-2 right-2.5 text-[9px] font-black uppercase tracking-wider bg-[#FF3B00] text-black px-1.5 py-0.5 rounded shadow-sm">
                                       {child.badge}
                                     </span>
                                   )}
@@ -274,7 +274,7 @@ export default function Navbar() {
             alt="WebFlora Technologies Logo"
             width={110}
             height={34}
-            className="object-contain"
+            style={{ width: "110px", height: "34px" }}
             priority
           />
         </Link>

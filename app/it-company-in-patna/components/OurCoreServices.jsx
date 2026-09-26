@@ -464,14 +464,18 @@ const OurCoreServices = () => {
                   <button
                     key={idx}
                     onClick={() => goToSlide(idx)}
-                    className={`h-2 transition-all duration-300 ${idx === currentSlide
-                      ? "bg-[#FF3B00] w-8 shadow-lg shadow-[#FF3B00]/50"
-                      : "bg-gray-700 w-2 hover:bg-gray-600"
-                      }`}
+                    className="p-3 min-w-[44px] min-h-[44px] flex items-center justify-center cursor-pointer"
                     aria-label={`Go to slide ${idx + 1}`}
                     aria-selected={idx === currentSlide}
                     role="tab"
-                  />
+                  >
+                    <span
+                      className={`h-2 transition-all duration-300 rounded-full ${idx === currentSlide
+                        ? "bg-[#FF3B00] w-8 shadow-lg shadow-[#FF3B00]/50"
+                        : "bg-gray-700 w-2 hover:bg-gray-600"
+                        }`}
+                    />
+                  </button>
                 ))}
               </div>
 

@@ -5,25 +5,25 @@ import Navbar from "./Components/Navbar";
 import FooterSection from "./Components/FooterSection";
 import Script from "next/script";
 import FloatingCTA from "./Components/FloatingCTA";
+import ChatbotLoader from "./Components/ChatbotLoader";
 import { buildOrganizationSchema, buildWebSiteSchema, buildSiteNavigationElementSchema, toGraphSchema } from "./lib/schemas";
 
 
 /* Inter – Body / UI */
 const inter = Inter({
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600"],
+  weight: ["400", "500", "600", "700"],
   variable: "--font-inter",
   display: "swap",
 });
 
 /* Space Grotesk – Headings / Brand
-   display:"optional" = browser uses fallback if font isn't ready in 100ms,
-   never swaps → eliminates the font-swap LCP event at ~3.5s */
+   display:"swap" ensures font paints immediately with system fallback and swaps in */
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
+  weight: ["400", "600", "700"],
   variable: "--font-space-grotesk",
-  display: "optional",
+  display: "swap",
 });
 
 
@@ -128,21 +128,8 @@ export default function RootLayout({ children }) {
         {/* Footer Section */}
         <FooterSection />
 
-        {/* Vegavan AI Support Chatbot */}
-        <Script
-          id="vegavan-chatbot"
-          src="https://vegavan-backend-mu.vercel.app/chatbot.js"
-          data-user-id="69fc5bbe69d61b8cd4efd91a"
-          strategy="afterInteractive"
-        />
-
-        {/* Mobile chatbot position override */}
-        <style dangerouslySetInnerHTML={{
-          __html: `
-          @media (max-width: 768px) {
-            #ai-chatbot-root-container { bottom: 20px !important; right: 20px !important; }
-          }
-        ` }} />
+        {/* Interaction-loaded Vegavan AI Support Chatbot */}
+        <ChatbotLoader />
       </body>
     </html>
   );

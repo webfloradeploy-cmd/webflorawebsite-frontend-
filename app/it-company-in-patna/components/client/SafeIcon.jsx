@@ -1,10 +1,90 @@
-"use client";
-
 import React from "react";
-import { Icon } from "@iconify/react";
+import {
+  Code2,
+  Zap,
+  ShieldCheck,
+  Trophy,
+  ArrowUpRight,
+  Phone,
+  CheckCircle2,
+  XCircle,
+  HelpCircle,
+  TrendingUp,
+  Cpu,
+  Users,
+  PhoneCall,
+  Settings,
+  Layers,
+  Database,
+  Smartphone,
+  Globe,
+  Server,
+  BarChart3,
+  Clock,
+  Briefcase,
+  ChevronDown,
+  Sparkles,
+  Send,
+  Play,
+  Share2,
+  Check,
+  X,
+  FileCode,
+  Flame,
+  Star,
+  Activity,
+  Award,
+  BookOpen,
+  ShoppingBag,
+  HeartHandshake
+} from "lucide-react";
 
-const SafeIcon = (props) => {
-  return <Icon {...props} />;
+const ICON_MAP = {
+  "solar:code-square-bold": Code2,
+  "solar:bolt-bold": Zap,
+  "solar:shield-check-bold": ShieldCheck,
+  "solar:cup-first-bold": Trophy,
+  "solar:arrow-right-up-linear": ArrowUpRight,
+  "solar:phone-linear": Phone,
+  "solar:check-circle-bold": CheckCircle2,
+  "solar:close-circle-bold": XCircle,
+  "solar:question-square-bold": HelpCircle,
+  "solar:ranking-linear": TrendingUp,
+  "solar:bolt-linear": Zap,
+  "solar:graph-up-linear": TrendingUp,
+  "solar:cpu-linear": Cpu,
+  "solar:shield-keyhole-linear": ShieldCheck,
+  "solar:users-group-two-rounded-linear": Users,
+  "solar:chat-square-call-linear": PhoneCall,
+  "solar:settings-minimalistic-linear": Settings,
+  "solar:plain-3-linear": Send,
+  "solar:play-circle-bold": Play,
+  "solar:arrow-right-linear": ArrowUpRight,
+  "solar:fire-bold": Flame,
+  "solar:star-bold": Star,
+  "lucide:package": Layers,
+  "lucide:calendar": Clock,
+  "lucide:headset": PhoneCall,
+  "lucide:help-circle": HelpCircle,
+  "lucide:chevron-down": ChevronDown,
+  "lucide:arrow-right": ArrowUpRight,
+  "lucide:smartphone": Smartphone,
+  "lucide:globe": Globe,
+  "lucide:database": Database,
+  "lucide:server": Server,
+  "lucide:code": Code2,
+  "lucide:activity": Activity,
+  "lucide:award": Award,
+  "lucide:briefcase": Briefcase,
+  "lucide:shopping-bag": ShoppingBag,
+  "lucide:users": Users,
+  "lucide:zap": Zap,
+  "lucide:shield": ShieldCheck,
 };
 
-export default SafeIcon;
+export default function SafeIcon({ icon, width = 20, height = 20, className = "", style = {} }) {
+  const IconComponent = ICON_MAP[icon] || Code2;
+  const size = typeof width === "number" ? width : parseInt(width, 10) || 20;
+
+  return <IconComponent size={size} className={className} style={{ width: `${size}px`, height: `${size}px`, ...style }} aria-hidden="true" />;
+}

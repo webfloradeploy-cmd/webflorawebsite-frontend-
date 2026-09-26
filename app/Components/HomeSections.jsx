@@ -39,6 +39,14 @@ export default function HomeSections({ faqComponent }) {
         />
       </div>
 
+      {/* 2.5 Enterprise Software & SaaS Solutions Showcase */}
+      <div className="content-auto">
+        <LazySection
+          height="550px"
+          loader={() => import("./SoftwareProductsShowcase")}
+        />
+      </div>
+
       {/* 3. Proof of Capability (Work / Portfolio) */}
       <div className="content-auto">
         <LazySection

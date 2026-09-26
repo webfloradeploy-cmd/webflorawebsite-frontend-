@@ -83,9 +83,9 @@ export default function AnnouncementBanner() {
                 dismiss();
               }}
               aria-label="Dismiss banner"
-              className="absolute right-4 md:right-0 text-neutral-500 hover:text-white transition-colors p-1"
+              className="absolute right-2 md:right-0 text-neutral-400 hover:text-white transition-colors p-3 min-w-[44px] min-h-[44px] flex items-center justify-center cursor-pointer"
             >
-              <Icon icon="solar:close-circle-bold-duotone" width={18} />
+              <Icon icon="solar:close-circle-bold-duotone" width={18} height={18} />
             </button>
           </div>
         </motion.div>

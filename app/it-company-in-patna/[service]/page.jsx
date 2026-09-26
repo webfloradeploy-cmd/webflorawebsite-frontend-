@@ -13,7 +13,6 @@ import {
 } from "../../lib/schemas";
 
 export const dynamic = "force-static";
-export const dynamicParams = false;
 
 const DEDICATED_SERVICES = [
   "digital-marketing-agency-in-patna",
@@ -70,15 +69,15 @@ export default async function ServicePage({ params }) {
     notFound();
   }
   const data = servicesData[serviceSlug];
-  
+
   if (!data) {
     notFound();
   }
-  
+
   return (
     <>
       <ServiceTemplate data={data} />
-      
+
       {/* Service Subpage JSON-LD Schemas */}
       <script
         type="application/ld+json"

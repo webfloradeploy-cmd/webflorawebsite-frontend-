@@ -2,18 +2,18 @@ import React from "react";
 import Image from "next/image";
 
 const clientLogos = [
-  { name: "DBM", src: "/client-logo/DBM.png" },
-  { name: "Diamond Resort", src: "/client-logo/DiamondResort.png" },
-  { name: "Edugen World School", src: "/client-logo/Edugen-world-school.png" },
-  { name: "Feedrani", src: "/client-logo/feedrani-logo.png" },
-  { name: "Krisivarsha", src: "/client-logo/Krisivarsha-logo.png" },
-  { name: "RGMS", src: "/client-logo/RGMS-logo.jpeg" },
-  { name: "Team Excellent", src: "/client-logo/Team-excellentlogo.webp" },
-  { name: "Best For Everyone", src: "/client-logo/best-for-everyone.png" },
-  { name: "Heo Sahyog", src: "/client-logo/heo-sahyog.png" },
-  { name: "Vidya Bharti", src: "/client-logo/vidya-bharti.png" },
-  { name: "LogiSafeWay", src: "/client-logo/logisafeway-logo.png" },
-  { name: "AG", src: "/client-logo/AG-logo.png" },
+  { name: "DBM", src: "/client-logo/opt-DBM.webp" },
+  { name: "Diamond Resort", src: "/client-logo/opt-DiamondResort.webp" },
+  { name: "Edugen World School", src: "/client-logo/opt-Edugen-world-school.webp" },
+  { name: "Feedrani", src: "/client-logo/opt-feedrani-logo.webp" },
+  { name: "Krisivarsha", src: "/client-logo/opt-Krisivarsha-logo.webp" },
+  { name: "RGMS", src: "/client-logo/opt-RGMS-logo.webp" },
+  { name: "Team Excellent", src: "/client-logo/opt-Team-excellentlogo.webp" },
+  { name: "Best For Everyone", src: "/client-logo/opt-best-for-everyone.webp" },
+  { name: "Heo Sahyog", src: "/client-logo/opt-heo-sahyog.webp" },
+  { name: "Vidya Bharti", src: "/client-logo/opt-vidya-bharti.webp" },
+  { name: "LogiSafeWay", src: "/client-logo/opt-logisafeway-logo.webp" },
+  { name: "AG", src: "/client-logo/opt-AG-logo.webp" },
 ];
 
 export default function ClientMarquee() {
@@ -21,7 +21,7 @@ export default function ClientMarquee() {
   return (
     <section className="bg-black py-6 md:py-10 border-y border-white/5 overflow-hidden">
       <div className="max-w-7xl mx-auto px-6 mb-3 md:mb-5 text-center">
-        <h2 className="text-xs font-mono uppercase tracking-widest text-neutral-500">
+        <h2 className="text-xs font-mono uppercase tracking-widest text-neutral-300">
           Trusted by companies across India
         </h2>
       </div>
@@ -45,6 +45,8 @@ export default function ClientMarquee() {
                   fill
                   className="object-contain"
                   sizes="(max-width: 768px) 112px, 144px"
+                  quality={75}
+                  loading="lazy"
                 />
               </div>
             ))}
@@ -63,6 +65,8 @@ export default function ClientMarquee() {
                   fill
                   className="object-contain"
                   sizes="(max-width: 768px) 112px, 144px"
+                  quality={75}
+                  loading="lazy"
                 />
               </div>
             ))}
