@@ -1,6 +1,6 @@
 export const servicesData = {
   "website-development-company-in-patna": {
-    "seoTitle": "Best Website Design Company in Patna | Webflora Technologies",
+    "seoTitle": "Best Website Design & Development Company in Patna | Webflora Technologies",
     "seoDescription": "Need a website that brings customers, not just looks good? Webflora builds fast, modern and SEO-ready websites designed around your business goals. Get your website started.",
     "seoKeywords": "website development company in patna, website developer in patna, website design company in patna, website company in patna, web designer in patna, best website design company in patna, best website developer in patna, best website development company in patna, best website company in patna, best website development company in patna, e commerce website developer in patna, ecommerce developer in patna, ecommerce developer patna, web design company in patna, web development company in patna, web development in patna, website company patna, website development in patna, website development company, website design, website developer, web designer, it company in patna, web design services bihar, custom website development cost patna, e-commerce web designer patna, Next.js developer Patna, coaching institute website Patna, responsive web design Patna, web development company in Bihar",
     "title": "Website Design Services in Patna",
@@ -582,7 +582,7 @@ export const servicesData = {
     ]
   },
   "mobile-app-development-company-in-patna": {
-    "seoTitle": "Best Mobile App Development Company in Patna | iOS & Android",
+    "seoTitle": "Best Mobile App Development Company in Patna | Webflora Technologies",
     "seoDescription": "Have an app idea? Webflora builds fast, scalable Android and iOS apps from UI/UX to development and launch. Turn your idea into a powerful mobile experience.",
     "seoKeywords": "best mobile app development company in patna, mobile app development company in patna, app development company in patna, android app development in patna, iOS app developers in patna, react native developers patna, flutter app developers patna, app developers in patna, mobile app development services in patna",
     "title": "Mobile App Development Services in Patna",
@@ -1603,7 +1603,8 @@ export const servicesData = {
         }
       ]
     },
-    "seoTitle": "AI Automation Services in Patna | Chatbots & Workflows | Webflora",
+    "seoTitle": "AI Automation Company in Patna | Workflows & AI Agents | Webflora Technologies",
+    "seoDescription": "Looking to automate business operations? Webflora Technologies builds custom AI automation, n8n workflows, and intelligent AI agents in Patna, Bihar to eliminate repetitive work.",
     "seoKeywords": "it company in patna, ai automation company in patna, best chatbot developer in bihar, n8n workflow automation, ai agents patna",
     "whyChooseTitle": "Why Choose Webflora for AI Automation?",
     "whyChooseSubtitle": "We construct autonomous, serverless n8n workflows and custom LLM chatbots. Eliminate manual operational overhead at flat rates.",
@@ -1993,7 +1994,7 @@ export const servicesData = {
     ]
   },
   "digital-marketing-agency-in-bihar": {
-    "seoTitle": "Best Digital Marketing Agency in Bihar | Performance marketing",
+    "seoTitle": "Best Digital Marketing Agency in Bihar | Webflora Technologies",
     "seoDescription": "Looking for the best digital marketing agency in Bihar? Webflora Technologies provides local SEO, Google Business Profile scaling, Google Ads, and Meta Ads in Bihar.",
     "seoKeywords": "best digital marketing agency in bihar, digital marketing agency in bihar, digital marketing company in bihar, SEO company in bihar, local SEO agency bihar, google ads agency bihar, marketing company bihar",
     "title": "Digital Marketing Agency in Bihar",

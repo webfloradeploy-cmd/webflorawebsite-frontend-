@@ -37,6 +37,8 @@ export default async function sitemap() {
     { route: "/it-company-in-patna/software-development-company-in-patna", priority: 0.95 },
     { route: "/it-company-in-patna/ai-automation-company-in-patna", priority: 0.95 },
     { route: "/it-company-in-patna/digital-marketing-agency-in-patna", priority: 0.9 },
+    { route: "/it-company-in-patna/software-company-in-bihar", priority: 0.9 },
+    { route: "/it-company-in-patna/digital-marketing-agency-in-bihar", priority: 0.9 },
 
     // Legal Pages
     { route: "/privacy-policy", priority: 0.2 },
@@ -53,25 +55,29 @@ export default async function sitemap() {
     priority: item.priority,
   }));
 
-  // Dynamic Locations & Location Services
-  const cityRoutes = Object.keys(citiesData).map((city) => ({
-    url: `${baseUrl}/locations/${city}`,
-    lastModified: new Date().toISOString(),
-    changeFrequency: "weekly",
-    priority: 0.85,
-  }));
+  // Dynamic Locations & Location Services (other target cities)
+  const cityRoutes = Object.keys(citiesData)
+    .filter((city) => city !== "patna")
+    .map((city) => ({
+      url: `${baseUrl}/locations/${city}`,
+      lastModified: new Date().toISOString(),
+      changeFrequency: "weekly",
+      priority: 0.85,
+    }));
 
   const locationServiceRoutes = [];
-  Object.keys(citiesData).forEach((city) => {
-    Object.keys(servicesData).forEach((service) => {
-      locationServiceRoutes.push({
-        url: `${baseUrl}/locations/${city}/${service}`,
-        lastModified: new Date().toISOString(),
-        changeFrequency: "weekly",
-        priority: 0.8,
+  Object.keys(citiesData)
+    .filter((city) => city !== "patna")
+    .forEach((city) => {
+      Object.keys(servicesData).forEach((service) => {
+        locationServiceRoutes.push({
+          url: `${baseUrl}/locations/${city}/${service}`,
+          lastModified: new Date().toISOString(),
+          changeFrequency: "weekly",
+          priority: 0.8,
+        });
       });
     });
-  });
 
   // Dynamic Industries
   const industryRoutes = Object.keys(industriesData).map((industry) => ({

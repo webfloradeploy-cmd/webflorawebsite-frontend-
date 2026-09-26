@@ -37,6 +37,7 @@ export async function generateMetadata({ params }: Props) {
   if (!city) return {};
 
   const baseUrl = "https://webfloratechnologies.com";
+  const canonicalUrl = citySlug === "patna" ? `${baseUrl}/it-company-in-patna` : `${baseUrl}/locations/${citySlug}`;
   const url = `${baseUrl}/locations/${citySlug}`;
   const title = `Software & Digital Solutions Company in ${city.name} | Webflora Technologies`;
   const description = `Looking for top-tier digital transformation in ${city.name}? Webflora Technologies provides website development, mobile apps, and custom software systems remotely across India from our Patna HQ.`;
@@ -49,7 +50,7 @@ export async function generateMetadata({ params }: Props) {
     description,
     keywords,
     alternates: {
-      canonical: url,
+      canonical: canonicalUrl,
     },
     openGraph: {
       title,

@@ -49,26 +49,45 @@ export async function generateMetadata({ params }: Props) {
 
   const baseUrl = "https://webfloratechnologies.com";
   const url = `${baseUrl}/locations/${citySlug}/${serviceSlug}`;
+  let canonicalUrl = `${baseUrl}/locations/${citySlug}/${serviceSlug}`;
+
+  if (citySlug === "patna") {
+    const patnaCanonicalMap: Record<string, string> = {
+      "website-development": `${baseUrl}/it-company-in-patna/website-development-company-in-patna`,
+      "web-design": `${baseUrl}/it-company-in-patna/website-development-company-in-patna`,
+      "software-development": `${baseUrl}/it-company-in-patna/software-development-company-in-patna`,
+      "app-development": `${baseUrl}/it-company-in-patna/mobile-app-development-company-in-patna`,
+      "digital-marketing": `${baseUrl}/it-company-in-patna/digital-marketing-agency-in-patna`,
+      "seo-services": `${baseUrl}/seo-services-in-patna`,
+      "ai-chatbot-development": `${baseUrl}/it-company-in-patna/ai-chatbot-company-in-patna`,
+      "automation-solutions": `${baseUrl}/it-company-in-patna/ai-automation-company-in-patna`,
+    };
+    if (patnaCanonicalMap[serviceSlug]) {
+      canonicalUrl = patnaCanonicalMap[serviceSlug];
+    }
+  }
+
   let title = `${service.headline} in ${city.name} | Webflora Technologies`;
   let description = `Looking for the best ${service.name.toLowerCase()} in ${city.name}? Webflora Technologies engineers premium Next.js apps and software remotely from our Patna HQ. Request a quote!`;
 
   if (citySlug === "patna") {
     if (serviceSlug === "website-development") {
-      title = "Best Website Design & Development Company in Patna | Webflora";
+      title = "Best Website Design & Development Company in Patna | Webflora Technologies";
       description = "Need a website that brings customers? Get a fast, modern and SEO-ready website built to earn trust, generate enquiries and grow.";
     } else if (serviceSlug === "web-design") {
-      title = "Best Website Design Company in Patna | Professional Web Designers";
+      title = "Best Website Design Company in Patna | Webflora Technologies";
       description = "Need a website that brings customers? Get a fast, modern and SEO-ready website built to earn trust, generate enquiries and grow.";
     } else if (serviceSlug === "software-development") {
+      title = "Best Software Development Company in Patna | Webflora Technologies";
       description = "Need software that fits your business? We build custom CRM, ERP, billing and business software to automate work and help you scale.";
     } else if (serviceSlug === "app-development") {
-      title = "Best Mobile App Development Company in Patna | Webflora";
+      title = "Best Mobile App Development Company in Patna | Webflora Technologies";
       description = "Turn your app idea into reality. Get custom Android & iOS apps built to perform, scale and deliver a better user experience.";
     } else if (serviceSlug === "digital-marketing") {
-      title = "Best Digital Marketing Company in Patna | Webflora";
+      title = "Best Digital Marketing Company in Patna | Webflora Technologies";
       description = "Need more leads for your business? Get SEO, Google Ads & digital marketing strategies designed to increase visibility, enquiries and sales.";
     } else if (serviceSlug === "seo-services") {
-      title = "Best SEO Company in Patna | Professional SEO Agency";
+      title = "Best SEO Company in Patna | Webflora Technologies";
       description = "Looking for the best SEO company in Patna? Webflora Technologies is the top SEO agency in Patna, Bihar, specializing in local SEO, technical SEO audits, and link building services.";
     }
   }
@@ -103,7 +122,7 @@ export async function generateMetadata({ params }: Props) {
     description,
     keywords,
     alternates: {
-      canonical: url,
+      canonical: canonicalUrl,
     },
     openGraph: {
       title,

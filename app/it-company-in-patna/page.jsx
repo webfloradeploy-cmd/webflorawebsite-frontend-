@@ -83,7 +83,15 @@ const page = () => {
               }),
               buildProfessionalServiceSchema({
                 name: "Webflora Technologies - IT & Software Services",
-                description: "Top IT software and web development company in Patna, Bihar."
+                description: "Top IT software and web development company in Patna, Bihar.",
+                aggregateRating: buildAggregateRatingSchema({ ratingValue: 4.9, reviewCount: 52 }),
+                review: [
+                  buildReviewSchema({
+                    authorName: "Rahul Kumar",
+                    reviewRating: 5,
+                    reviewBody: "Best IT company in Patna. They delivered our web application on time with exceptional performance."
+                  })
+                ]
               }),
               buildWebPageSchema({
                 name: "Best IT Company in Patna Bihar | Webflora Technologies",
@@ -103,13 +111,7 @@ const page = () => {
                 { name: "AI & Automation", url: "/it-company-in-patna/ai-automation-company-in-patna" },
                 { name: "AI Chatbots", url: "/it-company-in-patna/ai-chatbot-company-in-patna" }
               ]),
-              buildFAQPageSchema(itCompanyFaqs),
-              buildAggregateRatingSchema({ ratingValue: 4.9, reviewCount: 52 }),
-              buildReviewSchema({
-                authorName: "Rahul Kumar",
-                reviewRating: 5,
-                reviewBody: "Best IT company in Patna. They delivered our web application on time with exceptional performance."
-              })
+              buildFAQPageSchema(itCompanyFaqs)
             ])
           )
         }}

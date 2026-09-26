@@ -86,10 +86,17 @@ export default function Page() {
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(
             toGraphSchema([
-              buildOrganizationSchema(),
-              buildLocalBusinessSchema(),
+              buildLocalBusinessSchema({
+                aggregateRating: buildAggregateRatingSchema({ ratingValue: 4.9, reviewCount: 68 }),
+                review: [
+                  buildReviewSchema({
+                    authorName: "Anand Prakash",
+                    reviewRating: 5,
+                    reviewBody: "Webflora Technologies delivered an outstanding web solution for our enterprise. Highly recommended engineering team in Bihar!"
+                  })
+                ]
+              }),
               buildProfessionalServiceSchema(),
-              buildWebSiteSchema(),
               buildWebPageSchema({
                 name: "Software Company in Patna, Bihar | Webflora Technologies",
                 description: "Looking for a reliable tech partner? Webflora builds websites, mobile apps, custom software, AI automation and digital solutions to help businesses grow. Get started today.",
@@ -109,16 +116,7 @@ export default function Page() {
                 { name: "SEO Services Patna", url: "/seo-services-in-patna" },
                 { name: "Digital Marketing Patna", url: "/it-company-in-patna/digital-marketing-agency-in-patna" },
                 { name: "AI Automation Patna", url: "/it-company-in-patna/ai-automation-company-in-patna" }
-              ]),
-              {
-                ...buildLocalBusinessSchema(),
-                aggregateRating: buildAggregateRatingSchema({ ratingValue: 4.9, reviewCount: 68 })
-              },
-              buildReviewSchema({
-                authorName: "Anand Prakash",
-                reviewRating: 5,
-                reviewBody: "Webflora Technologies delivered an outstanding web solution for our enterprise. Highly recommended engineering team in Bihar!"
-              })
+              ])
             ])
           )
         }}
