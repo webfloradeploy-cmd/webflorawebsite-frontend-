@@ -656,6 +656,20 @@ export default function DigitalMarketingPatnaPage() {
               </div>
             </div>
 
+            <div className="mt-8 p-6 rounded-2xl bg-gradient-to-r from-orange-500/10 via-red-500/5 to-transparent border border-orange-500/20 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+              <div>
+                <h4 className="text-white font-bold text-base">Looking for dedicated Search Engine Optimization?</h4>
+                <p className="text-neutral-400 text-xs sm:text-sm font-light mt-0.5">Explore our standalone technical, on-page, local Google Maps, and e-commerce SEO campaigns.</p>
+              </div>
+              <Link
+                href="/seo-services-in-patna"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#d93200] hover:bg-[#ff3b00] text-white text-xs font-bold uppercase tracking-wider transition-all whitespace-nowrap shadow-md hover:scale-105"
+              >
+                <span>SEO Services in Patna</span>
+                <ArrowRight className="w-3.5 h-3.5" />
+              </Link>
+            </div>
+
           </div>
         </section>
 

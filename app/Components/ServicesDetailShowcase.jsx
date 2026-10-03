@@ -149,6 +149,10 @@ const services = [
       { label: "Target ROAS", val: "10x", sub: "Performance Campaigns" },
       { label: "Local Rank", val: "#1 3-Pack", sub: "Google Business Profile" },
       { label: "Lead Growth", val: "3x+", sub: "Verified Pipeline Boost" }
+    ],
+    specialtyLinks: [
+      { name: "SEO Services in Patna", href: "/seo-services-in-patna", icon: "solar:magnifer-bold" },
+      { name: "Digital Marketing Agency", href: "/it-company-in-patna/digital-marketing-agency-in-patna", icon: "solar:ranking-bold" }
     ]
   }
 ];
