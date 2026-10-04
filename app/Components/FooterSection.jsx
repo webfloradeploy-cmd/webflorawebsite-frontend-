@@ -126,6 +126,7 @@ export default function FooterSection() {
                 title="Product"
                 links={[
                   { text: "Home", url: "/" },
+                  { text: "AI Calling Agent", url: "/ai-calling-agent" },
                   { text: "AI Chatbots", url: "/it-company-in-patna/ai-chatbot-company-in-patna" },
                   { text: "Attendance Software", url: "/attendance-management-software" },
                   { text: "EHR Software", url: "/electronic-health-records-software" },

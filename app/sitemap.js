@@ -29,6 +29,7 @@ export default async function sitemap() {
     { route: "/faq", priority: 0.8 },
 
     // Core Service Pages
+    { route: "/ai-calling-agent", priority: 0.95 },
     { route: "/seo-services-in-patna", priority: 0.95 },
     { route: "/ecommerce-website-development", priority: 0.95 },
     { route: "/it-company-in-patna/ai-chatbot-company-in-patna", priority: 0.95 },

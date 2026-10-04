@@ -40,6 +40,7 @@ const navItems = [
     children: [
       { icon: Briefcase, label: "All Services", desc: "Browse all core services we offer.", href: "/it-company-in-patna" },
       { icon: Search, label: "SEO Services", desc: "Rank #1 on Google & AI search.", href: "/seo-services-in-patna", highlight: true, badge: "GROWTH" },
+      { icon: Phone, label: "AI Calling Agent", desc: "Automated voice calling & AI phone bot.", href: "/ai-calling-agent", highlight: true, badge: "AI VOICE" },
       { icon: ShoppingBag, label: "eCommerce Dev", desc: "Custom stores, B2B & marketplaces.", href: "/ecommerce-website-development", highlight: true, badge: "HOT" },
       { icon: Globe, label: "Website Dev", desc: "High-performance marketing sites.", href: "/it-company-in-patna/website-development-company-in-patna" },
       { icon: Bot, label: "AI & Automation", desc: "Custom n8n and workflow agents.", href: "/it-company-in-patna/ai-automation-company-in-patna" },
@@ -173,57 +174,89 @@ export default function Navbar() {
                       )}
                     </Link>
 
-                    {/* Dropdown — CSS opacity + translate, no JS animation */}
+                    {/* Dropdown Menu */}
                     <div
                       role="menu"
-                      className={`absolute top-full left-1/2 -translate-x-1/2 pt-2 w-[480px] z-[200] transition-all duration-200 origin-top ${activeDropdown === idx
-                          ? "opacity-100 scale-100 translate-y-0 pointer-events-auto"
-                          : "opacity-0 scale-[0.97] translate-y-3 pointer-events-none"
-                        }`}
+                      className={`absolute top-full left-1/2 -translate-x-1/2 pt-3 w-[580px] z-[200] transition-all duration-200 origin-top ${
+                        activeDropdown === idx
+                          ? "block opacity-100 scale-100 translate-y-0 pointer-events-auto"
+                          : "hidden opacity-0 scale-95 translate-y-2 pointer-events-none"
+                      }`}
                     >
-                      <div className="bg-[#050505]/95 backdrop-blur-3xl border border-white/10 rounded-2xl p-4 shadow-[0_40px_80px_rgba(0,0,0,0.95)] relative">
-                        <div className="absolute top-[-5px] left-1/2 -translate-x-1/2 w-2.5 h-2.5 rotate-45 bg-[#050505] border-t border-l border-white/10 z-[199]" />
+                      <div className="bg-[#080808]/98 backdrop-blur-3xl border border-white/10 rounded-2xl p-4 shadow-[0_40px_80px_rgba(0,0,0,0.95)] relative">
+                        <div className="absolute top-[-5px] left-1/2 -translate-x-1/2 w-2.5 h-2.5 rotate-45 bg-[#080808] border-t border-l border-white/10 z-[199]" />
 
                         <div className="grid grid-cols-2 gap-2 relative z-[200]">
                           {item.children.map((child, ci) => {
                             const ChildIcon = child.icon;
                             const isChildUrlActive = pathname === child.href;
                             return (
-                              <Link key={ci} href={child.href} role="menuitem">
+                              <Link key={ci} href={child.href} role="menuitem" className="block">
                                 <div
-                                  className={`relative flex items-start gap-3 p-3 rounded-xl transition-all duration-200 border border-transparent hover:border-white/5 hover:-translate-y-px hover:bg-white/[0.04] ${child.highlight
+                                  className={`relative flex items-start gap-3 p-3 rounded-xl transition-all duration-200 border border-transparent hover:border-white/10 hover:-translate-y-px hover:bg-white/[0.05] ${child.highlight
                                       ? "bg-[#FF3B00]/5 border-[#FF3B00]/15 hover:bg-[#FF3B00]/10"
-                                      : ""
+                                      : "bg-transparent"
                                     }`}
                                 >
-                                  {child.badge && (
-                                    <span className="absolute top-2 right-2.5 text-[9px] font-black uppercase tracking-wider bg-[#FF3B00] text-black px-1.5 py-0.5 rounded shadow-sm">
-                                      {child.badge}
-                                    </span>
-                                  )}
                                   <div
-                                    className={`w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 transition-all duration-300 ${child.highlight
+                                    className={`w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0 transition-all duration-300 mt-0.5 ${child.highlight
                                         ? "bg-[#FF3B00] text-white shadow-[0_0_15px_rgba(255,59,0,0.4)]"
                                         : "bg-white/5 text-neutral-400"
                                       }`}
                                   >
-                                    <ChildIcon size={14} />
+                                    <ChildIcon size={16} />
                                   </div>
-                                  <div className="text-left">
-                                    <div
-                                      className={`text-[11px] font-bold uppercase tracking-wider ${isChildUrlActive || child.highlight ? "text-white" : "text-neutral-200"
-                                        }`}
-                                    >
-                                      {child.label}{" "}
+                                  <div className="text-left flex-1 min-w-0 pr-1">
+                                    <div className="flex items-center justify-between gap-1.5">
+                                      <span
+                                        className={`text-xs font-bold uppercase tracking-wider truncate ${isChildUrlActive || child.highlight ? "text-white" : "text-neutral-200"
+                                          }`}
+                                      >
+                                        {child.label}
+                                      </span>
+                                      {child.badge && (
+                                        <span className="shrink-0 text-[8px] font-black uppercase tracking-wider bg-[#FF3B00] text-black px-1.5 py-0.5 rounded shadow-sm">
+                                          {child.badge}
+                                        </span>
+                                      )}
                                     </div>
-                                    <div className="text-[10px] text-neutral-400 font-medium tracking-normal mt-0.5 leading-snug normal-case">
-                                      {child.desc}{" "}
+                                    <div className="text-[11px] text-neutral-400 font-normal tracking-normal mt-0.5 leading-snug normal-case line-clamp-1">
+                                      {child.desc}
                                     </div>
                                   </div>
                                 </div>
                               </Link>
                             );
                           })}
+                        </div>
+
+                        {/* Featured AI Voice Calling Agent Banner */}
+                        <div className="mt-3 pt-3 border-t border-white/10">
+                          <Link
+                            href="/ai-calling-agent"
+                            className="group/btn relative flex items-center justify-between gap-3 p-3 rounded-xl bg-gradient-to-r from-[#FF3B00]/20 via-[#FF3B00]/10 to-transparent border border-[#FF3B00]/30 hover:border-[#FF3B00] transition-all duration-300"
+                          >
+                            <div className="flex items-center gap-3">
+                              <div className="w-8 h-8 rounded-lg bg-[#FF3B00] text-white flex items-center justify-center shadow-[0_0_15px_rgba(255,59,0,0.5)]">
+                                <Phone size={16} className="animate-pulse" />
+                              </div>
+                              <div>
+                                <div className="text-xs font-bold text-white flex items-center gap-2">
+                                  <span>AI Calling Agent</span>
+                                  <span className="text-[9px] font-black uppercase tracking-wider bg-white text-black px-1.5 py-0.5 rounded">
+                                    NEW
+                                  </span>
+                                </div>
+                                <div className="text-[11px] text-neutral-300 font-light">
+                                  Automate customer voice calls 24/7 with human-like AI
+                                </div>
+                              </div>
+                            </div>
+                            <div className="flex items-center gap-1 text-xs font-bold text-[#FF3B00] group-hover/btn:translate-x-1 transition-transform pr-2">
+                              <span>Explore</span>
+                              <span>→</span>
+                            </div>
+                          </Link>
                         </div>
                       </div>
                     </div>

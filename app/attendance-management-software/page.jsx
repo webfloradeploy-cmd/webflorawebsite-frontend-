@@ -321,10 +321,12 @@ export default function AttendanceSoftwarePage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedSystem, setSelectedSystem] = useState("AI Face Recognition Attendance System");
   const [formStatus, setFormStatus] = useState(null);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const openQuoteModal = (systemName = "AI Face Recognition Attendance System") => {
     setSelectedSystem(systemName);
     setFormStatus(null);
+    setErrorMessage("");
     setIsModalOpen(true);
   };
 
@@ -353,11 +355,15 @@ export default function AttendanceSoftwarePage() {
 
       if (res.ok) {
         setFormStatus("success");
+        setErrorMessage("");
         e.target.reset();
       } else {
+        const resData = await res.json().catch(() => ({}));
+        setErrorMessage(resData.message || "Failed to submit. Please try again.");
         setFormStatus("error");
       }
     } catch (err) {
+      setErrorMessage("Network error. Please try again or contact via WhatsApp.");
       setFormStatus("error");
     }
   };
@@ -414,7 +420,7 @@ export default function AttendanceSoftwarePage() {
             
             {/* Simple Subtitle */}
             <p className="text-neutral-300 text-sm sm:text-base lg:text-lg font-light leading-relaxed max-w-2xl">
-              Track employee and student attendance easily with Webflora&apos;s <Link href="/software-company-patna" className="text-[#FF3B00] hover:underline font-medium">custom software development</Link>. Use <Link href="/ai-chatbot-development-patna" className="text-white hover:text-[#FF3B00] underline decoration-orange-500/50">AI face recognition</Link>, dynamic QR codes, <strong>eSSL biometric software</strong>, RFID cards, or <Link href="/mobile-app-development-patna" className="text-white hover:text-[#FF3B00] underline decoration-orange-500/50">mobile GPS tracking</Link> — all managed in one central <strong>attendance management system</strong>.
+              Track employee and student attendance easily with Webflora&apos;s <Link href="/it-company-in-patna/software-development-company-in-patna" className="text-[#FF3B00] hover:underline font-medium">custom software development</Link>. Use <Link href="/it-company-in-patna/ai-chatbot-company-in-patna" className="text-white hover:text-[#FF3B00] underline decoration-orange-500/50">AI face recognition</Link>, dynamic QR codes, <strong>eSSL biometric software</strong>, RFID cards, or <Link href="/it-company-in-patna/mobile-app-development-company-in-patna" className="text-white hover:text-[#FF3B00] underline decoration-orange-500/50">mobile GPS tracking</Link> — all managed in one central <strong>attendance management system</strong>.
             </p>
             
             {/* Action Buttons */}
@@ -998,13 +1004,13 @@ export default function AttendanceSoftwarePage() {
         title="Attendance Management Software Development in Patna, Bihar"
         paragraphs={[
           <>
-            <strong className="text-white font-semibold">Webflora Technologies</strong> is Patna&apos;s leading <Link href="/software-company-patna" className="text-[#FF3B00] hover:underline font-medium">software development company in Patna</Link> building custom <strong className="text-white font-semibold">attendance management software</strong>, HRMS platforms, and payroll systems for offices, coaching institutes, schools, and factories across Bihar.
+            <strong className="text-white font-semibold">Webflora Technologies</strong> is Patna&apos;s leading <Link href="/it-company-in-patna/software-development-company-in-patna" className="text-[#FF3B00] hover:underline font-medium">software development company in Patna</Link> building custom <strong className="text-white font-semibold">attendance management software</strong>, HRMS platforms, and payroll systems for offices, coaching institutes, schools, and factories across Bihar.
           </>,
           <>
-            Our team at <Link href="/it-company-in-patna" className="text-[#FF3B00] hover:underline font-medium">Webflora IT Company Patna</Link> develops solutions featuring <Link href="/ai-chatbot-development-patna" className="text-[#FF3B00] hover:underline font-medium">AI face recognition automation</Link> on CCTV cameras, dynamic <strong className="text-white font-semibold">QR code attendance systems</strong>, <Link href="/mobile-app-development-patna" className="text-[#FF3B00] hover:underline font-medium">mobile app development</Link> with GPS geofencing, and direct sync with <strong className="text-white font-semibold">eSSL biometric software</strong> and <strong className="text-white font-semibold">e time track lite</strong> with zero monthly fees.
+            Our team at <Link href="/it-company-in-patna" className="text-[#FF3B00] hover:underline font-medium">Webflora IT Company Patna</Link> develops solutions featuring <Link href="/it-company-in-patna/ai-chatbot-company-in-patna" className="text-[#FF3B00] hover:underline font-medium">AI face recognition automation</Link> on CCTV cameras, dynamic <strong className="text-white font-semibold">QR code attendance systems</strong>, <Link href="/it-company-in-patna/mobile-app-development-company-in-patna" className="text-[#FF3B00] hover:underline font-medium">mobile app development</Link> with GPS geofencing, and direct sync with <strong className="text-white font-semibold">eSSL biometric software</strong> and <strong className="text-white font-semibold">e time track lite</strong> with zero monthly fees.
           </>,
           <>
-            Explore our specialized enterprise tech platforms like <Link href="/electronic-health-records-software" className="text-[#FF3B00] hover:underline font-medium">Electronic Health Records (EHR) Software</Link> and modern <Link href="/website-development-patna" className="text-[#FF3B00] hover:underline font-medium">website development in Patna</Link> tailored for growth.
+            Explore our specialized enterprise tech platforms like <Link href="/electronic-health-records-software" className="text-[#FF3B00] hover:underline font-medium">Electronic Health Records (EHR) Software</Link> and modern <Link href="/it-company-in-patna/website-development-company-in-patna" className="text-[#FF3B00] hover:underline font-medium">website development in Patna</Link> tailored for growth.
           </>
         ]}
       />
@@ -1025,7 +1031,7 @@ export default function AttendanceSoftwarePage() {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
           <Link
-            href="/software-company-patna"
+            href="/it-company-in-patna/software-development-company-in-patna"
             className="group p-6 rounded-2xl bg-[#080808] border border-white/10 hover:border-[#FF3B00]/40 transition-all duration-300 space-y-3 hover:translate-y-[-2px]"
           >
             <div className="w-10 h-10 rounded-xl bg-[#FF3B00]/10 border border-[#FF3B00]/20 flex items-center justify-center text-[#FF3B00] group-hover:bg-[#FF3B00] group-hover:text-white transition-colors">
@@ -1057,7 +1063,7 @@ export default function AttendanceSoftwarePage() {
           </Link>
 
           <Link
-            href="/ai-chatbot-development-patna"
+            href="/it-company-in-patna/ai-chatbot-company-in-patna"
             className="group p-6 rounded-2xl bg-[#080808] border border-white/10 hover:border-[#FF3B00]/40 transition-all duration-300 space-y-3 hover:translate-y-[-2px]"
           >
             <div className="w-10 h-10 rounded-xl bg-[#FF3B00]/10 border border-[#FF3B00]/20 flex items-center justify-center text-[#FF3B00] group-hover:bg-[#FF3B00] group-hover:text-white transition-colors">
@@ -1073,7 +1079,7 @@ export default function AttendanceSoftwarePage() {
           </Link>
 
           <Link
-            href="/mobile-app-development-patna"
+            href="/it-company-in-patna/mobile-app-development-company-in-patna"
             className="group p-6 rounded-2xl bg-[#080808] border border-white/10 hover:border-[#FF3B00]/40 transition-all duration-300 space-y-3 hover:translate-y-[-2px]"
           >
             <div className="w-10 h-10 rounded-xl bg-[#FF3B00]/10 border border-[#FF3B00]/20 flex items-center justify-center text-[#FF3B00] group-hover:bg-[#FF3B00] group-hover:text-white transition-colors">
@@ -1089,7 +1095,7 @@ export default function AttendanceSoftwarePage() {
           </Link>
 
           <Link
-            href="/website-development-patna"
+            href="/it-company-in-patna/website-development-company-in-patna"
             className="group p-6 rounded-2xl bg-[#080808] border border-white/10 hover:border-[#FF3B00]/40 transition-all duration-300 space-y-3 hover:translate-y-[-2px]"
           >
             <div className="w-10 h-10 rounded-xl bg-[#FF3B00]/10 border border-[#FF3B00]/20 flex items-center justify-center text-[#FF3B00] group-hover:bg-[#FF3B00] group-hover:text-white transition-colors">
@@ -1105,7 +1111,7 @@ export default function AttendanceSoftwarePage() {
           </Link>
 
           <Link
-            href="/digital-marketing-patna"
+            href="/it-company-in-patna/digital-marketing-agency-in-patna"
             className="group p-6 rounded-2xl bg-[#080808] border border-white/10 hover:border-[#FF3B00]/40 transition-all duration-300 space-y-3 hover:translate-y-[-2px]"
           >
             <div className="w-10 h-10 rounded-xl bg-[#FF3B00]/10 border border-[#FF3B00]/20 flex items-center justify-center text-[#FF3B00] group-hover:bg-[#FF3B00] group-hover:text-white transition-colors">
@@ -1324,7 +1330,8 @@ export default function AttendanceSoftwarePage() {
 
                   {formStatus === "error" && (
                     <div className="p-3 bg-rose-500/10 border border-rose-500/20 text-rose-400 text-[11px] rounded-xl flex items-center gap-2">
-                      <AlertCircle size={15} /> Failed to submit. Please try again.
+                      <AlertCircle size={15} className="shrink-0" /> 
+                      <span>{errorMessage || "Failed to submit. Please try again."}</span>
                     </div>
                   )}
 
