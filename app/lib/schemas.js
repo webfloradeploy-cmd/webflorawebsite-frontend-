@@ -192,7 +192,7 @@ export function buildServiceSchema({ name, serviceType, description, providerUrl
 }
 
 // 8. SoftwareApplication Schema
-export function buildSoftwareApplicationSchema({ name, operatingSystem = "All", applicationCategory = "BusinessApplication", offers, aggregateRating, description, image, url = BASE_URL }) {
+export function buildSoftwareApplicationSchema({ name, operatingSystem = "All", applicationCategory = "BusinessApplication", offers, aggregateRating, review, description, image, url = BASE_URL }) {
   return {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
@@ -207,12 +207,13 @@ export function buildSoftwareApplicationSchema({ name, operatingSystem = "All", 
       "url": BASE_URL
     },
     ...(offers && { "offers": buildOfferSchema({ ...(typeof offers === "object" ? offers : {}), url }) }),
-    ...(aggregateRating && { "aggregateRating": buildAggregateRatingSchema(aggregateRating) })
+    ...(aggregateRating && { "aggregateRating": buildAggregateRatingSchema(aggregateRating) }),
+    ...(review && { "review": Array.isArray(review) ? review.map(r => buildReviewSchema(r)) : buildReviewSchema(review) })
   };
 }
 
 // 9. Product Schema
-export function buildProductSchema({ name, description, image, offers, aggregateRating, category = "Software", url = BASE_URL }) {
+export function buildProductSchema({ name, description, image, offers, aggregateRating, review, category = "Software", url = BASE_URL }) {
   return {
     "@context": "https://schema.org",
     "@type": "Product",
@@ -225,7 +226,8 @@ export function buildProductSchema({ name, description, image, offers, aggregate
       "name": COMPANY_INFO.name
     },
     "offers": buildOfferSchema({ ...(typeof offers === "object" ? offers : {}), url }),
-    ...(aggregateRating && { "aggregateRating": buildAggregateRatingSchema(aggregateRating) })
+    ...(aggregateRating && { "aggregateRating": buildAggregateRatingSchema(aggregateRating) }),
+    ...(review && { "review": Array.isArray(review) ? review.map(r => buildReviewSchema(r)) : buildReviewSchema(review) })
   };
 }
 
@@ -398,7 +400,7 @@ export function buildAboutPageSchema() {
 
 // 18. Review Schema
 export function buildReviewSchema({ authorName, reviewRating = 5, reviewBody, itemReviewed }) {
-  return {
+  const review = {
     "@context": "https://schema.org",
     "@type": "Review",
     "author": {
@@ -412,15 +414,14 @@ export function buildReviewSchema({ authorName, reviewRating = 5, reviewBody, it
       "worstRating": 1
     },
     "reviewBody": reviewBody,
-    "itemReviewed": itemReviewed || {
-      "@type": "LocalBusiness",
-      "name": COMPANY_INFO.name,
-      "image": COMPANY_INFO.image,
-      "telephone": COMPANY_INFO.telephone,
-      "url": BASE_URL,
-      "address": buildPostalAddressSchema()
-    }
   };
+
+  // Only include itemReviewed if explicitly provided and NOT "Service" (Service is not allowed by Google)
+  if (itemReviewed && itemReviewed["@type"] && itemReviewed["@type"] !== "Service") {
+    review.itemReviewed = itemReviewed;
+  }
+
+  return review;
 }
 
 // 19. AggregateRating Schema

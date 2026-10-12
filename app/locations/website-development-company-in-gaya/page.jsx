@@ -453,20 +453,11 @@ export default function GayaLandingPage() {
       aggregateRating: {
         ratingValue: 4.9,
         reviewCount: 130
-      }
-    }),
-    buildReviewSchema({
-      authorName: "Manish Kumar",
-      reviewRating: 5,
-      reviewBody: "Webflora Technologies built our hotel booking website in Bodh Gaya. Super fast load speed, direct WhatsApp reservations, and seamless mobile design.",
-      itemReviewed: {
-        "@type": "Service",
-        "name": "Website Development Services in Gaya",
-        "provider": {
-          "@type": "Organization",
-          "name": "Webflora Technologies",
-          "url": "https://webfloratechnologies.com"
-        }
+      },
+      review: {
+        authorName: "Manish Kumar",
+        reviewRating: 5,
+        reviewBody: "Webflora Technologies built our hotel booking website in Bodh Gaya. Super fast load speed, direct WhatsApp reservations, and seamless mobile design."
       }
     }),
     buildWebPageSchema({

@@ -104,12 +104,12 @@ const jsonLdSchema = [
     image: "https://webfloratechnologies.com/title-logo.png",
     url: "https://webfloratechnologies.com/attendance-management-software",
     offers: { price: "120000", priceCurrency: "INR", url: "https://webfloratechnologies.com/attendance-management-software" },
-    aggregateRating: { ratingValue: 4.9, reviewCount: 142 }
-  }),
-  buildReviewSchema({
-    authorName: "Vikram Sharma",
-    reviewRating: 5,
-    reviewBody: "Webflora's face recognition attendance software eliminated proxy attendance in our organization completely. The automated payroll integration saves us 20+ hours monthly."
+    aggregateRating: { ratingValue: 4.9, reviewCount: 142 },
+    review: {
+      authorName: "Vikram Sharma",
+      reviewRating: 5,
+      reviewBody: "Webflora's face recognition attendance software eliminated proxy attendance in our organization completely. The automated payroll integration saves us 20+ hours monthly."
+    }
   }),
   buildWebPageSchema({
     name: "Attendance Management System & Software in Patna",

@@ -184,20 +184,11 @@ export default function DigitalMarketingCompanyInGayaPage() {
       aggregateRating: {
         ratingValue: 4.9,
         reviewCount: 78
-      }
-    }),
-    buildReviewSchema({
-      authorName: "Sanjay Gupta",
-      reviewRating: 5,
-      reviewBody: "Webflora transformed our online lead generation in Gaya. Our Google Maps visibility improved significantly within 60 days, and our ad ROI doubled.",
-      itemReviewed: {
-        "@type": "Service",
-        "name": "Digital Marketing Services in Gaya",
-        "provider": {
-          "@type": "Organization",
-          "name": "Webflora Technologies",
-          "url": "https://webfloratechnologies.com"
-        }
+      },
+      review: {
+        authorName: "Sanjay Gupta",
+        reviewRating: 5,
+        reviewBody: "Webflora transformed our online lead generation in Gaya. Our Google Maps visibility improved significantly within 60 days, and our ad ROI doubled."
       }
     }),
     buildWebPageSchema({

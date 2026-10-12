@@ -184,20 +184,11 @@ export default function MobileAppDevelopmentCompanyInGayaPage() {
       aggregateRating: {
         ratingValue: 4.9,
         reviewCount: 96
-      }
-    }),
-    buildReviewSchema({
-      authorName: "Anand Verma",
-      reviewRating: 5,
-      reviewBody: "Webflora Technologies developed our Flutter mobile app with seamless Razorpay integration and live GPS order tracking. Excellent communication and high performance.",
-      itemReviewed: {
-        "@type": "Service",
-        "name": "Mobile App Development Services in Gaya",
-        "provider": {
-          "@type": "Organization",
-          "name": "Webflora Technologies",
-          "url": "https://webfloratechnologies.com"
-        }
+      },
+      review: {
+        authorName: "Anand Verma",
+        reviewRating: 5,
+        reviewBody: "Webflora Technologies developed our Flutter mobile app with seamless Razorpay integration and live GPS order tracking. Excellent communication and high performance."
       }
     }),
     buildWebPageSchema({

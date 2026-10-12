@@ -481,20 +481,11 @@ export default function GayaSoftwareLandingPage() {
       aggregateRating: {
         ratingValue: 4.9,
         reviewCount: 112
-      }
-    }),
-    buildReviewSchema({
-      authorName: "Rajeev Ranjan",
-      reviewRating: 5,
-      reviewBody: "Webflora engineered our multi-branch billing and inventory software in Gaya. Fast performance, zero monthly fees, and excellent post-launch support.",
-      itemReviewed: {
-        "@type": "Service",
-        "name": "Software Development Services in Gaya",
-        "provider": {
-          "@type": "Organization",
-          "name": "Webflora Technologies",
-          "url": "https://webfloratechnologies.com"
-        }
+      },
+      review: {
+        authorName: "Rajeev Ranjan",
+        reviewRating: 5,
+        reviewBody: "Webflora engineered our multi-branch billing and inventory software in Gaya. Fast performance, zero monthly fees, and excellent post-launch support."
       }
     }),
     buildWebPageSchema({
