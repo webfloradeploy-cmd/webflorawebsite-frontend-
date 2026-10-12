@@ -463,9 +463,7 @@ export default function GayaSoftwareLandingPage() {
       applicationCategory: "BusinessApplication",
       operatingSystem: "Web, Cloud, Windows, Linux, Android, iOS",
       description: "Bespoke enterprise software, CRM, ERP, and business workflow automation systems developed by Webflora Technologies for organizations in Gaya, Bihar.",
-      url: canonicalUrl,
-      offers: { price: "50000", priceCurrency: "INR", url: canonicalUrl },
-      aggregateRating: { ratingValue: 4.9, reviewCount: 112 }
+      url: canonicalUrl
     }),
     buildProductSchema({
       name: "Webflora Custom Enterprise Software Package",

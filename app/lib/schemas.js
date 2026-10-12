@@ -399,9 +399,8 @@ export function buildAboutPageSchema() {
 }
 
 // 18. Review Schema
-export function buildReviewSchema({ authorName, reviewRating = 5, reviewBody, itemReviewed }) {
+export function buildReviewSchema({ authorName, reviewRating = 5, reviewBody, itemReviewed } = {}) {
   const review = {
-    "@context": "https://schema.org",
     "@type": "Review",
     "author": {
       "@type": "Person",
@@ -425,23 +424,23 @@ export function buildReviewSchema({ authorName, reviewRating = 5, reviewBody, it
 }
 
 // 19. AggregateRating Schema
-export function buildAggregateRatingSchema({ ratingValue = 4.9, reviewCount = 50, bestRating = 5, worstRating = 1, itemReviewed }) {
-  return {
-    "@context": "https://schema.org",
+export function buildAggregateRatingSchema({ ratingValue = 4.9, reviewCount = 50, bestRating = 5, worstRating = 1, itemReviewed } = {}) {
+  const rating = {
     "@type": "AggregateRating",
     "ratingValue": ratingValue,
     "reviewCount": reviewCount,
     "bestRating": bestRating,
     "worstRating": worstRating,
-    "itemReviewed": itemReviewed || {
-      "@type": "LocalBusiness",
-      "name": COMPANY_INFO.name,
-      "image": COMPANY_INFO.image,
-      "telephone": COMPANY_INFO.telephone,
-      "url": BASE_URL,
-      "address": buildPostalAddressSchema()
-    }
   };
+
+  // Google Rich Results Rule: When nested inside Product or SoftwareApplication,
+  // do NOT include itemReviewed (Google rejects it with 'A nested <parent_node> object can't contain itemReviewed').
+  // Only include itemReviewed if explicitly provided and NOT "Service".
+  if (itemReviewed && itemReviewed["@type"] && itemReviewed["@type"] !== "Service") {
+    rating.itemReviewed = itemReviewed;
+  }
+
+  return rating;
 }
 
 // 20. CreativeWork Schema

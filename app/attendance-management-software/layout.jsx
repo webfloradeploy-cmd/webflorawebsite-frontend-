@@ -93,9 +93,7 @@ const jsonLdSchema = [
     applicationCategory: "BusinessApplication",
     description: "Enterprise online attendance management system supporting 8 distinct punch modes including face recognition attendance system, dynamic QR code attendance, eSSL biometric software sync, RFID, GPS geofencing, WhatsApp bots, and manual desk sheet logging.",
     image: "https://webfloratechnologies.com/title-logo.png",
-    url: "https://webfloratechnologies.com/attendance-management-software",
-    offers: { price: "0", priceCurrency: "INR", url: "https://webfloratechnologies.com/attendance-management-software" },
-    aggregateRating: { ratingValue: 4.9, reviewCount: 142 }
+    url: "https://webfloratechnologies.com/attendance-management-software"
   }),
   buildProductSchema({
     name: "Webflora Attendance Management SaaS & Enterprise Software",

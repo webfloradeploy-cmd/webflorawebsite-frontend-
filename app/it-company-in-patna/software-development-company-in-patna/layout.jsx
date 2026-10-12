@@ -153,35 +153,36 @@ const jsonLdSchema = [
     category: "Software Development Service",
     url: "https://webfloratechnologies.com/it-company-in-patna/software-development-company-in-patna",
     offers: { price: "45000", priceCurrency: "INR", url: "https://webfloratechnologies.com/it-company-in-patna/software-development-company-in-patna" },
-    aggregateRating: { ratingValue: 4.9, reviewCount: 156 }
+    aggregateRating: { ratingValue: 4.9, reviewCount: 156 },
+    review: [
+      {
+        authorName: "Nishant Kumar",
+        reviewRating: 5,
+        reviewBody: "Webflora gave us a website and software that customers compliment almost every week. Their team listened carefully to what we actually needed instead of pushing a template solution. Highly recommend Webflora to any business that takes quality seriously."
+      },
+      {
+        authorName: "SAHIL KUMAR",
+        reviewRating: 5,
+        reviewBody: "Our new software platform built by Webflora has been live for three months and not a single bug so far. Communication was clear and consistent throughout the entire project. Cannot recommend Webflora Technologies enough."
+      },
+      {
+        authorName: "Manish Kumar",
+        reviewRating: 5,
+        reviewBody: "I am a client of Webflora Technologies, and they developed my app, website, and software. The quality of work is very good, and the team is professional and cooperative. They understood my requirements well and delivered on time."
+      },
+      {
+        authorName: "Dr. Rajeshwar Sharma",
+        reviewRating: 5,
+        reviewBody: "Webflora Technologies developed our clinic and hospital management software with appointment booking and billing modules. Excellent Patna-based engineering team!"
+      }
+    ]
   }),
   buildBreadcrumbListSchema([
     { name: "Home", url: "/" },
     { name: "IT Company In Patna", url: "/it-company-in-patna" },
     { name: "Software Development Company in Patna", url: "/it-company-in-patna/software-development-company-in-patna" }
   ]),
-  buildFAQPageSchema(softwareFaqs),
-  buildAggregateRatingSchema({ ratingValue: 4.9, reviewCount: 156 }),
-  buildReviewSchema({
-    authorName: "Nishant Kumar",
-    reviewRating: 5,
-    reviewBody: "Webflora gave us a website and software that customers compliment almost every week. Their team listened carefully to what we actually needed instead of pushing a template solution. Highly recommend Webflora to any business that takes quality seriously."
-  }),
-  buildReviewSchema({
-    authorName: "SAHIL KUMAR",
-    reviewRating: 5,
-    reviewBody: "Our new software platform built by Webflora has been live for three months and not a single bug so far. Communication was clear and consistent throughout the entire project. Cannot recommend Webflora Technologies enough."
-  }),
-  buildReviewSchema({
-    authorName: "Manish Kumar",
-    reviewRating: 5,
-    reviewBody: "I am a client of Webflora Technologies, and they developed my app, website, and software. The quality of work is very good, and the team is professional and cooperative. They understood my requirements well and delivered on time."
-  }),
-  buildReviewSchema({
-    authorName: "Dr. Rajeshwar Sharma",
-    reviewRating: 5,
-    reviewBody: "Webflora Technologies developed our clinic and hospital management software with appointment booking and billing modules. Excellent Patna-based engineering team!"
-  })
+  buildFAQPageSchema(softwareFaqs)
 ];
 
 export default function SoftwareDevelopmentLayout({ children }) {

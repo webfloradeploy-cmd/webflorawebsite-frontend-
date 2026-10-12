@@ -166,9 +166,7 @@ export default function MobileAppDevelopmentCompanyInGayaPage() {
       applicationCategory: "MobileApplication",
       operatingSystem: "Android, iOS",
       description: "Production-grade native Android, iOS, and Flutter/React Native mobile applications custom-engineered by Webflora Technologies for businesses in Gaya, Bihar.",
-      url: canonicalUrl,
-      offers: { price: "45000", priceCurrency: "INR", url: canonicalUrl },
-      aggregateRating: { ratingValue: 4.9, reviewCount: 96 }
+      url: canonicalUrl
     }),
     buildProductSchema({
       name: "Webflora Custom Mobile App Development Package",

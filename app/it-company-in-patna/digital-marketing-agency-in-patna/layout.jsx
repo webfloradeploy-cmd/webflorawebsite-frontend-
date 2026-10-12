@@ -142,25 +142,26 @@ const jsonLdSchema = [
     category: "Digital Marketing Service",
     url: "https://webfloratechnologies.com/it-company-in-patna/digital-marketing-agency-in-patna",
     offers: { price: "8999", priceCurrency: "INR", url: "https://webfloratechnologies.com/it-company-in-patna/digital-marketing-agency-in-patna" },
-    aggregateRating: { ratingValue: 4.9, reviewCount: 156 }
+    aggregateRating: { ratingValue: 4.9, reviewCount: 156 },
+    review: [
+      {
+        authorName: "Team Excellent Career Institute",
+        reviewRating: 5,
+        reviewBody: "Webflora Technologies manages our complete SEO, Google Business Profile, and Google Ads campaigns in Patna. We have seen consistent growth in student admission inquiries every batch!"
+      },
+      {
+        authorName: "Nishant Kumar",
+        reviewRating: 5,
+        reviewBody: "Working with Webflora on our digital marketing and web funnel was smooth from day one. Clear reporting and genuine business results."
+      }
+    ]
   }),
   buildBreadcrumbListSchema([
     { name: "Home", url: "/" },
     { name: "IT Company In Patna", url: "/it-company-in-patna" },
     { name: "Digital Marketing Agency in Patna", url: "/it-company-in-patna/digital-marketing-agency-in-patna" }
   ]),
-  buildFAQPageSchema(marketingFaqs),
-  buildAggregateRatingSchema({ ratingValue: 4.9, reviewCount: 156 }),
-  buildReviewSchema({
-    authorName: "Team Excellent Career Institute",
-    reviewRating: 5,
-    reviewBody: "Webflora Technologies manages our complete SEO, Google Business Profile, and Google Ads campaigns in Patna. We have seen consistent growth in student admission inquiries every batch!"
-  }),
-  buildReviewSchema({
-    authorName: "Nishant Kumar",
-    reviewRating: 5,
-    reviewBody: "Working with Webflora on our digital marketing and web funnel was smooth from day one. Clear reporting and genuine business results."
-  })
+  buildFAQPageSchema(marketingFaqs)
 ];
 
 export default function DigitalMarketingLayout({ children }) {
