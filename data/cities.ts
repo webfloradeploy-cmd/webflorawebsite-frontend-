@@ -501,6 +501,65 @@ export const citiesData: Record<string, CityData> = {
       }
     ],
     imageUrl: "/images/locations/patna.jpg"
+  },
+  gaya: {
+    slug: "gaya",
+    name: "Gaya",
+    state: "Bihar",
+    startupEco: "As a premier historical, education, and hospitality hub in Bihar, Gaya and Bodh Gaya are accelerating digital adoption across tourism, coaching academies, retail merchants, and local enterprises.",
+    localIndustries: ["Tourism & Hospitality", "Education & Coaching", "Retail Trade", "Healthcare Clinics", "Manufacturing & MSMEs", "Handicrafts & Textiles"],
+    digitalAdoption: "Businesses in Gaya and Bodh Gaya are prioritizing modern Next.js websites, mobile booking applications, local SEO on Google Maps, and automated cloud billing systems.",
+    challenges: [
+      "Dependency on third-party aggregators cutting into hospitality revenues.",
+      "Manual offline management across multi-branch retail and local institutions.",
+      "Need for technical search engine optimization to capture local and pilgrim inquiries."
+    ],
+    stats: "Over 75% of pilgrimage, hospitality, and business inquiries in Gaya and Bodh Gaya originate online via mobile search and Google Maps.",
+    faqs: [
+      {
+        question: "How does Webflora Technologies deliver projects in Gaya?",
+        answer: "We engineer custom websites, business software, and mobile apps remotely from our Patna headquarters (UDYAM-BR-26-0183379), with on-demand on-site support across Gaya and Bihar."
+      },
+      {
+        question: "Do you build hospitality and hotel booking portals for Bodh Gaya?",
+        answer: "Yes, we develop custom hotel reservation websites, multi-language portals, and direct WhatsApp booking integration for hotels and retreats in Gaya and Bodh Gaya."
+      }
+    ],
+    landmarks: ["Bodh Gaya Mahabodhi Temple", "Vishnupad Temple Area", "Gaya Junction Commercial Belt", "AP Colony"],
+    clientStories: [
+      {
+        clientName: "Bodh Gaya Hospitality Network",
+        project: "Direct Room Booking & Guest Portal",
+        result: "65% Growth in Direct Bookings",
+        story: "Engineered a high-speed bilingual reservation portal with direct WhatsApp booking channels for hotel operators in Bodh Gaya."
+      }
+    ],
+    marketInsights: [
+      {
+        title: "Hospitality & Local Search Optimization",
+        description: "In Gaya and Bodh Gaya, fast-loading mobile experiences and localized Google Maps profiles drive the majority of high-intent pilgrim and tourist bookings."
+      }
+    ],
+    businessStats: [
+      { value: "75%", label: "Mobile Search Traffic Share" },
+      { value: "65%", label: "Direct Booking Growth" }
+    ],
+    testimonials: [
+      {
+        name: "Alok Sen",
+        role: "Managing Partner",
+        company: "Bodh Gaya Retreats",
+        feedback: "Webflora delivered a stunning website that helped us receive direct bookings without paying commissions to OTAs. Excellent engineering and local Bihar support."
+      }
+    ],
+    industryFocus: [
+      {
+        name: "Hospitality, Tourism & Retail Systems",
+        growth: "38% YoY Growth",
+        description: "Building fast corporate websites, booking engines, and billing ERPs for Gaya and Bodh Gaya businesses."
+      }
+    ],
+    imageUrl: "/images/locations/default.jpg"
   }
 };
 

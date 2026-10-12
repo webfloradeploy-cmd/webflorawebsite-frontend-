@@ -71,6 +71,7 @@ const navItems = [
     href: "/locations",
     children: [
       { icon: Globe, label: "All Locations", desc: "Browse all cities we serve remotely.", href: "/locations" },
+      { icon: Globe, label: "Gaya", desc: "Web dev, software & apps in Gaya.", href: "/locations/website-development-company-in-gaya", highlight: true, badge: "BIHAR" },
       { icon: Globe, label: "Delhi NCR", desc: "Next.js dev & software in Delhi.", href: "/locations/delhi" },
       { icon: Globe, label: "Mumbai", desc: "Corporate SaaS & web design in Mumbai.", href: "/locations/mumbai" },
       { icon: Globe, label: "Bangalore", desc: "Tech stacks & ERP portals in Bangalore.", href: "/locations/bangalore" },
@@ -78,6 +79,7 @@ const navItems = [
       { icon: Globe, label: "Hyderabad", desc: "Healthcare portals & SaaS in Hyderabad.", href: "/locations/hyderabad" },
       { icon: Globe, label: "Chennai", desc: "Custom software & web design in Chennai.", href: "/locations/chennai" },
       { icon: Globe, label: "Kolkata", desc: "Logistics systems & portals in Kolkata.", href: "/locations/kolkata" },
+      { icon: Globe, label: "Patna", desc: "Headquarters & software hub in Patna.", href: "/it-company-in-patna", highlight: true, badge: "HQ" },
     ],
   },
   { icon: Info, label: "About", href: "/about" },

@@ -3,6 +3,10 @@ import Link from "next/link";
 import { Icon } from "@iconify/react";
 
 export default function LocationCard({ city }) {
+  const href = city.slug === "gaya"
+    ? "/locations/website-development-company-in-gaya"
+    : (city.slug === "patna" ? "/it-company-in-patna" : `/locations/${city.slug}`);
+
   return (
     <div className="group relative rounded-3xl border border-white/5 bg-zinc-950/40 p-6 backdrop-blur-sm hover:border-[#FF3B00]/40 transition-all duration-300">
       <div className="flex items-center justify-between mb-4">
@@ -18,7 +22,7 @@ export default function LocationCard({ city }) {
       </p>
 
       <Link 
-        href={`/locations/${city.slug}`}
+        href={href}
         className="inline-flex items-center gap-2 text-xs font-bold text-white/40 group-hover:text-white transition-colors uppercase tracking-wider"
       >
         Explore Region
