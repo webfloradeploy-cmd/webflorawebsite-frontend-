@@ -75,9 +75,9 @@ export const metadata = {
     siteName: "Webflora Technologies",
     images: [
       {
-        url: "https://webfloratechnologies.com/title-logo.png",
-        width: 512,
-        height: 512,
+        url: "https://webfloratechnologies.com/page-photo/webflora-website-development-square.webp",
+        width: 600,
+        height: 600,
         alt: "Webflora Technologies - Website Development Company in Gaya, Bihar",
       },
     ],
@@ -89,7 +89,10 @@ export const metadata = {
     title: "Website Development Company in Gaya, Bihar | Webflora Technologies",
     description:
       "Looking for a website development company in Gaya, Bihar? Webflora Technologies builds responsive business websites, e-commerce stores and custom web applications.",
-    images: ["https://webfloratechnologies.com/title-logo.png"],
+    images: ["https://webfloratechnologies.com/page-photo/webflora-website-development-square.webp"],
+  },
+  other: {
+    thumbnail: "https://webfloratechnologies.com/page-photo/webflora-website-development-square.webp",
   },
 };
 
@@ -427,12 +430,14 @@ const pricingFactors = [
 
 export default function GayaLandingPage() {
   const canonicalUrl = "https://webfloratechnologies.com/locations/website-development-company-in-gaya";
+  const photoUrl = "https://webfloratechnologies.com/page-photo/webflora-website-development-square.webp";
 
   const pageSchemas = [
     buildOrganizationSchema(),
     buildProfessionalServiceSchema({
       name: "Webflora Technologies - Website Development Company in Gaya",
       url: canonicalUrl,
+      image: photoUrl,
       description: "Premier website design, corporate web development, and e-commerce portal engineering in Gaya and Bodh Gaya, Bihar.",
       areaServed: {
         "@type": "AdministrativeArea",
@@ -443,7 +448,7 @@ export default function GayaLandingPage() {
       name: "Webflora Custom Website Development Package",
       description: "Responsive Next.js corporate website and e-commerce web engineering with custom design, CMS, and full source code handover in Gaya.",
       category: "Website Engineering & Design",
-      image: "https://webfloratechnologies.com/title-logo.png",
+      image: photoUrl,
       url: canonicalUrl,
       offers: {
         price: "25000",
@@ -465,6 +470,7 @@ export default function GayaLandingPage() {
       description:
         "Looking for a website development company in Gaya, Bihar? Webflora Technologies builds responsive business websites, e-commerce stores and custom web applications.",
       url: canonicalUrl,
+      image: photoUrl
     }),
     buildServiceSchema({
       name: "Website Development Services in Gaya",
@@ -472,6 +478,7 @@ export default function GayaLandingPage() {
       description:
         "Webflora Technologies builds responsive business websites, e-commerce stores, and custom web applications for businesses in Gaya and Bodh Gaya, Bihar.",
       areaServed: "Gaya, Bihar, India",
+      image: photoUrl
     }),
     buildBreadcrumbListSchema([
       { name: "Home", url: "/" },

@@ -20,6 +20,13 @@ const DEDICATED_SERVICES = [
   "software-development-company-in-patna"
 ];
 
+const SERVICE_PHOTO_MAP = {
+  "website-development-company-in-patna": "/page-photo/webflora-website-development-square.webp",
+  "mobile-app-development-company-in-patna": "/page-photo/webflora-mobile-app-development-square.webp",
+  "software-company-in-bihar": "/page-photo/webflora-software-development-square.webp",
+  "digital-marketing-agency-in-bihar": "/page-photo/webflora-digital-marketing-square.png",
+};
+
 export async function generateMetadata({ params }) {
   const { service: serviceSlug } = await params;
   if (DEDICATED_SERVICES.includes(serviceSlug)) {
@@ -31,6 +38,8 @@ export async function generateMetadata({ params }) {
   const baseUrl = "https://webfloratechnologies.com";
   const url = `${baseUrl}/it-company-in-patna/${serviceSlug}`;
   const shortDesc = service.seoDescription || (service.subtext ? service.subtext.slice(0, 155) + "..." : "");
+  const photoPath = SERVICE_PHOTO_MAP[serviceSlug] || "/title-logo.png";
+  const photoUrl = `${baseUrl}${photoPath}`;
 
   return {
     title: service.seoTitle || `${service.title} Services | Webflora Technologies`,
@@ -46,9 +55,10 @@ export async function generateMetadata({ params }) {
       siteName: "Webflora Technologies",
       images: [
         {
-          url: `${baseUrl}/title-logo.png`,
-          width: 512,
-          height: 512,
+          url: photoUrl,
+          width: 600,
+          height: 600,
+          alt: `${service.title} - Webflora Technologies`,
         },
       ],
       locale: "en_IN",
@@ -58,7 +68,10 @@ export async function generateMetadata({ params }) {
       card: "summary_large_image",
       title: service.seoTitle || service.title,
       description: shortDesc,
-      images: [`${baseUrl}/title-logo.png`],
+      images: [photoUrl],
+    },
+    other: {
+      thumbnail: photoUrl,
     },
   };
 }
@@ -74,6 +87,10 @@ export default async function ServicePage({ params }) {
     notFound();
   }
 
+  const baseUrl = "https://webfloratechnologies.com";
+  const photoPath = SERVICE_PHOTO_MAP[serviceSlug] || "/title-logo.png";
+  const photoUrl = `${baseUrl}${photoPath}`;
+
   return (
     <>
       <ServiceTemplate data={data} />
@@ -87,12 +104,14 @@ export default async function ServicePage({ params }) {
               buildServiceSchema({
                 name: data.title,
                 serviceType: data.title,
-                description: data.subtext
+                description: data.subtext,
+                image: photoUrl
               }),
               buildWebPageSchema({
                 name: data.title,
                 description: data.subtext.slice(0, 150) + "...",
-                url: `https://webfloratechnologies.com/it-company-in-patna/${serviceSlug}`
+                url: `https://webfloratechnologies.com/it-company-in-patna/${serviceSlug}`,
+                image: photoUrl
               }),
               buildBreadcrumbListSchema([
                 { name: "Home", url: "/" },

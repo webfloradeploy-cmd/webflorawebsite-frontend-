@@ -77,9 +77,9 @@ export const metadata = {
     siteName: "Webflora Technologies",
     images: [
       {
-        url: "https://webfloratechnologies.com/title-logo.png",
-        width: 512,
-        height: 512,
+        url: "https://webfloratechnologies.com/page-photo/webflora-software-development-square.webp",
+        width: 600,
+        height: 600,
         alt: "Webflora Technologies - Software Company in Gaya, Bihar",
       },
     ],
@@ -91,7 +91,10 @@ export const metadata = {
     title: "Software Company in Gaya, Bihar | Webflora Technologies",
     description:
       "Looking for a software company in Gaya, Bihar? Webflora Technologies offers custom software, web applications, CRM, ERP, and AI automation solutions.",
-    images: ["https://webfloratechnologies.com/title-logo.png"],
+    images: ["https://webfloratechnologies.com/page-photo/webflora-software-development-square.webp"],
+  },
+  other: {
+    thumbnail: "https://webfloratechnologies.com/page-photo/webflora-software-development-square.webp",
   },
 };
 
@@ -446,12 +449,14 @@ const pricingFactors = [
 
 export default function GayaSoftwareLandingPage() {
   const canonicalUrl = "https://webfloratechnologies.com/locations/software-company-in-gaya";
+  const photoUrl = "https://webfloratechnologies.com/page-photo/webflora-software-development-square.webp";
 
   const pageSchemas = [
     buildOrganizationSchema(),
     buildProfessionalServiceSchema({
       name: "Webflora Technologies - Software Company in Gaya",
       url: canonicalUrl,
+      image: photoUrl,
       description: "Custom business software, ERP, CRM, and cloud application development for enterprises and MSMEs in Gaya and Bihar.",
       areaServed: {
         "@type": "AdministrativeArea",
@@ -463,13 +468,14 @@ export default function GayaSoftwareLandingPage() {
       applicationCategory: "BusinessApplication",
       operatingSystem: "Web, Cloud, Windows, Linux, Android, iOS",
       description: "Bespoke enterprise software, CRM, ERP, and business workflow automation systems developed by Webflora Technologies for organizations in Gaya, Bihar.",
-      url: canonicalUrl
+      url: canonicalUrl,
+      image: photoUrl
     }),
     buildProductSchema({
       name: "Webflora Custom Enterprise Software Package",
       description: "Custom ERP, CRM, and cloud business automation software development with complete source code ownership for businesses in Gaya, Bihar.",
       category: "Business Management Software",
-      image: "https://webfloratechnologies.com/title-logo.png",
+      image: photoUrl,
       url: canonicalUrl,
       offers: {
         price: "50000",
@@ -491,6 +497,7 @@ export default function GayaSoftwareLandingPage() {
       description:
         "Looking for a software company in Gaya, Bihar? Webflora Technologies offers custom software, web applications, CRM, ERP, and AI automation solutions.",
       url: canonicalUrl,
+      image: photoUrl
     }),
     buildServiceSchema({
       name: "Software Development Services in Gaya",
@@ -498,6 +505,7 @@ export default function GayaSoftwareLandingPage() {
       description:
         "Webflora Technologies plans and builds custom software, web applications, CRM, ERP, and business automation solutions for businesses in Gaya and Bodh Gaya, Bihar.",
       areaServed: "Gaya, Bihar, India",
+      image: photoUrl
     }),
     buildBreadcrumbListSchema([
       { name: "Home", url: "/" },

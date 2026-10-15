@@ -72,6 +72,9 @@ export const metadata = {
     title: "Attendance Management System | AI Face Recognition & Biometrics",
     description: "Webflora Technologies builds custom attendance tracking software featuring AI CCTV face recognition, dynamic QR scanning, eSSL biometric hardware sync, and instant WhatsApp alerts.",
     images: ["https://webfloratechnologies.com/title-logo.png"],
+  },
+  other: {
+    thumbnail: "https://webfloratechnologies.com/title-logo.png",
   }
 };
 

@@ -46,9 +46,9 @@ export const metadata = {
     type: "website",
     images: [
       {
-        url: "https://webfloratechnologies.com/webflora-logo.svg",
-        width: 1200,
-        height: 630,
+        url: "https://webfloratechnologies.com/page-photo/webflora-seo-square.webp",
+        width: 600,
+        height: 600,
         alt: "Best SEO Company in Patna - Webflora Technologies"
       }
     ]
@@ -57,7 +57,10 @@ export const metadata = {
     card: "summary_large_image",
     title: "Best SEO Company in Patna | SEO Services in Bihar | Webflora Technologies",
     description: "Practical and sustainable SEO services in Patna. Technical SEO, Google Maps, On-Page, and Content strategy.",
-    images: ["https://webfloratechnologies.com/webflora-logo.svg"],
+    images: ["https://webfloratechnologies.com/page-photo/webflora-seo-square.webp"],
+  },
+  other: {
+    thumbnail: "https://webfloratechnologies.com/page-photo/webflora-seo-square.webp",
   }
 };
 
@@ -104,32 +107,39 @@ const seoFaqs = [
   }
 ];
 
+const seoPhotoUrl = "https://webfloratechnologies.com/page-photo/webflora-seo-square.webp";
+
 const jsonLdSchema = [
   buildOrganizationSchema(),
   buildWebSiteSchema(),
   buildWebPageSchema({
     name: "SEO Services in Patna That Grow Your Website, Leads & Business",
     description: "Webflora Technologies provides result-driven SEO services in Patna, Bihar, helping businesses improve Google rankings, increase organic traffic, generate qualified leads, and build long-term online visibility.",
-    url: "https://webfloratechnologies.com/seo-services-in-patna"
+    url: "https://webfloratechnologies.com/seo-services-in-patna",
+    image: seoPhotoUrl
   }),
   buildServiceSchema({
     name: "SEO Services in Patna",
     serviceType: "Search Engine Optimization & Digital Marketing",
     description: "Full-suite SEO services in Patna including Technical SEO, On-Page SEO, Local SEO & Google Maps, Off-Page Link Building, Content SEO, AEO and GEO optimization.",
-    areaServed: "India"
+    areaServed: "India",
+    image: seoPhotoUrl
   }),
   buildLocalBusinessSchema({
     name: "Webflora Technologies - Best SEO Company in Patna",
-    description: "Top-rated SEO agency and digital growth consultancy located in Patna, Bihar offering professional local and technical SEO services."
+    description: "Top-rated SEO agency and digital growth consultancy located in Patna, Bihar offering professional local and technical SEO services.",
+    image: seoPhotoUrl
   }),
   buildProfessionalServiceSchema({
     name: "Webflora SEO Agency Patna",
-    description: "Professional SEO, AEO, GEO, and search marketing agency serving businesses across Patna, Bihar, and India."
+    description: "Professional SEO, AEO, GEO, and search marketing agency serving businesses across Patna, Bihar, and India.",
+    image: seoPhotoUrl
   }),
   buildProductSchema({
     name: "Professional SEO Services & Growth Strategy Plan",
     description: "Comprehensive SEO, Local 3-Pack Optimization, Technical Audit, and Generative Engine Optimization service package.",
     category: "Digital Marketing Service",
+    image: seoPhotoUrl,
     url: "https://webfloratechnologies.com/seo-services-in-patna",
     offers: { price: "15000", priceCurrency: "INR", url: "https://webfloratechnologies.com/seo-services-in-patna" },
     aggregateRating: { ratingValue: 5.0, reviewCount: 142 }

@@ -117,6 +117,20 @@ export async function generateMetadata({ params }: Props) {
     keywords = `best ${service.name.toLowerCase()} in ${city.name}, ${service.name} company in ${city.name}, ${service.name} services in ${city.name}, ${city.name} ${service.name.toLowerCase()}`;
   }
 
+  const SERVICE_PHOTO_MAP: Record<string, string> = {
+    "website-development": "/page-photo/webflora-website-development-square.webp",
+    "web-design": "/page-photo/webflora-website-development-square.webp",
+    "software-development": "/page-photo/webflora-software-development-square.webp",
+    "erp-development": "/page-photo/webflora-software-development-square.webp",
+    "crm-development": "/page-photo/webflora-software-development-square.webp",
+    "app-development": "/page-photo/webflora-mobile-app-development-square.webp",
+    "digital-marketing": "/page-photo/webflora-digital-marketing-square.png",
+    "seo-services": "/page-photo/webflora-seo-square.webp",
+  };
+
+  const photoPath = SERVICE_PHOTO_MAP[serviceSlug] || "/title-logo.png";
+  const photoUrl = `${baseUrl}${photoPath}`;
+
   return {
     title,
     description,
@@ -131,9 +145,10 @@ export async function generateMetadata({ params }: Props) {
       siteName: "Webflora Technologies",
       images: [
         {
-          url: `${baseUrl}/title-logo.png`,
-          width: 512,
-          height: 512,
+          url: photoUrl,
+          width: 600,
+          height: 600,
+          alt: `${title} - Webflora Technologies`,
         },
       ],
       locale: "en_IN",
@@ -143,7 +158,10 @@ export async function generateMetadata({ params }: Props) {
       card: "summary_large_image",
       title,
       description,
-      images: [`${baseUrl}/title-logo.png`],
+      images: [photoUrl],
+    },
+    other: {
+      thumbnail: photoUrl,
     },
   };
 }
@@ -267,13 +285,27 @@ export default async function CityServicePage({ params }: Props) {
   const baseUrl = "https://webfloratechnologies.com";
   const url = `${baseUrl}/locations/${city.slug}/${service.slug}`;
 
+  const SERVICE_PHOTO_MAP: Record<string, string> = {
+    "website-development": "/page-photo/webflora-website-development-square.webp",
+    "web-design": "/page-photo/webflora-website-development-square.webp",
+    "software-development": "/page-photo/webflora-software-development-square.webp",
+    "erp-development": "/page-photo/webflora-software-development-square.webp",
+    "crm-development": "/page-photo/webflora-software-development-square.webp",
+    "app-development": "/page-photo/webflora-mobile-app-development-square.webp",
+    "digital-marketing": "/page-photo/webflora-digital-marketing-square.png",
+    "seo-services": "/page-photo/webflora-seo-square.webp",
+  };
+
+  const photoPath = SERVICE_PHOTO_MAP[service.slug] || "/title-logo.png";
+  const photoUrl = `${baseUrl}${photoPath}`;
+
   // Structured schemas
   const serviceSchema = {
     "@context": "https://schema.org",
     "@type": "Product",
     "@id": `${url}#product`,
     "name": `${service.name} in ${city.name}`,
-    "image": `${baseUrl}/title-logo.png`,
+    "image": photoUrl,
     "description": `Premium ${service.name.toLowerCase()} services serving ${city.name} remotely from Patna, Bihar.`,
     "brand": {
       "@type": "Brand",

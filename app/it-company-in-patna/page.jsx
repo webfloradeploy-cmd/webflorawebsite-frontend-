@@ -32,6 +32,31 @@ export const metadata = {
   alternates: {
     canonical: "/it-company-in-patna",
   },
+  openGraph: {
+    title: "Best IT Company in Patna Bihar | Webflora Technologies",
+    description: "Webflora Technologies is the best IT company in Patna, Bihar, offering high-performance website development, custom software engineering, mobile apps, and SEO services.",
+    url: "https://webfloratechnologies.com/it-company-in-patna",
+    siteName: "Webflora Technologies",
+    locale: "en_IN",
+    type: "website",
+    images: [
+      {
+        url: "https://webfloratechnologies.com/page-photo/webflora-software-development-square.webp",
+        width: 600,
+        height: 600,
+        alt: "Best IT Company in Patna - Webflora Technologies",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Best IT Company in Patna Bihar | Webflora Technologies",
+    description: "Webflora Technologies is the best IT company in Patna, Bihar, offering high-performance website development, custom software engineering, mobile apps, and SEO services.",
+    images: ["https://webfloratechnologies.com/page-photo/webflora-software-development-square.webp"],
+  },
+  other: {
+    thumbnail: "https://webfloratechnologies.com/page-photo/webflora-software-development-square.webp",
+  },
 };
 
 const page = () => {
@@ -80,11 +105,13 @@ const page = () => {
               buildServiceSchema({
                 name: "IT & Software Development Services in Patna",
                 serviceType: "Web Development, Software Development, Mobile Apps, and AI Solutions",
-                description: "Webflora Technologies provides web development, mobile app development, custom software, digital marketing, and AI automation services in Patna, Bihar."
+                description: "Webflora Technologies provides web development, mobile app development, custom software, digital marketing, and AI automation services in Patna, Bihar.",
+                image: "https://webfloratechnologies.com/page-photo/webflora-software-development-square.webp"
               }),
               buildProfessionalServiceSchema({
                 name: "Webflora Technologies - IT & Software Services",
                 description: "Top IT software and web development company in Patna, Bihar.",
+                image: "https://webfloratechnologies.com/page-photo/webflora-software-development-square.webp",
                 aggregateRating: buildAggregateRatingSchema({ ratingValue: 4.9, reviewCount: 52 }),
                 review: [
                   buildReviewSchema({
@@ -97,7 +124,8 @@ const page = () => {
               buildWebPageSchema({
                 name: "Best IT Company in Patna Bihar | Webflora Technologies",
                 description: "Webflora Technologies is the best IT company in Patna, Bihar, offering high-performance website development, custom software engineering, mobile apps, and SEO services.",
-                url: "https://webfloratechnologies.com/it-company-in-patna"
+                url: "https://webfloratechnologies.com/it-company-in-patna",
+                image: "https://webfloratechnologies.com/page-photo/webflora-software-development-square.webp"
               }),
               buildBreadcrumbListSchema([
                 { name: "Home", url: "/" },

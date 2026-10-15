@@ -138,7 +138,7 @@ export function buildWebSiteSchema(customData = {}) {
 }
 
 // 5. WebPage Schema
-export function buildWebPageSchema({ name, description, url }) {
+export function buildWebPageSchema({ name, description, url, image }) {
   return {
     "@context": "https://schema.org",
     "@type": "WebPage",
@@ -146,6 +146,13 @@ export function buildWebPageSchema({ name, description, url }) {
     "url": url || BASE_URL,
     "name": name || COMPANY_INFO.name,
     "description": description || "Software Development and Digital Agency in Patna, Bihar",
+    ...(image && {
+      "image": image,
+      "primaryImageOfPage": {
+        "@type": "ImageObject",
+        "url": image
+      }
+    }),
     "isPartOf": {
       "@type": "WebSite",
       "@id": `${BASE_URL}/#website`
@@ -171,13 +178,14 @@ export function buildPersonSchema({ name, jobTitle, url, image, sameAs }) {
 }
 
 // 7. Service Schema
-export function buildServiceSchema({ name, serviceType, description, providerUrl, areaServed = "India" }) {
+export function buildServiceSchema({ name, serviceType, description, providerUrl, areaServed = "India", image }) {
   return {
     "@context": "https://schema.org",
     "@type": "Service",
     "name": name,
     "serviceType": serviceType || name,
     "description": description,
+    ...(image && { "image": image }),
     "provider": {
       "@type": "Organization",
       "@id": `${BASE_URL}/#organization`,

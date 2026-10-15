@@ -47,9 +47,9 @@ export const metadata = {
     type: "website",
     images: [
       {
-        url: "https://webfloratechnologies.com/title-logo.png",
-        width: 512,
-        height: 512,
+        url: "https://webfloratechnologies.com/page-photo/webflora-digital-marketing-square.png",
+        width: 600,
+        height: 600,
         alt: "Digital Marketing Agency in Patna - Webflora Technologies"
       }
     ]
@@ -58,7 +58,10 @@ export const metadata = {
     card: "summary_large_image",
     title: "Digital Marketing Agency in Patna for SEO, Google Ads & Business Growth | Webflora Technologies",
     description: "Webflora Technologies is a Patna-based digital marketing agency helping businesses improve search visibility, generate qualified enquiries and acquire customers through SEO, Local SEO, Google Ads, Meta Ads, and conversion-focused websites.",
-    images: ["https://webfloratechnologies.com/title-logo.png"],
+    images: ["https://webfloratechnologies.com/page-photo/webflora-digital-marketing-square.png"],
+  },
+  other: {
+    thumbnail: "https://webfloratechnologies.com/page-photo/webflora-digital-marketing-square.png",
   }
 };
 
@@ -113,6 +116,8 @@ const marketingFaqs = [
   }
 ];
 
+const marketingPhotoUrl = "https://webfloratechnologies.com/page-photo/webflora-digital-marketing-square.png";
+
 const jsonLdSchema = [
   buildOrganizationSchema({
     description: "Webflora Technologies is an MSME-registered digital marketing and technology company in Patna, Bihar providing SEO, Google Ads, Meta Ads, and conversion systems."
@@ -121,25 +126,30 @@ const jsonLdSchema = [
   buildWebPageSchema({
     name: "Digital Marketing Agency in Patna for SEO, Google Ads & Business Growth",
     description: "Webflora Technologies is a Patna-based digital marketing agency helping businesses improve search visibility, generate qualified enquiries and acquire customers.",
-    url: "https://webfloratechnologies.com/it-company-in-patna/digital-marketing-agency-in-patna"
+    url: "https://webfloratechnologies.com/it-company-in-patna/digital-marketing-agency-in-patna",
+    image: marketingPhotoUrl
   }),
   buildServiceSchema({
     name: "Digital Marketing Services in Patna",
     serviceType: "Digital Marketing, SEO, PPC & Social Media Marketing",
-    description: "Performance digital marketing, Local SEO, Google Ads management, Meta Ads, AEO, GEO, and conversion-focused web engineering for businesses in Patna and Bihar."
+    description: "Performance digital marketing, Local SEO, Google Ads management, Meta Ads, AEO, GEO, and conversion-focused web engineering for businesses in Patna and Bihar.",
+    image: marketingPhotoUrl
   }),
   buildLocalBusinessSchema({
     name: "Webflora Technologies - Digital Marketing Agency Patna",
-    description: "MSME-registered digital marketing agency and SEO company based at Saketpuri, Bajar Samiti, Patna, Bihar."
+    description: "MSME-registered digital marketing agency and SEO company based at Saketpuri, Bajar Samiti, Patna, Bihar.",
+    image: marketingPhotoUrl
   }),
   buildProfessionalServiceSchema({
     name: "Webflora Technologies Digital Marketing Services Patna",
-    description: "Professional digital marketing agency, SEO services, Google Ads management, and AI search optimization team based in Patna, Bihar."
+    description: "Professional digital marketing agency, SEO services, Google Ads management, and AI search optimization team based in Patna, Bihar.",
+    image: marketingPhotoUrl
   }),
   buildProductSchema({
     name: "Digital Marketing & Growth Campaigns Patna",
     description: "Monthly digital marketing management covering SEO, Google Maps, Google Ads, Meta Ads, and conversion tracking.",
     category: "Digital Marketing Service",
+    image: marketingPhotoUrl,
     url: "https://webfloratechnologies.com/it-company-in-patna/digital-marketing-agency-in-patna",
     offers: { price: "8999", priceCurrency: "INR", url: "https://webfloratechnologies.com/it-company-in-patna/digital-marketing-agency-in-patna" },
     aggregateRating: { ratingValue: 4.9, reviewCount: 156 },

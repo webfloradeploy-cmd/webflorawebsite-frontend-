@@ -71,9 +71,9 @@ export const metadata = {
     type: "website",
     images: [
       {
-        url: "https://webfloratechnologies.com/title-logo.png",
-        width: 512,
-        height: 512,
+        url: "https://webfloratechnologies.com/page-photo/webflora-software-development-square.webp",
+        width: 600,
+        height: 600,
         alt: "Software Development Company in Patna - Webflora Technologies"
       }
     ]
@@ -82,7 +82,10 @@ export const metadata = {
     card: "summary_large_image",
     title: "Software Development Company in Patna | Webflora Technologies",
     description: "Webflora Technologies builds custom software, ERP, CRM, web applications and business automation solutions in Patna, Bihar.",
-    images: ["https://webfloratechnologies.com/title-logo.png"],
+    images: ["https://webfloratechnologies.com/page-photo/webflora-software-development-square.webp"],
+  },
+  other: {
+    thumbnail: "https://webfloratechnologies.com/page-photo/webflora-software-development-square.webp",
   }
 };
 
@@ -125,32 +128,39 @@ const softwareFaqs = [
   }
 ];
 
+const softwarePhotoUrl = "https://webfloratechnologies.com/page-photo/webflora-software-development-square.webp";
+
 const jsonLdSchema = [
   buildOrganizationSchema(),
   buildWebSiteSchema(),
   buildWebPageSchema({
     name: "Software Development Company in Patna | Webflora Technologies",
     description: "Webflora Technologies is a software development company in Patna building custom software, ERP, CRM, web applications and business automation solutions.",
-    url: "https://webfloratechnologies.com/it-company-in-patna/software-development-company-in-patna"
+    url: "https://webfloratechnologies.com/it-company-in-patna/software-development-company-in-patna",
+    image: softwarePhotoUrl
   }),
   buildServiceSchema({
     name: "Custom Software Development Services in Patna",
     serviceType: "Software Engineering, ERP Development, CRM Development, Web & Mobile Applications",
     description: "Custom software development, enterprise ERP systems, CRM software, web portals, mobile apps, and business workflow automations designed for startups, SMEs, and enterprises in Patna, Bihar and across India.",
-    areaServed: "India"
+    areaServed: "India",
+    image: softwarePhotoUrl
   }),
   buildLocalBusinessSchema({
     name: "Webflora Technologies - Software Development Company in Patna",
-    description: "Headquartered in Patna, Bihar, Webflora Technologies provides bespoke software development, ERP systems, CRM, and cloud engineering services."
+    description: "Headquartered in Patna, Bihar, Webflora Technologies provides bespoke software development, ERP systems, CRM, and cloud engineering services.",
+    image: softwarePhotoUrl
   }),
   buildProfessionalServiceSchema({
     name: "Webflora Technologies Software Engineering Patna",
-    description: "Professional software development company and digital engineering team based in Patna, Bihar."
+    description: "Professional software development company and digital engineering team based in Patna, Bihar.",
+    image: softwarePhotoUrl
   }),
   buildProductSchema({
     name: "Custom Enterprise Software & ERP Development",
     description: "Tailor-made software engineering, ERP, CRM, and cloud application development with 100% source code ownership and zero monthly per-user licensing fees.",
     category: "Software Development Service",
+    image: softwarePhotoUrl,
     url: "https://webfloratechnologies.com/it-company-in-patna/software-development-company-in-patna",
     offers: { price: "45000", priceCurrency: "INR", url: "https://webfloratechnologies.com/it-company-in-patna/software-development-company-in-patna" },
     aggregateRating: { ratingValue: 4.9, reviewCount: 156 },

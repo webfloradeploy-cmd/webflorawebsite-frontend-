@@ -76,9 +76,9 @@ export const metadata = {
     siteName: "Webflora Technologies",
     images: [
       {
-        url: "https://webfloratechnologies.com/title-logo.png",
-        width: 512,
-        height: 512,
+        url: "https://webfloratechnologies.com/page-photo/webflora-mobile-app-development-square.webp",
+        width: 600,
+        height: 600,
         alt: "Webflora Technologies - Mobile App Development Company in Gaya, Bihar",
       },
     ],
@@ -90,7 +90,10 @@ export const metadata = {
     title: "Mobile App Development Company in Gaya, Bihar | Webflora",
     description:
       "Looking for a mobile app development company in Gaya, Bihar? Webflora Technologies helps businesses plan custom Android, iOS, and cross-platform app solutions.",
-    images: ["https://webfloratechnologies.com/title-logo.png"],
+    images: ["https://webfloratechnologies.com/page-photo/webflora-mobile-app-development-square.webp"],
+  },
+  other: {
+    thumbnail: "https://webfloratechnologies.com/page-photo/webflora-mobile-app-development-square.webp",
   },
 };
 
@@ -149,12 +152,14 @@ const appFaqsData = [
 
 export default function MobileAppDevelopmentCompanyInGayaPage() {
   const canonicalUrl = "https://webfloratechnologies.com/locations/mobile-app-development-company-in-gaya";
+  const photoUrl = "https://webfloratechnologies.com/page-photo/webflora-mobile-app-development-square.webp";
 
   const pageSchemas = [
     buildOrganizationSchema(),
     buildProfessionalServiceSchema({
       name: "Webflora Technologies - Mobile App Development Company in Gaya",
       url: canonicalUrl,
+      image: photoUrl,
       description: "Custom Android, iOS, and cross-platform mobile application development using React Native and Flutter for businesses in Gaya and Bihar.",
       areaServed: {
         "@type": "AdministrativeArea",
@@ -166,13 +171,14 @@ export default function MobileAppDevelopmentCompanyInGayaPage() {
       applicationCategory: "MobileApplication",
       operatingSystem: "Android, iOS",
       description: "Production-grade native Android, iOS, and Flutter/React Native mobile applications custom-engineered by Webflora Technologies for businesses in Gaya, Bihar.",
-      url: canonicalUrl
+      url: canonicalUrl,
+      image: photoUrl
     }),
     buildProductSchema({
       name: "Webflora Custom Mobile App Development Package",
       description: "Native Android, iOS, and Flutter mobile application engineering with complete source code handover and app store deployment for Gaya businesses.",
       category: "Mobile Application Software",
-      image: "https://webfloratechnologies.com/title-logo.png",
+      image: photoUrl,
       url: canonicalUrl,
       offers: {
         price: "45000",
@@ -194,6 +200,7 @@ export default function MobileAppDevelopmentCompanyInGayaPage() {
       name: "Mobile App Development Company in Gaya, Bihar | Webflora",
       description:
         "Looking for a mobile app development company in Gaya, Bihar? Webflora Technologies helps businesses plan custom Android, iOS, and cross-platform app solutions.",
+      image: photoUrl
     }),
     buildServiceSchema({
       name: "Mobile App Development Services in Gaya",
@@ -201,6 +208,7 @@ export default function MobileAppDevelopmentCompanyInGayaPage() {
       description:
         "Custom Android, iOS, and cross-platform mobile application development using React Native and Flutter for businesses in Gaya and Bihar.",
       areaServed: "Gaya, Bihar, India",
+      image: photoUrl
     }),
     buildBreadcrumbListSchema([
       { name: "Home", url: "/" },

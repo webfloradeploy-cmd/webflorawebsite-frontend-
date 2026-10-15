@@ -75,9 +75,9 @@ export const metadata = {
     siteName: "Webflora Technologies",
     images: [
       {
-        url: "https://webfloratechnologies.com/title-logo.png",
-        width: 512,
-        height: 512,
+        url: "https://webfloratechnologies.com/page-photo/webflora-digital-marketing-square.png",
+        width: 600,
+        height: 600,
         alt: "Webflora Technologies - Digital Marketing Company in Gaya, Bihar",
       },
     ],
@@ -89,7 +89,10 @@ export const metadata = {
     title: "Digital Marketing Company in Gaya, Bihar | Webflora Technologies",
     description:
       "Looking for a digital marketing company in Gaya, Bihar? Webflora Technologies provides data-driven SEO, Google Ads, Meta Ads, Local SEO, and lead generation.",
-    images: ["https://webfloratechnologies.com/title-logo.png"],
+    images: ["https://webfloratechnologies.com/page-photo/webflora-digital-marketing-square.png"],
+  },
+  other: {
+    thumbnail: "https://webfloratechnologies.com/page-photo/webflora-digital-marketing-square.png",
   },
 };
 
@@ -158,12 +161,14 @@ const marketingFaqsData = [
 
 export default function DigitalMarketingCompanyInGayaPage() {
   const canonicalUrl = "https://webfloratechnologies.com/locations/digital-marketing-company-in-gaya";
+  const photoUrl = "https://webfloratechnologies.com/page-photo/webflora-digital-marketing-square.png";
 
   const pageSchemas = [
     buildOrganizationSchema(),
     buildProfessionalServiceSchema({
       name: "Webflora Technologies - Digital Marketing Company in Gaya",
       url: canonicalUrl,
+      image: photoUrl,
       description: "Performance digital marketing, Search Engine Optimization (SEO), Local SEO, Google Ads, and Meta Ads management for businesses in Gaya and Bihar.",
       areaServed: {
         "@type": "AdministrativeArea",
@@ -174,7 +179,7 @@ export default function DigitalMarketingCompanyInGayaPage() {
       name: "Webflora Digital Marketing & Local SEO Growth Package",
       description: "Data-driven SEO, Google Ads, Meta Ads management, and Google Business Profile optimization for businesses in Gaya and Bihar.",
       category: "Digital Marketing Services",
-      image: "https://webfloratechnologies.com/title-logo.png",
+      image: photoUrl,
       url: canonicalUrl,
       offers: {
         price: "15000",
@@ -196,6 +201,7 @@ export default function DigitalMarketingCompanyInGayaPage() {
       name: "Digital Marketing Company in Gaya, Bihar | Webflora Technologies",
       description:
         "Looking for a digital marketing company in Gaya, Bihar? Webflora Technologies provides data-driven SEO, Google Ads, Meta Ads, Local SEO, and lead generation.",
+      image: photoUrl
     }),
     buildServiceSchema({
       name: "Digital Marketing Services in Gaya",
@@ -203,6 +209,7 @@ export default function DigitalMarketingCompanyInGayaPage() {
       description:
         "Performance digital marketing, Search Engine Optimization (SEO), Local SEO, Google Ads, and Meta Ads management for businesses in Gaya and Bihar.",
       areaServed: "Gaya, Bihar, India",
+      image: photoUrl
     }),
     buildBreadcrumbListSchema([
       { name: "Home", url: "/" },
